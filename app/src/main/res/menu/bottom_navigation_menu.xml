@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_home" android:icon="@drawable/ic_home" android:title="My Beats" />
+    <item android:id="@+id/nav_upload" android:icon="@drawable/ic_add" android:title="Upload" />
+    <item android:id="@+id/nav_buyers" android:icon="@drawable/ic_people" android:title="Buyers" />
+    <item android:id="@+id/nav_sales" android:icon="@drawable/ic_music_note" android:title="Sales" />
+    <item android:id="@+id/nav_profile" android:icon="@drawable/ic_profile_placeholder" android:title="Profile" />
+</menu>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/surface_container"
+    app:strokeColor="@color/outline"
+    app:strokeWidth="1dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Верхняя часть: обложка и информация -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Обложка слева -->
+            <ImageView
+                android:id="@+id/ivCover"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="16dp"
+                android:scaleType="centerCrop"
+                android:background="@color/surface_variant"
+                android:contentDescription="Beat cover"
+                app:srcCompat="@drawable/ic_music_note" />
+
+            <!-- Основная информация справа -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- Первая строка: Название и цена -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Trapper"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/on_surface"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
+
+                    <TextView
+                        android:id="@+id/tvPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$50"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp"
+                        android:background="@drawable/price_background"
+                        android:textColor="@color/on_primary" />
+
+                </LinearLayout>
+
+                <!-- Вторая строка: Автор -->
+                <TextView
+                    android:id="@+id/tvProducer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="by 52NGG"
+                    android:textSize="12sp"
+                    android:textColor="@color/on_surface_variant"
+                    android:layout_marginTop="2dp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <!-- Третья строка: BPM -->
+                <TextView
+                    android:id="@+id/tvBpm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="150 BPM"
+                    android:textSize="12sp"
+                    android:textColor="@color/on_surface_variant"
+                    android:layout_marginTop="4dp"
+                    android:maxLines="1" />
+
+                <!-- Четвертая строка: Описание -->
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Morioh x Swapa Type Beat"
+                    android:textSize="12sp"
+                    android:textColor="@color/on_surface"
+                    android:layout_marginTop="2dp"
+                    android:maxLines="3"
+                    android:ellipsize="end" />
+
+                <!-- Пятая строка: Теги Key и Genre -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:id="@+id/tvKey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cmin"
+                        android:textSize="10sp"
+                        android:textColor="@color/on_surface_variant"
+                        android:background="@drawable/tag_background"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp" />
+
+                    <TextView
+                        android:id="@+id/tvGenre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hip-Hop"
+                        android:textSize="10sp"
+                        android:textColor="@color/on_surface_variant"
+                        android:background="@drawable/tag_background"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:layout_marginStart="4dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Кнопка корзины справа с бейджем -->
+            <RelativeLayout
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp">
+
+                <ImageButton
+                    android:id="@+id/btn_add_to_cart"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_shopping_cart"
+                    android:contentDescription="Add to cart"
+                    app:tint="@color/primary" />
+
+                <!-- Cart badge -->
+                <View
+                    android:id="@+id/cart_badge"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_alignTop="@id/btn_add_to_cart"
+                    android:layout_alignEnd="@id/btn_add_to_cart"
+                    android:background="@drawable/badge_background"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- Кнопка воспроизведения под битом -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPlay"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
+            android:text="Play"
+            android:layout_gravity="center"
+            app:icon="@drawable/ic_play_arrow"
+            app:iconGravity="textStart"
+            app:cornerRadius="20dp"
+            app:backgroundTint="@color/primary"
+            android:textColor="@color/on_primary"
+            style="@style/Widget.Material3.Button.ElevatedButton" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">BeatHouse</string>
+    <string name="user_not_authenticated">Пользователь не авторизован</string>
+    <string name="success">Успешно</string>
+
+    <!-- Settings -->
+    <string name="settings">Настройки</string>
+    <string name="language">Язык</string>
+    <string name="english">English</string>
+    <string name="russian">Русский</string>
+    <string name="language_changed">Язык изменен. Приложение будет перезапущено.</string>
+    <string name="language_will_change">Язык приложения изменится после перезапуска</string>
+    <string name="about">О приложении</string>
+    <string name="version">Версия 1.0.0</string>
+
+    <!-- Delete Account -->
+    <string name="danger_zone">Опасная зона</string>
+    <string name="delete_account">Удалить аккаунт</string>
+    <string name="delete_account_confirmation">Вы уверены, что хотите удалить свой аккаунт? Это действие нельзя отменить. Все ваши биты, заказы и данные будут навсегда удалены.</string>
+    <string name="delete_account_warning">Это действие нельзя отменить. Все ваши биты, заказы и личные данные будут навсегда удалены.</string>
+    <string name="deleting">Удаление...</string>
+    <string name="error_deleting_data">Ошибка удаления данных: </string>
+    <string name="account_deleted_successfully">Аккаунт успешно удален</string>
+    <string name="error_deleting_account">Ошибка удаления аккаунта: </string>
+
+    <!-- Profile -->
+    <string name="logout">Выйти</string>
+    <string name="save">Сохранить</string>
+    <string name="cancel">Отмена</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="search">Поиск</string>
+    <string name="filter">Фильтр</string>
+    <string name="follow">Подписаться</string>
+    <string name="following">Подписан</string>
+    <string name="rate">Оценить</string>
+    <string name="message">Сообщение</string>
+    <string name="profile">Профиль</string>
+    <string name="seller">Продавец</string>
+    <string name="buyer">Покупатель</string>
+    <string name="beats_sold">Продано битов</string>
+    <string name="earned">Заработано</string>
+    <string name="bought">Куплено</string>
+    <string name="spent">Потрачено</string>
+    <string name="switch_to_buyer">Переключиться на покупателя</string>
+    <string name="switch_to_seller">Переключиться на продавца</string>
+    <string name="switch_to">Переключиться на</string>
+    <string name="your_data_will_be_preserved">Ваши данные будут сохранены.</string>
+    <string name="switch_role">Переключиться</string>
+    <string name="switching_role">Смена роли...</string>
+    <string name="select_picture">Выберите изображение</string>
+    <string name="photo_saved">Фото сохранено!</string>
+    <string name="are_you_sure">Вы уверены?</string>
+    <string name="error_saving_profile">Ошибка сохранения профиля: </string>
+    <string name="profile_saved">Профиль сохранен!</string>
+    <string name="cannot_open_link">Не удается открыть ссылку</string>
+    <string name="become_seller">Стать продавцом</string>
+    <string name="become_seller_message">Вы сможете загружать и продавать биты!</string>
+    <string name="switching_to_seller">Переключение на продавца...</string>
+    <string name="you_are_now_seller">Теперь вы продавец! Приложение будет перезапущено.</string>
+
+    <!-- Followers/Following -->
+    <string name="followers">Подписчики</string>
+    <string name="no_followers">Нет подписчиков</string>
+    <string name="no_following">Нет подписок</string>
+
+    <!-- Profile Labels -->
+    <string name="beats_label">Биты</string>
+    <string name="total_label">Итого</string>
+    <string name="sales_history">История продаж</string>
+    <string name="cart">Корзина</string>
+    <string name="purchase_history">История покупок</string>
+    <string name="username">Имя пользователя</string>
+    <string name="bio">О себе</string>
+    <string name="edit_profile">Редактировать профиль</string>
+    <string name="following_count">Подписки</string>
+    <string name="purchased">Куплено</string>
+
+    <!-- Bottom Navigation -->
+    <string name="my_beats">Мои биты</string>
+    <string name="upload">Загрузить</string>
+    <string name="buyers">Покупатели</string>
+    <string name="sales_tab">Продажи</string>
+    <string name="beats_nav">Биты</string>
+    <string name="producers">Продюсеры</string>
+    <string name="orders">Заказы</string>
+
+    <!-- LoginActivity -->
+    <string name="sign_in_to_continue">Войдите чтобы продолжить</string>
+    <string name="sign_in">Войти</string>
+    <string name="dont_have_account">Нет аккаунта?</string>
+    <string name="create_account">Создать аккаунт</string>
+    <string name="already_have_account">Уже есть аккаунт?</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="create_new_account">Создать новый аккаунт</string>
+    <string name="enter_email_first">Сначала введите email</string>
+    <string name="password_min_length">Пароль должен быть не менее 6 символов</string>
+
+    <!-- Login Errors -->
+    <string name="login_error">Ошибка входа</string>
+    <string name="register_error">Ошибка регистрации</string>
+    <string name="connection_timeout">Превышено время ожидания. Попробуйте снова.</string>
+    <string name="no_account">Аккаунт не найден. Создайте новый!</string>
+    <string name="invalid_password">Неверный пароль</string>
+    <string name="email_required">Требуется email</string>
+    <string name="password_required">Требуется пароль</string>
+    <string name="username_required">Требуется имя пользователя</string>
+    <string name="email_in_use">Этот email уже зарегистрирован</string>
+    <string name="error_prefix">Ошибка: </string>
+    <string name="account_created">Аккаунт создан! Пожалуйста, войдите.</string>
+    <string name="seller_account_created">Аккаунт продавца создан! Пожалуйста, войдите.</string>
+    <string name="user_not_found">Данные пользователя не найдены</string>
+    <string name="reset_email_sent">Письмо для сброса пароля отправлено!</string>
+    <string name="reset_email_error">Ошибка отправки письма</string>
+    <string name="login_failed">Ошибка входа</string>
+    <string name="registration_failed">Ошибка регистрации</string>
+
+    <!-- Upload -->
+    <string name="upload_success">Бит успешно загружен! 🎵</string>
+
+    <!-- Home/My Beats -->
+    <string name="no_beats_yet">Нет битов\nЗагрузите свой первый бит!</string>
+
+    <!-- Buyer Home -->
+    <string name="no_beats_available">Нет доступных битов</string>
+    <string name="upload_first_beat">Будьте первым, кто загрузит бит!</string>
+    <string name="upload_beat">Загрузить бит</string>
+
+    <!-- Genres -->
+    <string name="genre_all">Все</string>
+    <string name="genre_hip_hop">Хип-Хоп</string>
+    <string name="genre_trap">Трэп</string>
+    <string name="genre_rnb">R&amp;B</string>
+    <string name="genre_drill">Дрилл</string>
+    <string name="genre_pop">Поп</string>
+    <string name="genre_electronic">Электроника</string>
+    <string name="genre_lo_fi">Lo-Fi</string>
+
+    <!-- Sales Fragment -->
+    <string name="delete_selected">Удалить выбранное</string>
+    <string name="delete_sales">Удалить продажи</string>
+    <string name="sure_delete_sales">Вы уверены, что хотите удалить</string>
+    <string name="sale_records">записей о продажах?</string>
+    <string name="deleted">Удалено</string>
+    <string name="sales">продаж</string>
+    <string name="filter_by_period">Фильтр по периоду</string>
+    <string name="last_7_days">Последние 7 дней</string>
+    <string name="last_30_days">Последние 30 дней</string>
+    <string name="last_3_months">Последние 3 месяца</string>
+    <string name="last_year">Последний год</string>
+    <string name="all_time">За все время</string>
+    <string name="showing_last">Показано за последние</string>
+    <string name="showing_all">Показаны все</string>
+    <string name="days">дней</string>
+
+    <!-- Orders Fragment -->
+    <string name="delete_orders">Удалить заказы</string>
+    <string name="sure_delete_orders">Вы уверены, что хотите удалить</string>
+    <string name="order_records">записей о заказах?</string>
+
+    <!-- Producers Fragment -->
+    <string name="search_by_name_genre">Поиск по имени или жанру...</string>
+
+    <!-- Buyers Fragment -->
+    <string name="search_by_name_email">Поиск по имени или email...</string>
+
+    <!-- Cart -->
+    <string name="shopping_cart">Корзина</string>
+    <string name="cart_empty">Ваша корзина пуста</string>
+    <string name="browse_beats">Смотреть биты</string>
+    <string name="order_summary">Сводка заказа</string>
+    <string name="items">Товары</string>
+    <string name="total">Итого</string>
+    <string name="proceed_to_checkout">Перейти к оплате</string>
+    <string name="download_free_beats">Скачать бесплатные биты</string>
+    <string name="checkout">Оформление заказа</string>
+    <string name="added_to_cart">Добавлено в корзину</string>
+    <string name="removed_from_cart">Удалено из корзины</string>
+
+    <!-- Checkout -->
+    <string name="payment_method">Способ оплаты</string>
+    <string name="qr_code_payment">Оплата по QR-коду</string>
+    <string name="scan_qr_to_pay">Отсканируйте QR-код для оплаты</string>
+    <string name="complete_payment">Завершить оплату</string>
+    <string name="processing">Обработка...</string>
+    <string name="total_to_pay">Итого к оплате:</string>
+    <string name="beats_in_order">Биты в заказе</string>
+    <string name="point_camera_to_qr">Наведите камеру на QR-код для оплаты</string>
+
+    <!-- New Payment Methods -->
+    <string name="credit_card">Банковская карта</string>
+    <string name="sbp">СБП (Система быстрых платежей)</string>
+    <string name="continue_to_payment">Продолжить оплату</string>
+    <string name="card_payment">Оплата картой</string>
+    <string name="amount_to_pay">Сумма к оплате</string>
+    <string name="card_details">Данные карты</string>
+    <string name="card_number">Номер карты</string>
+    <string name="expiry_date">ММ/ГГ</string>
+    <string name="cvv">CVV</string>
+    <string name="card_holder_name">Имя держателя</string>
+    <string name="pay_now">Оплатить</string>
+    <string name="card_number_required">Требуется номер карты</string>
+    <string name="invalid_card_number">Неверный номер карты</string>
+    <string name="expiry_required">Требуется срок действия</string>
+    <string name="invalid_expiry">Неверный срок действия</string>
+    <string name="cvv_required">Требуется CVV</string>
+    <string name="invalid_cvv">Неверный CVV</string>
+    <string name="card_holder_required">Требуется имя держателя</string>
+    <string name="select_bank">Выберите банк</string>
+    <string name="confirm_payment">Подтверждение оплаты</string>
+    <string name="confirm_payment_message">Оплатить через</string>
+    <string name="error_generating_qr">Ошибка генерации QR-кода</string>
+    <string name="loading_order_data">Загрузка данных заказа...</string>
+    <string name="still_loading">Загрузка... Пожалуйста, подождите</string>
+    <string name="no_orders_to_process">Нет заказов для обработки</string>
+    <string name="payment_failed">Оплата обработана, но некоторые заказы не удались</string>
+    <string name="no_orders_created">Заказы не созданы</string>
+    <string name="new_sale">Новая продажа! 🎉</string>
+    <string name="you_sold">Вы продали</string>
+    <string name="for_amount">на</string>
+    <string name="and">и</string>
+    <string name="more">еще</string>
+    <string name="free">бесплатных</string>
+    <string name="paid">платных</string>
+    <string name="card_expired">Срок действия карты истек</string>
+
+    <!-- Order Complete -->
+    <string name="order_complete">Заказ завершен</string>
+    <string name="payment_successful">Оплата прошла успешно!</string>
+    <string name="free_beats_ready">Бесплатные биты готовы!</string>
+    <string name="download_beats">Скачать биты</string>
+    <string name="view_orders">Просмотреть заказы</string>
+    <string name="continue_shopping">Продолжить покупки</string>
+    <string name="order_id">Заказ #</string>
+    <string name="items_count">товаров</string>
+    <string name="preparing_download">Подготовка к скачиванию...</string>
+    <string name="download_complete">Все биты успешно скачаны!</string>
+    <string name="download_failed">Ошибка скачивания</string>
+    <string name="preparing_downloads">Подготовка к скачиванию...</string>
+    <string name="all_beats_downloaded">Все биты скачаны!</string>
+    <string name="error_loading_data">Ошибка загрузки данных. Попробуйте снова.</string>
+
+    <!-- Order History -->
+    <string name="order_history">История заказов</string>
+    <string name="no_orders">Нет заказов</string>
+    <string name="from">От</string>
+    <string name="others">других</string>
+    <string name="beats_purchased">битов куплено</string>
+
+    <!-- Producer Profile -->
+    <string name="producer_profile">Профиль продюсера</string>
+    <string name="no_bio_yet">Нет описания</string>
+    <string name="beats_by_producer">Биты этого продюсера</string>
+    <string name="no_beats_available_producer">Нет доступных битов</string>
+
+    <!-- Chat -->
+    <string name="chat">Чат</string>
+    <string name="type_message">Введите сообщение...</string>
+    <string name="send">Отправить</string>
+    <string name="new_message_from">Новое сообщение от</string>
+    <string name="error_loading_messages">Ошибка загрузки сообщений</string>
+    <string name="error_sending_message">Ошибка отправки сообщения</string>
+
+    <!-- Player -->
+    <string name="player">Плеер</string>
+    <string name="close">Закрыть</string>
+    <string name="previous">Предыдущий</string>
+    <string name="play">Воспроизвести</string>
+    <string name="pause">Пауза</string>
+    <string name="next">Следующий</string>
+
+    <!-- Rating Dialog -->
+    <string name="rate_user">Оценить пользователя</string>
+    <string name="submit_rating">Отправить оценку</string>
+    <string name="select_rating">Выберите оценку</string>
+    <string name="rated">Оценено!</string>
+    <string name="no_ratings_yet">Нет оценок</string>
+
+    <!-- Payment -->
+    <string name="pay">Оплатить</string>
+    <string name="select_payment_method">Пожалуйста, выберите способ оплаты</string>
+    <string name="someone">Кто-то</string>
+    <string name="by">от</string>
+
+    <!-- Buyer Profile -->
+    <string name="buyer_profile">Профиль покупателя</string>
+    <string name="error_no_buyer_id">Ошибка: ID покупателя не указан</string>
+    <string name="user">Пользователь</string>
+    <string name="buyer_not_found">Покупатель не найден</string>
+    <string name="unknown">Неизвестно</string>
+
+    <!-- Notifications -->
+    <string name="notifications">Уведомления</string>
+    <string name="no_notifications">Нет уведомлений</string>
+    <string name="mark_all_read">Отметить все как прочитанные</string>
+    <string name="confirm_mark_all_read">Отметить все уведомления как прочитанные?</string>
+    <string name="yes">Да</string>
+    <string name="all_already_read">Все уведомления уже прочитаны</string>
+    <string name="marked_read_count">Отмечено %d уведомлений как прочитанные</string>
+    <string name="error_loading_settings">Ошибка загрузки настроек: </string>
+    <string name="error_saving_settings">Ошибка сохранения настроек: </string>
+    <string name="error_loading_user">Ошибка загрузки данных пользователя: </string>
+    <string name="settings_saved">Настройки сохранены!</string>
+
+    <!-- Sales (empty state) -->
+    <string name="no_sales">Нет продаж</string>
+
+    <string name="search_by_title_tags">Поиск по названию или #тегам...</string>
+
+    <!-- Follow Errors -->
+    <string name="follow_error">Ошибка при подписке: </string>
+    <string name="cannot_follow_buyer">Нельзя подписаться на покупателей - только на продавцов</string>
+
+    <!-- Advanced Filter Dialog -->
+    <string name="advanced_filter">Расширенный фильтр</string>
+    <string name="sorting">Сортировка</string>
+    <string name="default_sort">По умолчанию (новые сверху)</string>
+    <string name="price_lowest_first">Цена: сначала дешевые</string>
+    <string name="price_highest_first">Цена: сначала дорогие</string>
+    <string name="bpm_slowest_first">BPM: сначала медленные</string>
+    <string name="bpm_fastest_first">BPM: сначала быстрые</string>
+    <string name="bpm_range">Диапазон BPM</string>
+    <string name="min_bpm">Мин. BPM</string>
+    <string name="max_bpm">Макс. BPM</string>
+    <string name="tag_search">Поиск по тегам (#)</string>
+    <string name="tag_hint">Введите тег (например: futuretypebeat)</string>
+    <string name="tag_description">Теги ищутся в описании бита</string>
+    <string name="apply">Применить</string>
+    <string name="clear">Очистить</string>
+    <string name="cancel_btn">Отмена</string>
+    <string name="invalid_min_bpm">Неверное минимальное значение BPM</string>
+    <string name="invalid_max_bpm">Неверное максимальное значение BPM</string>
+    <string name="bpm_range_error">Мин. BPM не может быть больше Макс. BPM</string>
+    <string name="filters_applied">Фильтры применены</string>
+
+    <!-- Notification Settings -->
+    <string name="notification_settings">Настройки уведомлений</string>
+    <string name="messages_notification">Сообщения</string>
+    <string name="messages_desc">Получать уведомления о новых сообщениях</string>
+    <string name="follows_notification">Новые подписчики</string>
+    <string name="follows_desc">Получать уведомления о новых подписчиках</string>
+    <string name="sales_notification">Продажи</string>
+    <string name="sales_desc">Получать уведомления о продажах ваших битов</string>
+    <string name="purchases_notification">Покупки</string>
+    <string name="purchases_desc">Получать уведомления о покупках битов</string>
+    <string name="reviews_notification">Отзывы</string>
+    <string name="reviews_desc">Получать уведомления о новых отзывах</string>
+    <string name="notification_settings_info">Вы можете настроить какие уведомления хотите получать</string>
+
+    <!-- Purchase Notifications -->
+    <string name="purchase_complete">Покупка завершена!</string>
+    <string name="you_purchased">Вы приобрели</string>
+
+    <!-- Rating Already Given -->
+    <string name="already_rated">Уже оценено</string>
+    <string name="already_rated_message">Вы уже оценили этого пользователя</string>
+    <string name="change_rating">Изменить оценку</string>
+    <string name="rating_updated">Оценка обновлена!</string>
+
+    <!-- CreateBeatActivity -->
+    <string name="edit_beat">Редактировать бит</string>
+    <string name="update_beat">Обновить бит</string>
+    <string name="audio_loaded">Аудио файл загружен</string>
+    <string name="upload_new_beat">Загрузить новый бит</string>
+    <string name="login_first">Пожалуйста, войдите</string>
+    <string name="select_audio_first">Сначала выберите аудио</string>
+    <string name="loading_user">Загрузка пользователя...</string>
+    <string name="enter_all_prices">Введите все цены лицензий</string>
+    <string name="select_audio">Выберите аудио файл</string>
+    <string name="error_opening_selector">Ошибка открытия выбора файла</string>
+    <string name="select_cover">Выберите обложку</string>
+    <string name="loading_audio">Загрузка аудио...</string>
+    <string name="file_too_large_10mb">Файл слишком большой (макс 10МБ)</string>
+    <string name="invalid_audio_file">Неверный аудио файл</string>
+    <string name="error_loading_file">Ошибка загрузки файла</string>
+    <string name="cover_added">Обложка добавлена!</string>
+    <string name="error_loading_image">Ошибка загрузки изображения</string>
+    <string name="title_required">Требуется название</string>
+    <string name="user_not_loaded">Информация о пользователе не загружена</string>
+    <string name="select_genre">Пожалуйста, выберите жанр</string>
+    <string name="select_key">Пожалуйста, выберите тональность</string>
+    <string name="invalid_bpm">Неверный BPM</string>
+    <string name="invalid_price">Неверная цена</string>
+    <string name="updating">Обновление...</string>
+    <string name="beat_updated">Бит обновлен! 🎵</string>
+    <string name="uploading">Загрузка...</string>
+    <string name="uploading_percent">Загрузка... %d%%</string>
+    <string name="beat_uploaded">Бит загружен! 🎵</string>
+
+</resources>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "273425190843",
+    "project_id": "beathouse-7c410",
+    "storage_bucket": "beathouse-7c410.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:273425190843:android:4996f326894819a7f5be9e",
+        "android_client_info": {
+          "package_name": "com.example.beathouse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNLSavao2GVKmr_l7m0lqmjHBNkrtHpEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

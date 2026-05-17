@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/surface"
+            app:title="Upload New Beat"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:titleTextColor="@color/on_surface"
+            app:navigationIconTint="@color/on_surface"
+            app:elevation="0dp" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        android:background="@color/surface">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <!-- Progress Bar -->
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progressBar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:layout_marginBottom="24dp"
+                app:indicatorColor="@color/primary"
+                app:trackColor="@color/surface_variant" />
+
+            <!-- Cover Image Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cover_card"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginBottom="32dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/surface_container"
+                app:strokeColor="@color/outline"
+                app:strokeWidth="1dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:id="@+id/ivCoverPreview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        android:contentDescription="Beat cover"
+                        android:background="@drawable/rounded_rectangle_outline" />
+
+                    <LinearLayout
+                        android:id="@+id/coverSelectArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_add_photo"
+                            app:tint="@color/on_surface_variant"
+                            android:layout_marginBottom="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add Cover"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Audio File Selection -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/surface_container"
+                android:layout_marginBottom="20dp"
+                app:strokeColor="@color/outline"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Audio File"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp" />
+
+                    <TextView
+                        android:id="@+id/tvAudioFile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No audio file selected"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="16dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSelectAudio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="Select Audio"
+                        android:textSize="14sp"
+                        app:iconSize="18dp"
+                        app:cornerRadius="20dp"
+                        app:backgroundTint="@color/primary"
+                        android:textColor="@color/on_primary"
+                        app:iconPadding="4dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Beat Details Form -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/surface_container"
+                app:strokeColor="@color/outline"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Beat Details"
+                        android:textColor="@color/on_surface"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="20dp" />
+
+                    <!-- Title -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/titleLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusTopStart="8dp"
+                        app:boxCornerRadiusTopEnd="8dp"
+                        app:boxCornerRadiusBottomStart="8dp"
+                        app:boxCornerRadiusBottomEnd="8dp"
+                        app:boxStrokeColor="@color/outline"
+                        app:boxBackgroundColor="@color/surface"
+                        app:hintTextColor="@color/on_surface_variant"
+                        android:textColorHint="@color/on_surface_variant">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:maxLines="1"
+                            android:textSize="16sp"
+                            android:hint="Beat Title *"
+                            android:textColor="@color/on_surface"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:background="@android:color/transparent" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Description -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/descriptionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusTopStart="8dp"
+                        app:boxCornerRadiusTopEnd="8dp"
+                        app:boxCornerRadiusBottomStart="8dp"
+                        app:boxCornerRadiusBottomEnd="8dp"
+                        app:boxStrokeColor="@color/outline"
+                        app:boxBackgroundColor="@color/surface"
+                        app:hintTextColor="@color/on_surface_variant"
+                        android:textColorHint="@color/on_surface_variant">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:hint="Description"
+                            android:inputType="textMultiLine"
+                            android:maxLines="4"
+                            android:textSize="16sp"
+                            android:textColor="@color/on_surface"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="top" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Genre, Key, BPM Row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp"
+                        android:weightSum="3">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/genreLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxStrokeColor="@color/outline"
+                            app:boxBackgroundColor="@color/surface"
+                            app:hintTextColor="@color/on_surface_variant"
+                            android:textColorHint="@color/on_surface_variant"
+                            app:endIconMode="dropdown_menu"
+                            app:endIconTint="@color/on_surface_variant">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/etGenre"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="48dp"
+                                android:maxLines="1"
+                                android:textSize="14sp"
+                                android:hint="Genre"
+                                android:text="Hip-Hop"
+                                android:textColor="@color/on_surface"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="12dp"
+                                android:background="@android:color/transparent"
+                                android:imeOptions="actionNext"
+                                android:ellipsize="none"
+                                android:singleLine="true"
+                                android:completionThreshold="1"
+                                android:dropDownWidth="wrap_content"
+                                android:dropDownHeight="wrap_content"
+                                android:dropDownHorizontalOffset="0dp"
+                                android:dropDownVerticalOffset="4dp"
+                                android:dropDownAnchor="@id/genreLayout" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/keyLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxStrokeColor="@color/outline"
+                            app:boxBackgroundColor="@color/surface"
+                            app:hintTextColor="@color/on_surface_variant"
+                            android:textColorHint="@color/on_surface_variant"
+                            app:endIconMode="dropdown_menu"
+                            app:endIconTint="@color/on_surface_variant">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/etKey"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="48dp"
+                                android:maxLines="1"
+                                android:textSize="14sp"
+                                android:hint="Key"
+                                android:text="Cmin"
+                                android:textColor="@color/on_surface"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="12dp"
+                                android:background="@android:color/transparent"
+                                android:imeOptions="actionNext"
+                                android:ellipsize="none"
+                                android:singleLine="true"
+                                android:completionThreshold="1"
+                                android:dropDownWidth="wrap_content"
+                                android:dropDownHeight="wrap_content"
+                                android:dropDownHorizontalOffset="0dp"
+                                android:dropDownVerticalOffset="4dp"
+                                android:dropDownAnchor="@id/keyLayout" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/bpmLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxStrokeColor="@color/outline"
+                            app:boxBackgroundColor="@color/surface"
+                            app:hintTextColor="@color/on_surface_variant"
+                            android:textColorHint="@color/on_surface_variant">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etBpm"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="48dp"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textSize="14sp"
+                                android:hint="BPM"
+                                android:text="120"
+                                android:textColor="@color/on_surface"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="12dp"
+                                android:background="@android:color/transparent"
+                                android:ellipsize="none"
+                                android:singleLine="true" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <!-- ✅ FREE/PAID Switch -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="16dp"
+                        android:padding="16dp"
+                        android:background="@drawable/rounded_rectangle_outline"
+                        android:backgroundTint="@color/surface_variant">
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchFree"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Free Beat"
+                            android:textColor="@color/on_surface"
+                            android:textSize="16sp"
+                            app:trackColor="@color/outline"
+                            app:thumbColor="@color/surface"
+                            app:thumbTint="@color/surface"
+                            app:trackTint="@color/outline" />
+
+                    </LinearLayout>
+
+                    <!-- ✅ LICENSE PRICES SECTION (видимы только если не FREE) -->
+                    <LinearLayout
+                        android:id="@+id/licensePricesLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="24dp"
+                        android:padding="16dp"
+                        android:background="@drawable/rounded_rectangle_outline"
+                        android:backgroundTint="@color/surface_variant"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="License Prices"
+                            android:textColor="@color/on_surface"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="12dp" />
+
+                        <!-- MP3 + WAV -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/priceMp3WavLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxStrokeColor="@color/outline"
+                            app:boxBackgroundColor="@color/surface"
+                            app:hintTextColor="@color/on_surface_variant"
+                            android:textColorHint="@color/on_surface_variant"
+                            app:prefixText="$"
+                            app:prefixTextColor="@color/on_surface">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etPriceMp3Wav"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="48dp"
+                                android:inputType="numberDecimal"
+                                android:maxLines="1"
+                                android:textSize="16sp"
+                                android:hint="MP3 + WAV Price"
+                                android:textColor="@color/on_surface"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp"
+                                android:background="@android:color/transparent" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Track Out (Stems) -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/priceTrackOutLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxStrokeColor="@color/outline"
+                            app:boxBackgroundColor="@color/surface"
+                            app:hintTextColor="@color/on_surface_variant"
+                            android:textColorHint="@color/on_surface_variant"
+                            app:prefixText="$"
+                            app:prefixTextColor="@color/on_surface">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etPriceTrackOut"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="48dp"
+                                android:inputType="numberDecimal"
+                                android:maxLines="1"
+                                android:textSize="16sp"
+                                android:hint="Track Out (Stems) Price"
+                                android:textColor="@color/on_surface"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp"
+                                android:background="@android:color/transparent" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Exclusive Rights -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/priceExclusiveLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxStrokeColor="@color/outline"
+                            app:boxBackgroundColor="@color/surface"
+                            app:hintTextColor="@color/on_surface_variant"
+                            android:textColorHint="@color/on_surface_variant"
+                            app:prefixText="$"
+                            app:prefixTextColor="@color/on_surface">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etPriceExclusive"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="48dp"
+                                android:inputType="numberDecimal"
+                                android:maxLines="1"
+                                android:textSize="16sp"
+                                android:hint="Exclusive Rights Price"
+                                android:textColor="@color/on_surface"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp"
+                                android:background="@android:color/transparent" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <!-- Upload Button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnUploadBeat"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:text="Upload Beat"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.02"
+                        android:layout_gravity="center"
+                        app:cornerRadius="12dp"
+                        app:backgroundTint="@color/primary"
+                        android:textColor="@color/on_primary"
+                        app:iconSize="20dp"
+                        app:iconPadding="8dp"
+                        android:elevation="2dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

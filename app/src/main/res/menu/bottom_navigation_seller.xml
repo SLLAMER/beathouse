@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:title="@string/my_beats"
+        android:icon="@drawable/ic_music_note" />
+    <item
+        android:id="@+id/nav_upload"
+        android:title="@string/upload"
+        android:icon="@drawable/ic_upload" />
+    <item
+        android:id="@+id/nav_buyers"
+        android:title="@string/buyers"
+        android:icon="@drawable/ic_people" />
+    <item
+        android:id="@+id/nav_sales"
+        android:title="@string/sales_tab"
+        android:icon="@drawable/ic_trending_up" />
+    <item
+        android:id="@+id/nav_profile"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_profile" />
+</menu>

@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">BeatHouse</string>
+    <string name="user_not_authenticated">User not authenticated</string>
+    <string name="success">Success</string>
+
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="russian">Русский</string>
+    <string name="language_changed">Language changed. App will restart.</string>
+    <string name="language_will_change">App language will change after restart</string>
+    <string name="about">About</string>
+    <string name="version">Version 1.0.0</string>
+
+    <!-- Delete Account -->
+    <string name="danger_zone">Danger Zone</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_account_confirmation">Are you sure you want to delete your account? This action cannot be undone. All your beats, orders and data will be permanently deleted.</string>
+    <string name="delete_account_warning">This action cannot be undone. All your beats, orders and personal data will be permanently deleted.</string>
+    <string name="deleting">Deleting...</string>
+    <string name="error_deleting_data">Error deleting user data: </string>
+    <string name="account_deleted_successfully">Account deleted successfully</string>
+    <string name="error_deleting_account">Error deleting account: </string>
+
+    <!-- Profile -->
+    <string name="logout">Logout</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="follow">Follow</string>
+    <string name="following">Following</string>
+    <string name="rate">Rate</string>
+    <string name="message">Message</string>
+    <string name="profile">Profile</string>
+    <string name="seller">Seller</string>
+    <string name="buyer">Buyer</string>
+    <string name="beats_sold">Beats Sold</string>
+    <string name="earned">Earned</string>
+    <string name="bought">Bought</string>
+    <string name="spent">Spent</string>
+    <string name="switch_to_buyer">Switch to Buyer</string>
+    <string name="switch_to_seller">Switch to Seller</string>
+    <string name="switch_to">Switch to</string>
+    <string name="your_data_will_be_preserved">Your data will be preserved.</string>
+    <string name="switch_role">Switch</string>
+    <string name="switching_role">Switching role...</string>
+    <string name="select_picture">Select Picture</string>
+    <string name="photo_saved">Photo saved!</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="error_saving_profile">Error saving profile: </string>
+    <string name="profile_saved">Profile saved!</string>
+    <string name="cannot_open_link">Cannot open link</string>
+    <string name="become_seller">Become a Seller</string>
+    <string name="become_seller_message">You will be able to upload and sell beats!</string>
+    <string name="switching_to_seller">Switching to Seller...</string>
+    <string name="you_are_now_seller">You are now a Seller! App will restart.</string>
+
+    <!-- Followers/Following -->
+    <string name="followers">Followers</string>
+    <string name="no_followers">No followers yet</string>
+    <string name="no_following">Not following anyone yet</string>
+
+    <!-- Profile Labels -->
+    <string name="beats_label">Beats</string>
+    <string name="total_label">Total</string>
+    <string name="sales_history">Sales History</string>
+    <string name="cart">Cart</string>
+    <string name="purchase_history">Purchase History</string>
+    <string name="username">Username</string>
+    <string name="bio">Bio</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="following_count">Following</string>
+    <string name="purchased">Purchased</string>
+
+    <!-- Bottom Navigation -->
+    <string name="my_beats">My Beats</string>
+    <string name="upload">Upload</string>
+    <string name="buyers">Buyers</string>
+    <string name="sales_tab">Sales</string>
+    <string name="beats_nav">Beats</string>
+    <string name="producers">Producers</string>
+    <string name="orders">Orders</string>
+
+    <!-- LoginActivity -->
+    <string name="sign_in_to_continue">Sign in to continue</string>
+    <string name="sign_in">Sign In</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="create_account">Create account</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="enter_email_first">Enter your email first</string>
+    <string name="password_min_length">Password must be at least 6 characters</string>
+
+    <!-- Login Errors -->
+    <string name="login_error">Login failed</string>
+    <string name="register_error">Registration failed</string>
+    <string name="connection_timeout">Connection timeout. Please try again.</string>
+    <string name="no_account">No account found. Create one!</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="email_required">Email is required</string>
+    <string name="password_required">Password is required</string>
+    <string name="username_required">Username is required</string>
+    <string name="email_in_use">This email is already registered</string>
+    <string name="error_prefix">Error: </string>
+    <string name="account_created">Account created! Please login.</string>
+    <string name="seller_account_created">Seller account created! Please login.</string>
+    <string name="user_not_found">User data not found</string>
+    <string name="reset_email_sent">Password reset email sent!</string>
+    <string name="reset_email_error">Error sending reset email</string>
+    <string name="login_failed">Login failed</string>
+    <string name="registration_failed">Registration failed</string>
+
+    <!-- Upload -->
+    <string name="upload_success">Beat uploaded successfully! 🎵</string>
+
+    <!-- Home/My Beats -->
+    <string name="no_beats_yet">No beats yet\nUpload your first beat!</string>
+
+    <!-- Buyer Home -->
+    <string name="no_beats_available">No beats available</string>
+    <string name="upload_first_beat">Be the first to upload a beat!</string>
+    <string name="upload_beat">Upload Beat</string>
+
+    <!-- Genres -->
+    <string name="genre_all">All</string>
+    <string name="genre_hip_hop">Hip-Hop</string>
+    <string name="genre_trap">Trap</string>
+    <string name="genre_rnb">R&amp;B</string>
+    <string name="genre_drill">Drill</string>
+    <string name="genre_pop">Pop</string>
+    <string name="genre_electronic">Electronic</string>
+    <string name="genre_lo_fi">Lo-Fi</string>
+
+    <!-- Sales Fragment -->
+    <string name="delete_selected">Delete Selected</string>
+    <string name="delete_sales">Delete Sales</string>
+    <string name="sure_delete_sales">Are you sure you want to delete</string>
+    <string name="sale_records">sale records?</string>
+    <string name="deleted">Deleted</string>
+    <string name="sales">sales</string>
+    <string name="filter_by_period">Filter by period</string>
+    <string name="last_7_days">Last 7 days</string>
+    <string name="last_30_days">Last 30 days</string>
+    <string name="last_3_months">Last 3 months</string>
+    <string name="last_year">Last year</string>
+    <string name="all_time">All time</string>
+    <string name="showing_last">Showing last</string>
+    <string name="showing_all">Showing all</string>
+    <string name="days">days</string>
+
+    <!-- Orders Fragment -->
+    <string name="delete_orders">Delete Orders</string>
+    <string name="sure_delete_orders">Are you sure you want to delete</string>
+    <string name="order_records">order records?</string>
+
+    <!-- Producers Fragment -->
+    <string name="search_by_name_genre">Search by name or genre...</string>
+
+    <!-- Buyers Fragment -->
+    <string name="search_by_name_email">Search by name or email...</string>
+
+    <!-- Cart -->
+    <string name="shopping_cart">Shopping Cart</string>
+    <string name="cart_empty">Your cart is empty</string>
+    <string name="browse_beats">Browse Beats</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="items">Items</string>
+    <string name="total">Total</string>
+    <string name="proceed_to_checkout">Proceed to Checkout</string>
+    <string name="download_free_beats">Download Free Beats</string>
+    <string name="checkout">Checkout</string>
+    <string name="added_to_cart">Added to cart</string>
+    <string name="removed_from_cart">Removed from cart</string>
+
+    <!-- Checkout -->
+    <string name="payment_method">Payment Method</string>
+    <string name="qr_code_payment">QR Code Payment</string>
+    <string name="scan_qr_to_pay">Scan QR Code to Pay</string>
+    <string name="complete_payment">Complete Payment</string>
+    <string name="processing">Processing...</string>
+    <string name="total_to_pay">Total to Pay:</string>
+    <string name="beats_in_order">Beats in Order</string>
+    <string name="point_camera_to_qr">Point your camera at the QR code to complete payment</string>
+
+    <!-- New Payment Methods -->
+    <string name="credit_card">Credit Card</string>
+    <string name="sbp">SBP (Fast Payment System)</string>
+    <string name="continue_to_payment">Continue to Payment</string>
+    <string name="card_payment">Card Payment</string>
+    <string name="amount_to_pay">Amount to pay</string>
+    <string name="card_details">Card Details</string>
+    <string name="card_number">Card Number</string>
+    <string name="expiry_date">MM/YY</string>
+    <string name="cvv">CVV</string>
+    <string name="card_holder_name">Cardholder Name</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="card_number_required">Card number required</string>
+    <string name="invalid_card_number">Invalid card number</string>
+    <string name="expiry_required">Expiry date required</string>
+    <string name="invalid_expiry">Invalid expiry date</string>
+    <string name="cvv_required">CVV required</string>
+    <string name="invalid_cvv">Invalid CVV</string>
+    <string name="card_holder_required">Cardholder name required</string>
+    <string name="select_bank">Select your bank</string>
+    <string name="confirm_payment">Confirm Payment</string>
+    <string name="confirm_payment_message">Pay with</string>
+    <string name="error_generating_qr">Error generating QR code</string>
+    <string name="loading_order_data">Loading order data...</string>
+    <string name="still_loading">Still loading... Please wait</string>
+    <string name="no_orders_to_process">No orders to process</string>
+    <string name="payment_failed">Payment processed but some orders failed</string>
+    <string name="no_orders_created">No orders created</string>
+    <string name="new_sale">New Sale! 🎉</string>
+    <string name="you_sold">You sold</string>
+    <string name="for_amount">for</string>
+    <string name="and">and</string>
+    <string name="more">more</string>
+    <string name="free">free</string>
+    <string name="paid">paid</string>
+    <string name="card_expired">Card has expired</string>
+
+    <!-- Order Complete -->
+    <string name="order_complete">Order Complete</string>
+    <string name="payment_successful">Payment Successful!</string>
+    <string name="free_beats_ready">Free Beats Ready!</string>
+    <string name="download_beats">Download Beats</string>
+    <string name="view_orders">View Orders</string>
+    <string name="continue_shopping">Continue Shopping</string>
+    <string name="order_id">Order #</string>
+    <string name="items_count">items</string>
+    <string name="preparing_download">Preparing download...</string>
+    <string name="download_complete">All beats downloaded successfully!</string>
+    <string name="download_failed">Download failed</string>
+    <string name="preparing_downloads">Preparing downloads...</string>
+    <string name="all_beats_downloaded">All beats downloaded!</string>
+    <string name="error_loading_data">Error loading data. Try again.</string>
+
+    <!-- Order History -->
+    <string name="order_history">Order History</string>
+    <string name="no_orders">No orders yet</string>
+    <string name="from">From</string>
+    <string name="others">others</string>
+    <string name="beats_purchased">beats purchased</string>
+
+    <!-- Producer Profile -->
+    <string name="producer_profile">Producer Profile</string>
+    <string name="no_bio_yet">No bio yet</string>
+    <string name="beats_by_producer">Beats by this Producer</string>
+    <string name="no_beats_available_producer">No beats available</string>
+
+    <!-- Chat -->
+    <string name="chat">Chat</string>
+    <string name="type_message">Type a message...</string>
+    <string name="send">Send</string>
+    <string name="new_message_from">New message from</string>
+    <string name="error_loading_messages">Error loading messages</string>
+    <string name="error_sending_message">Error sending message</string>
+
+    <!-- Player -->
+    <string name="player">Player</string>
+    <string name="close">Close</string>
+    <string name="previous">Previous</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="next">Next</string>
+
+    <!-- Rating Dialog -->
+    <string name="rate_user">Rate User</string>
+    <string name="submit_rating">Submit Rating</string>
+    <string name="select_rating">Select a rating</string>
+    <string name="rated">Rated!</string>
+    <string name="no_ratings_yet">No ratings yet</string>
+
+    <!-- Payment -->
+    <string name="pay">Pay</string>
+    <string name="select_payment_method">Please select a payment method</string>
+    <string name="someone">Someone</string>
+    <string name="by">by</string>
+
+    <!-- Buyer Profile -->
+    <string name="buyer_profile">Buyer Profile</string>
+    <string name="error_no_buyer_id">Error: No buyer ID</string>
+    <string name="user">User</string>
+    <string name="buyer_not_found">Buyer not found</string>
+    <string name="unknown">Unknown</string>
+
+    <!-- Notifications -->
+    <string name="notifications">Notifications</string>
+    <string name="no_notifications">No notifications yet</string>
+    <string name="mark_all_read">Mark all as read</string>
+    <string name="confirm_mark_all_read">Mark all notifications as read?</string>
+    <string name="yes">Yes</string>
+    <string name="all_already_read">All notifications are already read</string>
+    <string name="marked_read_count">Marked %d notifications as read</string>
+    <string name="error_loading_settings">Error loading settings: </string>
+    <string name="error_saving_settings">Error saving settings: </string>
+    <string name="error_loading_user">Error loading user data: </string>
+    <string name="settings_saved">Settings saved!</string>
+
+    <!-- Sales (empty state) -->
+    <string name="no_sales">No sales yet</string>
+
+    <string name="search_by_title_tags">Search by title or #tags...</string>
+
+    <!-- Follow Errors -->
+    <string name="follow_error">Follow operation failed: </string>
+    <string name="cannot_follow_buyer">Cannot follow buyers - only producers can be followed</string>
+
+    <!-- Advanced Filter Dialog -->
+    <string name="advanced_filter">Advanced Filter</string>
+    <string name="sorting">Sorting</string>
+    <string name="default_sort">Default (newest first)</string>
+    <string name="price_lowest_first">Price: lowest first</string>
+    <string name="price_highest_first">Price: highest first</string>
+    <string name="bpm_slowest_first">BPM: slowest first</string>
+    <string name="bpm_fastest_first">BPM: fastest first</string>
+    <string name="bpm_range">BPM Range</string>
+    <string name="min_bpm">Min BPM</string>
+    <string name="max_bpm">Max BPM</string>
+    <string name="tag_search">Tag Search (#)</string>
+    <string name="tag_hint">Enter tag (e.g., futuretypebeat)</string>
+    <string name="tag_description">Tags are searched in beat description</string>
+    <string name="apply">Apply</string>
+    <string name="clear">Clear</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="invalid_min_bpm">Invalid minimum BPM</string>
+    <string name="invalid_max_bpm">Invalid maximum BPM</string>
+    <string name="bpm_range_error">Min BPM cannot be greater than Max BPM</string>
+    <string name="filters_applied">Filters applied</string>
+
+    <!-- Notification Settings -->
+    <string name="notification_settings">Notification Settings</string>
+    <string name="messages_notification">Messages</string>
+    <string name="messages_desc">Receive notifications when someone sends you a message</string>
+    <string name="follows_notification">New Followers</string>
+    <string name="follows_desc">Receive notifications when someone follows you</string>
+    <string name="sales_notification">Sales</string>
+    <string name="sales_desc">Receive notifications when someone buys your beat</string>
+    <string name="purchases_notification">Purchases</string>
+    <string name="purchases_desc">Receive notifications when you purchase a beat</string>
+    <string name="reviews_notification">Reviews</string>
+    <string name="reviews_desc">Receive notifications when someone leaves a review</string>
+    <string name="notification_settings_info">You can customize which notifications you want to receive</string>
+
+    <!-- Purchase Notifications -->
+    <string name="purchase_complete">Purchase Complete!</string>
+    <string name="you_purchased">You purchased</string>
+
+    <!-- Rating Already Given -->
+    <string name="already_rated">Already rated</string>
+    <string name="already_rated_message">You have already rated this user</string>
+    <string name="change_rating">Change rating</string>
+    <string name="rating_updated">Rating updated!</string>
+
+    <!-- CreateBeatActivity -->
+    <string name="edit_beat">Edit Beat</string>
+    <string name="update_beat">Update Beat</string>
+    <string name="audio_loaded">Audio file loaded</string>
+    <string name="upload_new_beat">Upload New Beat</string>
+    <string name="login_first">Please login first</string>
+    <string name="select_audio_first">Select Audio First</string>
+    <string name="loading_user">Loading User...</string>
+    <string name="enter_all_prices">Enter all license prices</string>
+    <string name="select_audio">Select Audio File</string>
+    <string name="error_opening_selector">Error opening file selector</string>
+    <string name="select_cover">Select Cover Image</string>
+    <string name="loading_audio">Loading audio...</string>
+    <string name="file_too_large_10mb">File too large (max 10MB)</string>
+    <string name="invalid_audio_file">Invalid audio file</string>
+    <string name="error_loading_file">Error loading file</string>
+    <string name="cover_added">Cover image added!</string>
+    <string name="error_loading_image">Error loading image</string>
+    <string name="title_required">Title is required</string>
+    <string name="user_not_loaded">User information not loaded</string>
+    <string name="select_genre">Please select a genre</string>
+    <string name="select_key">Please select a key</string>
+    <string name="invalid_bpm">Invalid BPM</string>
+    <string name="invalid_price">Invalid price</string>
+    <string name="updating">Updating...</string>
+    <string name="beat_updated">Beat updated! 🎵</string>
+    <string name="uploading">Uploading...</string>
+    <string name="uploading_percent">Uploading... %d%%</string>
+    <string name="beat_uploaded">Beat uploaded! 🎵</string>
+
+</resources>
