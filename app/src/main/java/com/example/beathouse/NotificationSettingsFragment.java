@@ -69,20 +69,24 @@ public class NotificationSettingsFragment extends DialogFragment {
         firestoreHelper.getUser(currentUserId, new FirestoreHelper.FirestoreCallback() {
             @Override
             public void onSuccess(Object result) {
+                if (!isAdded() || getActivity() == null) return;
                 currentUser = (User) result;
                 settings = currentUser.getNotificationSettings();
 
-                requireActivity().runOnUiThread(() -> {
+                getActivity().runOnUiThread(() -> {
+                    if (!isAdded()) return;
                     updateUIByRole();
                     updateSwitches();
-                    progressBar.setVisibility(View.GONE);
+                    if (progressBar != null) progressBar.setVisibility(View.GONE);
                 });
             }
 
             @Override
             public void onError(String error) {
-                requireActivity().runOnUiThread(() -> {
-                    progressBar.setVisibility(View.GONE);
+                if (!isAdded() || getActivity() == null) return;
+                getActivity().runOnUiThread(() -> {
+                    if (!isAdded()) return;
+                    if (progressBar != null) progressBar.setVisibility(View.GONE);
                     settings = new NotificationSettings();
                     updateSwitches();
                     Toast.makeText(getContext(),
@@ -165,13 +169,16 @@ public class NotificationSettingsFragment extends DialogFragment {
         firestoreHelper.getUser(currentUserId, new FirestoreHelper.FirestoreCallback() {
             @Override
             public void onSuccess(Object result) {
+                if (!isAdded() || getActivity() == null) return;
                 User user = (User) result;
                 user.setNotificationSettings(settings);
 
                 firestoreHelper.updateUser(user, new FirestoreHelper.FirestoreCallback() {
                     @Override
                     public void onSuccess(Object result) {
-                        requireActivity().runOnUiThread(() -> {
+                        if (!isAdded() || getActivity() == null) return;
+                        getActivity().runOnUiThread(() -> {
+                            if (!isAdded()) return;
                             Toast.makeText(getContext(),
                                     getString(R.string.settings_saved),
                                     Toast.LENGTH_SHORT).show();
@@ -180,7 +187,9 @@ public class NotificationSettingsFragment extends DialogFragment {
 
                     @Override
                     public void onError(String error) {
-                        requireActivity().runOnUiThread(() -> {
+                        if (!isAdded() || getActivity() == null) return;
+                        getActivity().runOnUiThread(() -> {
+                            if (!isAdded()) return;
                             Toast.makeText(getContext(),
                                     getString(R.string.error_saving_settings) + error,
                                     Toast.LENGTH_SHORT).show();
@@ -191,7 +200,9 @@ public class NotificationSettingsFragment extends DialogFragment {
 
             @Override
             public void onError(String error) {
-                requireActivity().runOnUiThread(() -> {
+                if (!isAdded() || getActivity() == null) return;
+                getActivity().runOnUiThread(() -> {
+                    if (!isAdded()) return;
                     Toast.makeText(getContext(),
                             getString(R.string.error_loading_user) + error,
                             Toast.LENGTH_SHORT).show();
