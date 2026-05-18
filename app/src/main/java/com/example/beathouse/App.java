@@ -16,10 +16,10 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-
-
-        // Устанавливаем темную тему
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        // Загружаем тему из настроек
+        android.content.SharedPreferences prefs = getSharedPreferences("settings", android.content.Context.MODE_PRIVATE);
+        int mode = prefs.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_YES);
+        AppCompatDelegate.setDefaultNightMode(mode);
 
         try {
             FirebaseApp.initializeApp(this);

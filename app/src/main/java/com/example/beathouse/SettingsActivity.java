@@ -8,6 +8,9 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import android.content.Context;
+import android.content.SharedPreferences;
 import com.example.beathouse.databinding.ActivitySettingsBinding;
 import com.example.beathouse.utils.LocaleHelper;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -38,6 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
         setupToolbar();
         initViews();
         loadCurrentLanguage();
+        loadCurrentTheme();
         setupListeners();
         setupDeleteAccountButton();
     }
@@ -89,6 +93,35 @@ public class SettingsActivity extends AppCompatActivity {
                 saveLanguageAndRestart(newLang);
             }
         });
+
+        binding.rgTheme.setOnCheckedChangeListener((group, checkedId) -> {
+            int mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+            if (checkedId == R.id.rbThemeLight) {
+                mode = AppCompatDelegate.MODE_NIGHT_NO;
+            } else if (checkedId == R.id.rbThemeDark) {
+                mode = AppCompatDelegate.MODE_NIGHT_YES;
+            }
+            saveTheme(mode);
+        });
+    }
+
+    private void loadCurrentTheme() {
+        SharedPreferences prefs = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        int mode = prefs.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+        if (mode == AppCompatDelegate.MODE_NIGHT_NO) {
+            binding.rbThemeLight.setChecked(true);
+        } else if (mode == AppCompatDelegate.MODE_NIGHT_YES) {
+            binding.rbThemeDark.setChecked(true);
+        } else {
+            binding.rbThemeSystem.setChecked(true);
+        }
+    }
+
+    private void saveTheme(int mode) {
+        SharedPreferences prefs = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        prefs.edit().putInt("theme_mode", mode).apply();
+        AppCompatDelegate.setDefaultNightMode(mode);
     }
 
     private void saveLanguageAndRestart(String languageCode) {

@@ -119,10 +119,8 @@ public class BuyerHomeFragment extends Fragment {
 
     // ✅ НАСТРОЙКА ПОИСКА
     private void setupSearchView() {
-        // Ищем EditText внутри binding (если он добавлен в layout)
-        etSearch = getView().findViewById(R.id.etSearch);
-        if (etSearch != null) {
-            etSearch.addTextChangedListener(new TextWatcher() {
+        if (binding.etSearch != null) {
+            binding.etSearch.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 

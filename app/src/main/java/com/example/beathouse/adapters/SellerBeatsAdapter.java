@@ -159,10 +159,6 @@ public class SellerBeatsAdapter extends RecyclerView.Adapter<SellerBeatsAdapter.
         AutoCompleteTextView etKey = dialogView.findViewById(R.id.etEditKey);
         TextInputEditText etBpm = dialogView.findViewById(R.id.etEditBpm);
 
-        // ✅ Старое поле цены (для обратной совместимости)
-        TextInputEditText etPrice = dialogView.findViewById(R.id.etEditPrice);
-
-        // ✅ Новые поля для цен лицензий
         TextInputEditText etPriceMp3Wav = dialogView.findViewById(R.id.etEditPriceMp3Wav);
         TextInputEditText etPriceTrackOut = dialogView.findViewById(R.id.etEditPriceTrackOut);
         TextInputEditText etPriceExclusive = dialogView.findViewById(R.id.etEditPriceExclusive);
@@ -170,6 +166,8 @@ public class SellerBeatsAdapter extends RecyclerView.Adapter<SellerBeatsAdapter.
 
         SwitchMaterial switchFree = dialogView.findViewById(R.id.switchEditFree);
         TextInputEditText etDescription = dialogView.findViewById(R.id.etEditDescription);
+        View layoutDescription = dialogView.findViewById(R.id.layoutDescription);
+        TextView tvLicensePricesHeader = dialogView.findViewById(R.id.tvLicensePricesHeader);
         MaterialButton btnUpdateCover = dialogView.findViewById(R.id.btnUpdateCover);
         MaterialButton btnSave = dialogView.findViewById(R.id.btnSaveBeat);
         ProgressBar progressBar = dialogView.findViewById(R.id.progressBar);
@@ -200,28 +198,35 @@ public class SellerBeatsAdapter extends RecyclerView.Adapter<SellerBeatsAdapter.
             etPriceExclusive.setText(String.valueOf((int) beat.getPriceExclusive()));
         }
 
-        // Старая цена для совместимости
-        etPrice.setText(String.valueOf((int) beat.getPrice()));
-
         switchFree.setChecked(beat.isFree());
         etDescription.setText(beat.getDescription() != null ? beat.getDescription() : "");
 
         // ✅ Показываем/скрываем секцию с ценами лицензий
         if (switchFree.isChecked()) {
-            licensePricesLayout.setVisibility(View.GONE);
-            etPrice.setVisibility(View.GONE);
+            licensePricesLayout.setVisibility(View.VISIBLE); // Keep it visible but hide prices
+            tvLicensePricesHeader.setVisibility(View.GONE);
+            dialogView.findViewById(R.id.layoutPriceMp3Wav).setVisibility(View.GONE);
+            dialogView.findViewById(R.id.layoutPriceTrackOut).setVisibility(View.GONE);
+            dialogView.findViewById(R.id.layoutPriceExclusive).setVisibility(View.GONE);
         } else {
             licensePricesLayout.setVisibility(View.VISIBLE);
-            etPrice.setVisibility(View.GONE); // Скрываем старую цену, используем новые
+            tvLicensePricesHeader.setVisibility(View.VISIBLE);
+            dialogView.findViewById(R.id.layoutPriceMp3Wav).setVisibility(View.VISIBLE);
+            dialogView.findViewById(R.id.layoutPriceTrackOut).setVisibility(View.VISIBLE);
+            dialogView.findViewById(R.id.layoutPriceExclusive).setVisibility(View.VISIBLE);
         }
 
         switchFree.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                licensePricesLayout.setVisibility(View.GONE);
-                etPrice.setVisibility(View.GONE);
+                tvLicensePricesHeader.setVisibility(View.GONE);
+                dialogView.findViewById(R.id.layoutPriceMp3Wav).setVisibility(View.GONE);
+                dialogView.findViewById(R.id.layoutPriceTrackOut).setVisibility(View.GONE);
+                dialogView.findViewById(R.id.layoutPriceExclusive).setVisibility(View.GONE);
             } else {
-                licensePricesLayout.setVisibility(View.VISIBLE);
-                etPrice.setVisibility(View.GONE);
+                tvLicensePricesHeader.setVisibility(View.VISIBLE);
+                dialogView.findViewById(R.id.layoutPriceMp3Wav).setVisibility(View.VISIBLE);
+                dialogView.findViewById(R.id.layoutPriceTrackOut).setVisibility(View.VISIBLE);
+                dialogView.findViewById(R.id.layoutPriceExclusive).setVisibility(View.VISIBLE);
             }
         });
 

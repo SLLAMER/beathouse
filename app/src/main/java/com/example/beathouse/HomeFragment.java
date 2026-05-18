@@ -42,6 +42,7 @@ public class HomeFragment extends Fragment {
     private String searchTag = null;
     private int minBpm = -1;
     private int maxBpm = -1;
+    private String currentSearchQuery = "";
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -86,12 +87,27 @@ public class HomeFragment extends Fragment {
         binding.recyclerViewBeats.setAdapter(sellerBeatsAdapter);
         binding.swipeRefresh.setOnRefreshListener(() -> loadMyBeats());
 
+        setupSearchView();
+
         if (binding.fabUpload != null) {
             binding.fabUpload.setVisibility(View.GONE);
         }
 
         loadMyBeats();
         Log.d(TAG, "HomeFragment created for user: " + currentUserId);
+    }
+
+    private void setupSearchView() {
+        if (binding.etSearch != null) {
+            binding.etSearch.addTextChangedListener(new android.text.TextWatcher() {
+                @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                @Override public void afterTextChanged(android.text.Editable s) {
+                    currentSearchQuery = s.toString();
+                    applyAllFilters();
+                }
+            });
+        }
     }
 
     private void loadMyBeats() {
@@ -173,6 +189,18 @@ public class HomeFragment extends Fragment {
 
     private void applyAllFilters() {
         List<Beat> result = new ArrayList<>(beatsList);
+
+        // 0. Поиск по названию
+        if (currentSearchQuery != null && !currentSearchQuery.isEmpty()) {
+            List<Beat> searchFiltered = new ArrayList<>();
+            String query = currentSearchQuery.toLowerCase();
+            for (Beat beat : result) {
+                if (beat.getTitle().toLowerCase().contains(query)) {
+                    searchFiltered.add(beat);
+                }
+            }
+            result = searchFiltered;
+        }
 
         // 1. Фильтр по тегам
         if (searchTag != null && !searchTag.isEmpty()) {
