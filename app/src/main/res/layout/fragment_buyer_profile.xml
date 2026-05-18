@@ -294,7 +294,7 @@
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:visibility="gone"
-                                app:tint="#E4405F" />
+                                app:tint="@color/instagram_color" />
 
                             <ImageView
                                 android:id="@+id/ivTelegram"
@@ -305,7 +305,7 @@
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:visibility="gone"
-                                app:tint="#26A5E4" />
+                                app:tint="@color/telegram_color" />
 
                             <ImageView
                                 android:id="@+id/ivVk"
@@ -316,7 +316,7 @@
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:visibility="gone"
-                                app:tint="#2787F5" />
+                                app:tint="@color/vk_color" />
 
                         </LinearLayout>
 
@@ -402,7 +402,7 @@
                             app:boxBackgroundColor="@color/surface"
                             app:boxStrokeColor="@color/outline_variant"
                             app:startIconDrawable="@drawable/ic_instagram"
-                            app:startIconTint="#E4405F">
+                            app:startIconTint="@color/instagram_color">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etInstagram"
@@ -425,7 +425,7 @@
                             app:boxBackgroundColor="@color/surface"
                             app:boxStrokeColor="@color/outline_variant"
                             app:startIconDrawable="@drawable/ic_telegram"
-                            app:startIconTint="#26A5E4">
+                            app:startIconTint="@color/telegram_color">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etTelegram"
@@ -448,7 +448,7 @@
                             app:boxBackgroundColor="@color/surface"
                             app:boxStrokeColor="@color/outline_variant"
                             app:startIconDrawable="@drawable/ic_vk"
-                            app:startIconTint="#2787F5">
+                            app:startIconTint="@color/vk_color">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etVk"

@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/messages_desc"
                 android:textSize="12sp"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@color/on_surface_variant" />
 
         </LinearLayout>
 
@@ -60,7 +60,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@color/outline_variant" />
 
     <!-- Подписки -->
     <LinearLayout
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/follows_desc"
                 android:textSize="12sp"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@color/on_surface_variant" />
 
         </LinearLayout>
 
@@ -102,7 +102,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@color/outline_variant" />
 
     <!-- Продажи (только для продавцов) -->
     <LinearLayout
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/sales_desc"
                 android:textSize="12sp"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@color/on_surface_variant" />
 
         </LinearLayout>
 
@@ -147,7 +147,7 @@
         android:id="@+id/divider_sales"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@color/outline_variant" />
 
     <!-- Покупки (только для покупателей) -->
     <LinearLayout
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/purchases_desc"
                 android:textSize="12sp"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@color/on_surface_variant" />
 
         </LinearLayout>
 
@@ -192,7 +192,7 @@
         android:id="@+id/divider_purchases"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@color/outline_variant" />
 
     <!-- Отзывы -->
     <LinearLayout
@@ -221,7 +221,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/reviews_desc"
                 android:textSize="12sp"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@color/on_surface_variant" />
 
         </LinearLayout>
 
@@ -238,7 +238,7 @@
         android:layout_height="wrap_content"
         android:text="@string/notification_settings_info"
         android:textSize="12sp"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/on_surface_variant"
         android:gravity="center"
         android:layout_marginTop="16dp" />
 

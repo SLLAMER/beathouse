@@ -17,93 +17,108 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:padding="16dp">
 
-        <!-- Верхняя строка: ID заказа и дата -->
+        <CheckBox
+            android:id="@+id/cbSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginEnd="8dp" />
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvOrderId"
-                android:layout_width="0dp"
+            <!-- Верхняя строка: ID заказа и дата -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="#ABC123"
-                android:textColor="@color/on_surface"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:fontFamily="monospace" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
+                <TextView
+                    android:id="@+id/tvOrderId"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="#ABC123"
+                    android:textColor="@color/on_surface"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace" />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jan 15, 2024"
+                    android:textColor="@color/on_surface_secondary"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <!-- Продавец / Покупатель -->
             <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvProducerInfo"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jan 15, 2024"
-                android:textColor="@color/on_surface_secondary"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <!-- Продавец / Покупатель -->
-        <TextView
-            android:id="@+id/tvProducerInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="From: Producer Name"
-            android:textColor="@color/on_surface_secondary"
-            android:textSize="13sp" />
-
-        <!-- Разделитель -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginVertical="12dp"
-            android:background="@color/outline_variant" />
-
-        <!-- Строка: количество и сумма -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/tvItemCount"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="3 items"
+                android:layout_marginTop="8dp"
+                android:text="From: Producer Name"
                 android:textColor="@color/on_surface_secondary"
                 android:textSize="13sp" />
 
+            <!-- Разделитель -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="12dp"
+                android:background="@color/outline_variant" />
+
+            <!-- Строка: количество и сумма -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvItemCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="3 items"
+                    android:textColor="@color/on_surface_secondary"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tvTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$29.99"
+                    android:textColor="@color/primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- Статус -->
             <TextView
-                android:id="@+id/tvTotal"
+                android:id="@+id/tvStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$29.99"
-                android:textColor="@color/primary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="8dp"
+                android:text="Completed"
+                android:textSize="11sp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:background="@drawable/status_badge_completed" />
 
         </LinearLayout>
-
-        <!-- Статус -->
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Completed"
-            android:textSize="11sp"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="3dp"
-            android:background="@drawable/status_badge_completed" />
-
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

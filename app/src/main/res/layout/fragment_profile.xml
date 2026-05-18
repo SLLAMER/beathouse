@@ -334,7 +334,7 @@
                             app:boxCornerRadiusBottomEnd="8dp"
                             app:boxStrokeColor="@color/outline"
                             app:startIconDrawable="@drawable/ic_instagram"
-                            app:startIconTint="#E4405F">
+                            app:startIconTint="@color/instagram_color">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etInstagram"
@@ -360,7 +360,7 @@
                             app:boxCornerRadiusBottomEnd="8dp"
                             app:boxStrokeColor="@color/outline"
                             app:startIconDrawable="@drawable/ic_telegram"
-                            app:startIconTint="#26A5E4">
+                            app:startIconTint="@color/telegram_color">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etTelegram"
@@ -386,7 +386,7 @@
                             app:boxCornerRadiusBottomEnd="8dp"
                             app:boxStrokeColor="@color/outline"
                             app:startIconDrawable="@drawable/ic_vk"
-                            app:startIconTint="#2787F5">
+                            app:startIconTint="@color/vk_color">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etVk"
