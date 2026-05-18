@@ -21,11 +21,11 @@
 
         <!-- Status Bar -->
         <item name="android:statusBarColor">@color/surface</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
 
         <!-- Navigation Bar -->
         <item name="android:navigationBarColor">@color/surface</item>
-        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLightNavigationBar">false</item>
 
         <!-- Window Background -->
         <item name="android:windowBackground">@color/background</item>
@@ -38,9 +38,10 @@
         <item name="materialCardViewStyle">@style/Widget.BeatHouse.Card</item>
     </style>
 
-    <!-- ========== ТЕМА ДЛЯ SPLASH SCREEN (упрощенная, без зависимостей) ========== -->
+    <!-- ========== ТЕМА ДЛЯ SPLASH SCREEN ========== -->
     <style name="Theme.BeatHouse.Splash" parent="Theme.BeatHouse">
         <item name="android:windowBackground">@color/background</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <!-- ========== СТИЛИ КНОПОК ========== -->
@@ -50,6 +51,8 @@
         <item name="cornerRadius">12dp</item>
         <item name="iconGravity">textStart</item>
         <item name="iconPadding">8dp</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/on_primary</item>
     </style>
 
     <style name="Widget.BeatHouse.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
@@ -57,11 +60,14 @@
         <item name="android:textStyle">bold</item>
         <item name="cornerRadius">12dp</item>
         <item name="strokeWidth">1.5dp</item>
+        <item name="strokeColor">@color/primary</item>
+        <item name="android:textColor">@color/primary</item>
     </style>
 
     <style name="Widget.BeatHouse.Button.Text" parent="Widget.Material3.Button.TextButton">
         <item name="android:textSize">14sp</item>
         <item name="cornerRadius">12dp</item>
+        <item name="android:textColor">@color/primary</item>
     </style>
 
     <!-- ========== СТИЛИ КАРТОЧЕК ========== -->
@@ -70,6 +76,7 @@
         <item name="cardElevation">0dp</item>
         <item name="strokeColor">@color/outline_variant</item>
         <item name="strokeWidth">0.5dp</item>
+        <item name="cardBackgroundColor">@color/surface_container</item>
     </style>
 
     <!-- ========== СТИЛИ ТЕКСТА ========== -->
@@ -93,6 +100,7 @@
         <item name="chipStrokeWidth">0.5dp</item>
         <item name="android:textColor">@color/on_surface_variant</item>
         <item name="chipBackgroundColor">@color/surface_container</item>
+        <item name="checkedIconTint">@color/primary</item>
     </style>
 
     <!-- ========== СТИЛИ ДЛЯ BOTTOM NAVIGATION ========== -->
@@ -105,6 +113,11 @@
     </style>
 
     <!-- ========== АНИМАЦИИ ПЕРЕХОДОВ ========== -->
+    <style name="Theme.BeatHouse.Dark" parent="Theme.BeatHouse">
+        <item name="colorSurface">@color/surface</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+
     <style name="Animation.BeatHouse" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
@@ -112,17 +125,6 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
-    </style>
-
-    <!-- ========== DARK ТЕМА (опционально) ========== -->
-    <style name="Theme.BeatHouse.Dark" parent="Theme.BeatHouse">
-        <item name="colorSurface">#1C1B1F</item>
-        <item name="colorSurfaceVariant">#2E2C32</item>
-        <item name="colorOnSurface">#E6E1E5</item>
-        <item name="colorOnSurfaceVariant">#CAC4D0</item>
-        <item name="colorOutline">#938F99</item>
-        <item name="android:statusBarColor">@color/background_dark</item>
-        <item name="android:windowBackground">@color/background_dark</item>
     </style>
 
 </resources>
