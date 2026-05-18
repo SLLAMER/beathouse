@@ -137,11 +137,6 @@ public class BuyerHomeFragment extends Fragment {
             });
         }
 
-        // Настройка кнопки фильтра
-        View ivFilter = getView().findViewById(R.id.ivFilter);
-        if (ivFilter != null) {
-            ivFilter.setOnClickListener(v -> showAdvancedFilterDialog());
-        }
     }
 
     // ✅ НАСТРОЙКА ЧИПОВ ЖАНРОВ

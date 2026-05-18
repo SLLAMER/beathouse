@@ -42,14 +42,6 @@
                 android:textColorHint="@color/on_surface_secondary"
                 android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/ivFilter"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_filter"
-                app:tint="@color/primary"
-                android:clickable="true"
-                android:focusable="true" />
 
         </LinearLayout>
 

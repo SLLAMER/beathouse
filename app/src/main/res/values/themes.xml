@@ -21,11 +21,11 @@
 
         <!-- Status Bar -->
         <item name="android:statusBarColor">@color/surface</item>
-        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightStatusBar">true</item>
 
         <!-- Navigation Bar -->
         <item name="android:navigationBarColor">@color/surface</item>
-        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightNavigationBar">true</item>
 
         <!-- Window Background -->
         <item name="android:windowBackground">@color/background</item>
@@ -38,13 +38,11 @@
         <item name="materialCardViewStyle">@style/Widget.BeatHouse.Card</item>
     </style>
 
-    <!-- ========== ТЕМА ДЛЯ SPLASH SCREEN ========== -->
+    <!-- Остальные стили без изменений -->
     <style name="Theme.BeatHouse.Splash" parent="Theme.BeatHouse">
         <item name="android:windowBackground">@color/background</item>
-        <item name="android:windowLightStatusBar">false</item>
     </style>
 
-    <!-- ========== СТИЛИ КНОПОК ========== -->
     <style name="Widget.BeatHouse.Button" parent="Widget.Material3.Button">
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
@@ -70,7 +68,6 @@
         <item name="android:textColor">@color/primary</item>
     </style>
 
-    <!-- ========== СТИЛИ КАРТОЧЕК ========== -->
     <style name="Widget.BeatHouse.Card" parent="Widget.Material3.CardView.Elevated">
         <item name="cardCornerRadius">16dp</item>
         <item name="cardElevation">0dp</item>
@@ -79,7 +76,6 @@
         <item name="cardBackgroundColor">@color/surface_container</item>
     </style>
 
-    <!-- ========== СТИЛИ ТЕКСТА ========== -->
     <style name="TextAppearance.BeatHouse.Title" parent="TextAppearance.Material3.HeadlineSmall">
         <item name="android:textColor">@color/on_surface</item>
         <item name="android:textStyle">bold</item>
@@ -93,7 +89,6 @@
         <item name="android:textColor">@color/on_surface_variant</item>
     </style>
 
-    <!-- ========== СТИЛИ ДЛЯ CHIP ========== -->
     <style name="Widget.BeatHouse.Chip" parent="Widget.Material3.Chip.Filter">
         <item name="chipCornerRadius">16dp</item>
         <item name="chipStrokeColor">@color/outline_variant</item>
@@ -103,7 +98,6 @@
         <item name="checkedIconTint">@color/primary</item>
     </style>
 
-    <!-- ========== СТИЛИ ДЛЯ BOTTOM NAVIGATION ========== -->
     <style name="Widget.BeatHouse.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
         <item name="itemIconTint">@color/primary</item>
         <item name="itemTextColor">@color/on_surface_secondary</item>

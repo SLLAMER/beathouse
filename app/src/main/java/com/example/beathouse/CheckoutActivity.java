@@ -36,8 +36,8 @@ import java.util.UUID;
 public class CheckoutActivity extends BaseActivity {
 
     private RecyclerView rvOrderItems;
-    private RadioGroup rgPaymentMethod;
     private RadioButton rbCard, rbSbp, rbQr;
+    private View cardCard, cardSbp, cardQr;
     private MaterialButton btnCompletePayment;
     private TextView tvOrderTotal, tvTotalItems;
     private CartManager cartManager;
@@ -85,16 +85,17 @@ public class CheckoutActivity extends BaseActivity {
 
     private void initViews() {
         rvOrderItems = findViewById(R.id.rv_order_items);
-        rgPaymentMethod = findViewById(R.id.rg_payment_method);
         rbCard = findViewById(R.id.rb_card);
         rbSbp = findViewById(R.id.rb_sbp);
         rbQr = findViewById(R.id.rb_qr);
+        cardCard = findViewById(R.id.card_card);
+        cardSbp = findViewById(R.id.card_sbp);
+        cardQr = findViewById(R.id.card_qr);
         btnCompletePayment = findViewById(R.id.btn_complete_payment);
         tvOrderTotal = findViewById(R.id.tv_order_total);
         tvTotalItems = findViewById(R.id.tv_total_items);
 
         Log.e("CHECKOUT_DEBUG", "=== initViews ===");
-        Log.e("CHECKOUT_DEBUG", "rgPaymentMethod = " + (rgPaymentMethod != null ? "found" : "NOT found"));
         Log.e("CHECKOUT_DEBUG", "rbCard = " + (rbCard != null ? "found" : "NOT found"));
         Log.e("CHECKOUT_DEBUG", "rbSbp = " + (rbSbp != null ? "found" : "NOT found"));
         Log.e("CHECKOUT_DEBUG", "rbQr = " + (rbQr != null ? "found" : "NOT found"));
@@ -135,8 +136,19 @@ public class CheckoutActivity extends BaseActivity {
     }
 
     private void setupPaymentMethods() {
-        rgPaymentMethod.clearCheck();
-        // Убираем показ QR контейнера - теперь будет отдельная Activity
+        rbCard.setChecked(false);
+        rbSbp.setChecked(false);
+        rbQr.setChecked(false);
+
+        View.OnClickListener listener = v -> {
+            rbCard.setChecked(v.getId() == R.id.card_card);
+            rbSbp.setChecked(v.getId() == R.id.card_sbp);
+            rbQr.setChecked(v.getId() == R.id.card_qr);
+        };
+
+        cardCard.setOnClickListener(listener);
+        cardSbp.setOnClickListener(listener);
+        cardQr.setOnClickListener(listener);
     }
 
     private void loadProducerIds() {
@@ -181,7 +193,11 @@ public class CheckoutActivity extends BaseActivity {
     private void processPayment() {
         Log.e("CHECKOUT_DEBUG", "=== processPayment CALLED ===");
 
-        int checkedId = rgPaymentMethod.getCheckedRadioButtonId();
+        int checkedId = -1;
+        if (rbCard.isChecked()) checkedId = R.id.rb_card;
+        else if (rbSbp.isChecked()) checkedId = R.id.rb_sbp;
+        else if (rbQr.isChecked()) checkedId = R.id.rb_qr;
+
         Log.e("CHECKOUT_DEBUG", "checkedId = " + checkedId);
 
         if (checkedId == -1) {

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/surface_container"
+    android:background="@color/surface"
     android:padding="0dp">
 
     <LinearLayout
@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Заголовок с иконкой -->
+        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_edit"
-                android:tint="@color/primary"
+                app:tint="@color/primary"
                 android:layout_marginEnd="12dp" />
 
             <TextView
@@ -37,49 +37,36 @@
 
         </LinearLayout>
 
-        <!-- Разделитель -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/outline"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Текущая обложка -->
-        <TextView
-            android:layout_width="match_parent"
+        <!-- Current Cover -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Current Cover"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/on_surface_variant"
-            android:layout_marginBottom="8dp" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/outline_variant"
+            app:strokeWidth="1dp">
 
             <ImageView
                 android:id="@+id/ivCurrentCover"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_music_note"
-                android:background="@drawable/cover_background"
-                android:padding="4dp" />
+                android:src="@drawable/ic_music_note" />
 
-        </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <!-- Поле Title -->
+        <!-- Title -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            app:boxBackgroundColor="@color/surface"
-            app:boxStrokeColor="@color/outline"
-            app:hintTextColor="@color/on_surface_variant">
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEditTitle"
@@ -96,20 +83,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:baselineAligned="false">
 
-            <!-- Genre -->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/genreLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.3"
                 android:layout_marginEnd="8dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                app:boxBackgroundColor="@color/surface"
-                app:boxStrokeColor="@color/outline"
                 app:endIconMode="dropdown_menu"
-                app:endIconTint="@color/on_surface_variant">
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/etEditGenre"
@@ -121,18 +108,17 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Key -->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/keyLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                app:boxBackgroundColor="@color/surface"
-                app:boxStrokeColor="@color/outline"
                 app:endIconMode="dropdown_menu"
-                app:endIconTint="@color/on_surface_variant">
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/etEditKey"
@@ -144,14 +130,15 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- BPM -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                app:boxBackgroundColor="@color/surface"
-                app:boxStrokeColor="@color/outline">
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEditBpm"
@@ -166,60 +153,35 @@
 
         </LinearLayout>
 
-        <!-- ✅ PRICE SECTION (для обратной совместимости, может быть скрыт) -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/priceLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            app:boxBackgroundColor="@color/surface"
-            app:boxStrokeColor="@color/outline"
-            app:prefixText="$"
-            app:prefixTextColor="@color/on_surface">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEditPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Price"
-                android:inputType="number"
-                android:textColor="@color/on_surface"
-                android:textSize="16sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- ✅ LICENSE PRICES SECTION (три цены для разных лицензий) -->
+        <!-- License Prices Section (Now includes Description) -->
         <LinearLayout
             android:id="@+id/licensePricesLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginBottom="16dp"
-            android:padding="12dp"
+            android:padding="16dp"
             android:background="@drawable/rounded_rectangle_outline"
-            android:backgroundTint="@color/surface_variant"
-            android:visibility="visible">
+            android:backgroundTint="@color/surface_container">
 
             <TextView
+                android:id="@+id/tvLicensePricesHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="License Prices"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="@color/on_surface"
-                android:layout_marginBottom="12dp" />
+                android:textColor="@color/primary"
+                android:textAllCaps="true"
+                android:layout_marginBottom="16dp" />
 
-            <!-- MP3 + WAV -->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutPriceMp3Wav"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                app:boxBackgroundColor="@color/surface"
-                app:boxStrokeColor="@color/outline"
-                app:prefixText="$"
-                app:prefixTextColor="@color/on_surface">
+                app:boxBackgroundColor="@color/surface">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEditPriceMp3Wav"
@@ -232,16 +194,13 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Track Out (Stems) -->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutPriceTrackOut"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                app:boxBackgroundColor="@color/surface"
-                app:boxStrokeColor="@color/outline"
-                app:prefixText="$"
-                app:prefixTextColor="@color/on_surface">
+                app:boxBackgroundColor="@color/surface">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEditPriceTrackOut"
@@ -254,15 +213,13 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Exclusive Rights -->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutPriceExclusive"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                app:boxBackgroundColor="@color/surface"
-                app:boxStrokeColor="@color/outline"
-                app:prefixText="$"
-                app:prefixTextColor="@color/on_surface">
+                app:boxBackgroundColor="@color/surface">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEditPriceExclusive"
@@ -275,18 +232,42 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Description INSIDE License Prices section -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxBackgroundColor="@color/surface">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEditDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:hint="Description"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/on_surface"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
-        <!-- Free Beat Switch -->
+        <!-- Free Beat Toggle -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/surface_variant"
-            app:strokeColor="@color/outline"
-            app:strokeWidth="1dp">
+            app:cardBackgroundColor="@color/surface_container"
+            app:strokeColor="@color/outline_variant"
+            app:strokeWidth="0.5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -301,74 +282,47 @@
                     android:layout_weight="1"
                     android:text="Free Beat"
                     android:textColor="@color/on_surface"
+                    android:textStyle="bold"
                     android:textSize="16sp" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchEditFree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:theme="@style/Theme.Material3.Dark" />
+                    app:thumbTint="@color/primary"
+                    app:trackTint="@color/outline_variant" />
 
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Description -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            app:boxBackgroundColor="@color/surface"
-            app:boxStrokeColor="@color/outline">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEditDescription"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:hint="Description"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:textColor="@color/on_surface"
-                android:textSize="14sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Update Cover Button -->
+        <!-- Action Buttons -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnUpdateCover"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="16dp"
+            android:layout_height="52dp"
+            android:layout_marginBottom="12dp"
             android:text="Update Cover Image"
             app:icon="@drawable/ic_add_photo"
-            app:iconGravity="textStart"
-            app:cornerRadius="12dp"
-            style="@style/Widget.Material3.Button.OutlinedButton" />
+            app:cornerRadius="12dp" />
 
-        <!-- Progress Bar -->
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            android:visibility="gone"
-            android:indeterminateTint="@color/primary" />
-
-        <!-- Кнопка Save -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveBeat"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="Save Changes"
             app:icon="@drawable/ic_save"
-            app:iconGravity="textStart"
             app:cornerRadius="12dp"
-            app:backgroundTint="@color/primary"
-            android:textColor="@color/on_primary"
-            android:textSize="16sp"
             android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
