@@ -77,6 +77,8 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="following_count">Following</string>
     <string name="purchased">Purchased</string>
+    <string name="social_links">Social links</string>
+    <string name="become_seller_text">Become a seller</string>
 
     <!-- Bottom Navigation -->
     <string name="my_beats">My Beats</string>
@@ -185,14 +187,15 @@
     <string name="scan_qr_to_pay">Scan QR Code to Pay</string>
     <string name="complete_payment">Complete Payment</string>
     <string name="processing">Processing...</string>
-    <string name="total_to_pay">Total to Pay:</string>
+    <string name="total_to_pay">Total to pay</string>
     <string name="beats_in_order">Beats in Order</string>
     <string name="point_camera_to_qr">Point your camera at the QR code to complete payment</string>
+    <string name="total_items">Total items</string>
+    <string name="continue_to_payment">Continue to payment</string>
 
     <!-- New Payment Methods -->
     <string name="credit_card">Credit Card</string>
     <string name="sbp">SBP (Fast Payment System)</string>
-    <string name="continue_to_payment">Continue to Payment</string>
     <string name="card_payment">Card Payment</string>
     <string name="amount_to_pay">Amount to pay</string>
     <string name="card_details">Card Details</string>
@@ -277,6 +280,7 @@
     <string name="select_rating">Select a rating</string>
     <string name="rated">Rated!</string>
     <string name="no_ratings_yet">No ratings yet</string>
+    <string name="rating_updated">Rating updated!</string>
 
     <!-- Payment -->
     <string name="pay">Pay</string>
@@ -294,6 +298,7 @@
     <!-- Notifications -->
     <string name="notifications">Notifications</string>
     <string name="no_notifications">No notifications yet</string>
+    <string name="notifications_will_appear">Notifications will appear here</string>
     <string name="mark_all_read">Mark all as read</string>
     <string name="confirm_mark_all_read">Mark all notifications as read?</string>
     <string name="yes">Yes</string>
@@ -357,7 +362,6 @@
     <string name="already_rated">Already rated</string>
     <string name="already_rated_message">You have already rated this user</string>
     <string name="change_rating">Change rating</string>
-    <string name="rating_updated">Rating updated!</string>
 
     <!-- CreateBeatActivity -->
     <string name="edit_beat">Edit Beat</string>
@@ -388,5 +392,55 @@
     <string name="uploading">Uploading...</string>
     <string name="uploading_percent">Uploading... %d%%</string>
     <string name="beat_uploaded">Beat uploaded! 🎵</string>
+
+    <!-- QR Payment -->
+    <string name="qr_payment">QR Payment</string>
+    <string name="how_to_pay">How to pay</string>
+    <string name="qr_instruction">1. Open your bank app\n2. Tap "Scan QR"\n3. Point camera at QR code\n4. Confirm payment\n5. Tap "I have paid" when done</string>
+    <string name="i_have_paid">I have paid</string>
+    <string name="qr_code">QR Code</string>
+    <string name="yes_paid">Yes, I paid</string>
+    <string name="not_yet">Not yet</string>
+
+    <!-- Orders empty state -->
+    <string name="no_orders_yet">No orders yet</string>
+    <string name="start_shopping">Start shopping to see your orders</string>
+
+    <!-- Checkout strings -->
+    <string name="total_to_pay_label">Total to pay</string>
+    <string name="total_items_label">Total items</string>
+
+    <!-- Profile strings -->
+    <string name="social_links_label">Social links</string>
+    <string name="become_seller_label">Become a seller</string>
+    <string name="spent_label">Spent</string>
+    <string name="purchased_label">Purchased</string>
+    <string name="followers_label">Followers</string>
+    <string name="following_count_label">Following</string>
+
+    <!-- Cart strings -->
+    <string name="items_label">items</string>
+    <string name="download_free_beats_label">Download Free Beats</string>
+    <string name="processing_label">Processing...</string>
+    <string name="retry_label">Retry</string>
+    <string name="failed_to_create_orders_label">Failed to create orders</string>
+    <string name="error_loading_beat_info_label">Error loading beat information: </string>
+
+    <!-- Common strings -->
+    <string name="order_id_label">Order ID</string>
+    <string name="cancel_label">Cancel</string>
+    <string name="confirm_payment_label">Confirm payment</string>
+
+    <!-- Success messages -->
+    <string name="payment_successful_message">Payment Successful!</string>
+    <string name="order_complete_message">Order Complete</string>
+
+    <!-- Cart -->
+    <string name="failed_to_create_orders">Failed to create orders</string>
+    <string name="retry">Retry</string>
+    <string name="error_loading_beat_info">Error loading beat information: </string>
+
+    <!-- QR Payment -->
+    <string name="confirm_payment_message_qr">Have you successfully completed the payment?</string>
 
 </resources>

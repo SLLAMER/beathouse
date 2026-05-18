@@ -60,6 +60,8 @@
     <string name="become_seller_message">Вы сможете загружать и продавать биты!</string>
     <string name="switching_to_seller">Переключение на продавца...</string>
     <string name="you_are_now_seller">Теперь вы продавец! Приложение будет перезапущено.</string>
+    <string name="social_links">Социальные сети</string>
+    <string name="become_seller_text">Стать продавцом</string>
 
     <!-- Followers/Following -->
     <string name="followers">Подписчики</string>
@@ -185,14 +187,15 @@
     <string name="scan_qr_to_pay">Отсканируйте QR-код для оплаты</string>
     <string name="complete_payment">Завершить оплату</string>
     <string name="processing">Обработка...</string>
-    <string name="total_to_pay">Итого к оплате:</string>
+    <string name="total_to_pay">Итого к оплате</string>
     <string name="beats_in_order">Биты в заказе</string>
     <string name="point_camera_to_qr">Наведите камеру на QR-код для оплаты</string>
+    <string name="total_items">Всего товаров</string>
+    <string name="continue_to_payment">Продолжить оплату</string>
 
     <!-- New Payment Methods -->
     <string name="credit_card">Банковская карта</string>
     <string name="sbp">СБП (Система быстрых платежей)</string>
-    <string name="continue_to_payment">Продолжить оплату</string>
     <string name="card_payment">Оплата картой</string>
     <string name="amount_to_pay">Сумма к оплате</string>
     <string name="card_details">Данные карты</string>
@@ -277,6 +280,7 @@
     <string name="select_rating">Выберите оценку</string>
     <string name="rated">Оценено!</string>
     <string name="no_ratings_yet">Нет оценок</string>
+    <string name="rating_updated">Оценка обновлена!</string>
 
     <!-- Payment -->
     <string name="pay">Оплатить</string>
@@ -294,6 +298,7 @@
     <!-- Notifications -->
     <string name="notifications">Уведомления</string>
     <string name="no_notifications">Нет уведомлений</string>
+    <string name="notifications_will_appear">Уведомления появятся здесь</string>
     <string name="mark_all_read">Отметить все как прочитанные</string>
     <string name="confirm_mark_all_read">Отметить все уведомления как прочитанные?</string>
     <string name="yes">Да</string>
@@ -357,7 +362,6 @@
     <string name="already_rated">Уже оценено</string>
     <string name="already_rated_message">Вы уже оценили этого пользователя</string>
     <string name="change_rating">Изменить оценку</string>
-    <string name="rating_updated">Оценка обновлена!</string>
 
     <!-- CreateBeatActivity -->
     <string name="edit_beat">Редактировать бит</string>
@@ -388,5 +392,40 @@
     <string name="uploading">Загрузка...</string>
     <string name="uploading_percent">Загрузка... %d%%</string>
     <string name="beat_uploaded">Бит загружен! 🎵</string>
+
+    <!-- QR Payment -->
+    <string name="qr_payment">Оплата по QR</string>
+    <string name="how_to_pay">Как оплатить</string>
+    <string name="qr_instruction">1. Откройте приложение банка\n2. Нажмите «Сканировать QR»\n3. Наведите камеру на QR-код\n4. Подтвердите оплату\n5. Нажмите «Я оплатил» после завершения</string>
+    <string name="i_have_paid">Я оплатил</string>
+    <string name="qr_code">QR-код</string>
+    <string name="yes_paid">Да, оплатил</string>
+    <string name="not_yet">Нет, еще не оплатил</string>
+
+    <!-- Orders empty state -->
+    <string name="no_orders_yet">Нет заказов</string>
+    <string name="start_shopping">Начните делать покупки, чтобы увидеть свои заказы</string>
+
+    <!-- Cart strings -->
+    <string name="items_label">товаров</string>
+    <string name="download_free_beats_label">Скачать бесплатные биты</string>
+    <string name="processing_label">Обработка...</string>
+    <string name="retry_label">Повторить</string>
+    <string name="failed_to_create_orders_label">Не удалось создать заказы</string>
+    <string name="error_loading_beat_info_label">Ошибка загрузки информации о бите: </string>
+
+    <!-- Common strings -->
+    <string name="order_id_label">ID заказа</string>
+    <string name="cancel_label">Отмена</string>
+    <string name="confirm_payment_label">Подтверждение оплаты</string>
+    <string name="items_text">товаров</string>
+
+    <!-- Cart -->
+    <string name="failed_to_create_orders">Не удалось создать заказы</string>
+    <string name="retry">Повторить</string>
+    <string name="error_loading_beat_info">Ошибка загрузки информации о бите: </string>
+
+    <!-- QR Payment -->
+    <string name="confirm_payment_message_qr">Вы успешно оплатили заказ?</string>
 
 </resources>

@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="1dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
     app:cardBackgroundColor="@color/surface_container"
-    app:strokeColor="@color/outline"
-    app:strokeWidth="1dp">
+    app:strokeColor="@color/outline_variant"
+    app:strokeWidth="0.5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,6 +26,7 @@
             android:src="@drawable/ic_music_note"
             android:layout_marginEnd="12dp"
             android:background="@color/surface_variant"
+            app:cornerRadius="12dp"
             android:contentDescription="Cover image" />
 
         <!-- Информация -->
@@ -35,24 +36,26 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <!-- Название -->
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Beat Title"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/on_surface"
                 android:maxLines="1"
                 android:ellipsize="end" />
 
+            <!-- Продюсер -->
             <TextView
                 android:id="@+id/tv_producer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="by Producer"
                 android:textSize="12sp"
-                android:textColor="@color/on_surface_variant"
+                android:textColor="@color/on_surface_secondary"
                 android:layout_marginTop="2dp"
                 android:maxLines="1"
                 android:ellipsize="end" />
@@ -62,10 +65,10 @@
                 android:id="@+id/tv_license_static"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="License: MP3 + WAV"
+                android:text="MP3 + WAV"
                 android:textSize="12sp"
                 android:textColor="@color/primary"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:visibility="gone" />
 
             <!-- Spinner для выбора лицензии (в корзине) -->
@@ -75,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
                 android:visibility="visible">
 
                 <TextView
@@ -83,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:text="License:"
                     android:textSize="12sp"
-                    android:textColor="@color/on_surface_variant"
+                    android:textColor="@color/on_surface_secondary"
                     android:layout_marginEnd="8dp" />
 
                 <Spinner
@@ -113,10 +116,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$0"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/primary"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="12dp" />
 
             <ImageButton
                 android:id="@+id/btn_remove"
@@ -125,7 +128,7 @@
                 android:src="@drawable/ic_delete"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Remove"
-                app:tint="@color/error" />
+                app:tint="@color/error_red" />
 
         </LinearLayout>
 

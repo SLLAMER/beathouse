@@ -1,7 +1,9 @@
 package com.example.beathouse;
-
+import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,10 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.beathouse.adapters.BeatsAdapter;
 import com.example.beathouse.databinding.FragmentBuyerHomeBinding;
@@ -45,6 +48,10 @@ public class BuyerHomeFragment extends Fragment {
     private int minBpm = -1;
     private int maxBpm = -1;
 
+    // ✅ Поля для поиска
+    private EditText etSearch;
+    private String currentSearchQuery = "";
+
     @Override
     public void onAttach(@NonNull Context context) {
         LocaleHelper.applyLanguage(context);
@@ -53,8 +60,8 @@ public class BuyerHomeFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater i, @Nullable ViewGroup c, @Nullable Bundle s) {
-        binding = FragmentBuyerHomeBinding.inflate(i, c, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentBuyerHomeBinding.inflate(inflater, container, false);
         setHasOptionsMenu(true);
         return binding.getRoot();
     }
@@ -75,11 +82,13 @@ public class BuyerHomeFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View v, @Nullable Bundle s) {
-        super.onViewCreated(v, s);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         firestoreHelper = new FirestoreHelper();
         beatsAdapter = new BeatsAdapter(filteredBeats, requireContext());
 
+        // ✅ Настройка MiniPlayer
         if (getActivity() != null) {
             View activityRoot = getActivity().findViewById(R.id.miniPlayerCard);
             if (activityRoot != null) {
@@ -91,9 +100,52 @@ public class BuyerHomeFragment extends Fragment {
             }
         }
 
+        // ✅ Настройка RecyclerView
         binding.recyclerViewBeats.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewBeats.setAdapter(beatsAdapter);
 
+        // ✅ Настройка поиска
+        setupSearchView();
+
+        // ✅ Настройка чипов жанров
+        setupGenreChips();
+
+        // ✅ Настройка Pull-to-Refresh
+        binding.swipeRefresh.setOnRefreshListener(() -> loadBeats());
+
+        // ✅ Загрузка битов
+        loadBeats();
+    }
+
+    // ✅ НАСТРОЙКА ПОИСКА
+    private void setupSearchView() {
+        // Ищем EditText внутри binding (если он добавлен в layout)
+        etSearch = getView().findViewById(R.id.etSearch);
+        if (etSearch != null) {
+            etSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    currentSearchQuery = s.toString();
+                    applyAllFilters();
+                }
+            });
+        }
+
+        // Настройка кнопки фильтра
+        View ivFilter = getView().findViewById(R.id.ivFilter);
+        if (ivFilter != null) {
+            ivFilter.setOnClickListener(v -> showAdvancedFilterDialog());
+        }
+    }
+
+    // ✅ НАСТРОЙКА ЧИПОВ ЖАНРОВ
+    private void setupGenreChips() {
         String[] genres = {
                 getString(R.string.genre_all),
                 getString(R.string.genre_hip_hop),
@@ -120,9 +172,6 @@ public class BuyerHomeFragment extends Fragment {
             });
             binding.genreChipGroup.addView(chip);
         }
-
-        binding.swipeRefresh.setOnRefreshListener(() -> loadBeats());
-        loadBeats();
     }
 
     private void showAdvancedFilterDialog() {
@@ -160,6 +209,7 @@ public class BuyerHomeFragment extends Fragment {
         dialog.show();
     }
 
+    // ✅ ПРИМЕНЕНИЕ ВСЕХ ФИЛЬТРОВ
     private void applyAllFilters() {
         List<Beat> result = new ArrayList<>();
 
@@ -174,7 +224,20 @@ public class BuyerHomeFragment extends Fragment {
             }
         }
 
-        // 2. Фильтр по тегам
+        // 2. ✅ Фильтр по поисковому запросу (название или продюсер)
+        if (currentSearchQuery != null && !currentSearchQuery.isEmpty()) {
+            List<Beat> searchFiltered = new ArrayList<>();
+            String query = currentSearchQuery.toLowerCase();
+            for (Beat beat : result) {
+                if (beat.getTitle().toLowerCase().contains(query) ||
+                        beat.getUserName().toLowerCase().contains(query)) {
+                    searchFiltered.add(beat);
+                }
+            }
+            result = searchFiltered;
+        }
+
+        // 3. Фильтр по тегам
         if (searchTag != null && !searchTag.isEmpty()) {
             List<Beat> tagFiltered = new ArrayList<>();
             for (Beat beat : result) {
@@ -185,7 +248,7 @@ public class BuyerHomeFragment extends Fragment {
             result = tagFiltered;
         }
 
-        // 3. Фильтр по BPM диапазону
+        // 4. Фильтр по BPM диапазону
         if (minBpm > 0 || maxBpm > 0) {
             List<Beat> bpmFiltered = new ArrayList<>();
             for (Beat beat : result) {
@@ -198,16 +261,24 @@ public class BuyerHomeFragment extends Fragment {
             result = bpmFiltered;
         }
 
-        // 4. Сортировка
+        // 5. Сортировка
         sortBeats(result);
 
         filteredBeats.clear();
         filteredBeats.addAll(result);
-        beatsAdapter.notifyDataSetChanged();
+
+        // ✅ Обновляем адаптер с поддержкой поиска
+        if (beatsAdapter != null) {
+            beatsAdapter.updateBeatsList(filteredBeats);
+        }
+
         updateEmpty();
+        updateSkeletonVisibility();
 
         Log.d(TAG, "Filter applied: genre=" + selectedGenre +
-                ", sort=" + sortType + ", tag=" + searchTag +
+                ", search=" + currentSearchQuery +
+                ", sort=" + sortType +
+                ", tag=" + searchTag +
                 ", bpmRange=" + minBpm + "-" + maxBpm +
                 ", results=" + result.size());
     }
@@ -233,10 +304,10 @@ public class BuyerHomeFragment extends Fragment {
     private void sortBeats(List<Beat> beats) {
         switch (sortType) {
             case "price_asc":
-                Collections.sort(beats, (a, b) -> Double.compare(a.getPrice(), b.getPrice()));
+                Collections.sort(beats, (a, b) -> Double.compare(a.getPriceMp3Wav(), b.getPriceMp3Wav()));
                 break;
             case "price_desc":
-                Collections.sort(beats, (a, b) -> Double.compare(b.getPrice(), a.getPrice()));
+                Collections.sort(beats, (a, b) -> Double.compare(b.getPriceMp3Wav(), a.getPriceMp3Wav()));
                 break;
             case "bpm_asc":
                 Collections.sort(beats, (a, b) -> Integer.compare(a.getBpm(), b.getBpm()));
@@ -250,7 +321,7 @@ public class BuyerHomeFragment extends Fragment {
     }
 
     private void loadBeats() {
-        binding.progressBar.setVisibility(View.VISIBLE);
+        showProgress(true);
 
         if (beatsListener != null) {
             beatsListener.remove();
@@ -258,11 +329,11 @@ public class BuyerHomeFragment extends Fragment {
 
         beatsListener = firestoreHelper.getBeatsRealtime(new FirestoreHelper.FirestoreCallback() {
             @Override
-            public void onSuccess(Object r) {
-                List<Beat> beats = (List<Beat>) r;
+            public void onSuccess(Object result) {
+                List<Beat> beats = (List<Beat>) result;
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
-                        binding.progressBar.setVisibility(View.GONE);
+                        showProgress(false);
                         binding.swipeRefresh.setRefreshing(false);
                         if (beats != null && !beats.isEmpty()) {
                             allBeats.clear();
@@ -271,47 +342,45 @@ public class BuyerHomeFragment extends Fragment {
                             Log.d(TAG, "Loaded " + beats.size() + " beats from realtime listener");
                         }
                         updateEmpty();
+                        updateSkeletonVisibility();
                     });
                 }
             }
 
             @Override
-            public void onError(String e) {
+            public void onError(String error) {
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
-                        binding.progressBar.setVisibility(View.GONE);
+                        showProgress(false);
                         binding.swipeRefresh.setRefreshing(false);
                         updateEmpty();
+                        updateSkeletonVisibility();
                     });
                 }
             }
         });
     }
 
-    public void searchBeats(String q) {
-        binding.progressBar.setVisibility(View.VISIBLE);
-        firestoreHelper.searchBeats(q, new FirestoreHelper.FirestoreCallback() {
-            @Override
-            public void onSuccess(Object r) {
-                List<Beat> res = (List<Beat>) r;
-                if (getActivity() != null) {
-                    getActivity().runOnUiThread(() -> {
-                        binding.progressBar.setVisibility(View.GONE);
-                        filteredBeats.clear();
-                        if (res != null) filteredBeats.addAll(res);
-                        beatsAdapter.notifyDataSetChanged();
-                        updateEmpty();
-                    });
-                }
-            }
+    private void showProgress(boolean show) {
+        if (binding.progressBar != null) {
+            binding.progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
+        if (binding.skeletonLayout != null) {
+            binding.skeletonLayout.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
+    }
 
-            @Override
-            public void onError(String e) {
-                if (getActivity() != null) {
-                    getActivity().runOnUiThread(() -> binding.progressBar.setVisibility(View.GONE));
-                }
-            }
-        });
+    private void updateSkeletonVisibility() {
+        if (binding.skeletonLayout != null && filteredBeats.isEmpty() && allBeats.isEmpty()) {
+            binding.skeletonLayout.setVisibility(View.VISIBLE);
+        } else if (binding.skeletonLayout != null) {
+            binding.skeletonLayout.setVisibility(View.GONE);
+        }
+    }
+
+    public void searchBeats(String query) {
+        currentSearchQuery = query;
+        applyAllFilters();
     }
 
     public void forceRefresh() {
@@ -328,7 +397,9 @@ public class BuyerHomeFragment extends Fragment {
         if (binding.emptyState != null) {
             binding.emptyState.setVisibility(empty ? View.VISIBLE : View.GONE);
         }
-        binding.recyclerViewBeats.setVisibility(empty ? View.GONE : View.VISIBLE);
+        if (binding.recyclerViewBeats != null) {
+            binding.recyclerViewBeats.setVisibility(empty ? View.GONE : View.VISIBLE);
+        }
     }
 
     @Override
@@ -347,6 +418,9 @@ public class BuyerHomeFragment extends Fragment {
         if (beatsListener != null) {
             beatsListener.remove();
             beatsListener = null;
+        }
+        if (beatsAdapter != null) {
+            beatsAdapter.releaseMediaPlayer();
         }
         binding = null;
     }

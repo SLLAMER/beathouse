@@ -31,7 +31,7 @@ public class QrPaymentActivity extends BaseActivity {
     private static final String TAG = "QrPaymentActivity";
 
     private MaterialToolbar toolbar;
-    private TextView tvAmount, tvOrderId;
+    private TextView tvAmount, tvOrderId, tvInstruction;
     private ImageView ivQrCode;
     private MaterialButton btnIHavePaid, btnCancel;
     private FrameLayout cardQr;
@@ -74,6 +74,7 @@ public class QrPaymentActivity extends BaseActivity {
         toolbar = findViewById(R.id.toolbar);
         tvAmount = findViewById(R.id.tv_amount);
         tvOrderId = findViewById(R.id.tv_order_id);
+        tvInstruction = findViewById(R.id.tv_instruction);
         ivQrCode = findViewById(R.id.iv_qr_code);
         btnIHavePaid = findViewById(R.id.btn_i_have_paid);
         btnCancel = findViewById(R.id.btn_cancel);
@@ -81,7 +82,12 @@ public class QrPaymentActivity extends BaseActivity {
         progressBar = findViewById(R.id.progress_bar);
 
         tvAmount.setText(String.format("$%.0f", totalAmount));
-        tvOrderId.setText("Заказ: " + orderId);
+        tvOrderId.setText(getString(R.string.order_id) + ": " + orderId);
+
+        // Устанавливаем инструкцию из ресурсов
+        if (tvInstruction != null) {
+            tvInstruction.setText(getString(R.string.qr_instruction));
+        }
 
         btnIHavePaid.setOnClickListener(v -> onIHavePaidClicked());
         btnCancel.setOnClickListener(v -> finish());
@@ -90,7 +96,7 @@ public class QrPaymentActivity extends BaseActivity {
     private void setupToolbar() {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Оплата по QR");
+            getSupportActionBar().setTitle(getString(R.string.qr_payment));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         toolbar.setNavigationOnClickListener(v -> finish());
@@ -107,6 +113,14 @@ public class QrPaymentActivity extends BaseActivity {
 
         Log.e(TAG, "qrData: " + qrData);
 
+        // Показываем прогресс
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        if (ivQrCode != null) {
+            ivQrCode.setVisibility(View.GONE);
+        }
+
         try {
             QRCodeWriter writer = new QRCodeWriter();
             BitMatrix bitMatrix = writer.encode(qrData, BarcodeFormat.QR_CODE, 800, 800);
@@ -121,7 +135,10 @@ public class QrPaymentActivity extends BaseActivity {
             }
 
             ivQrCode.setImageBitmap(bitmap);
-            cardQr.setVisibility(View.VISIBLE);
+            ivQrCode.setVisibility(View.VISIBLE);
+            if (cardQr != null) {
+                cardQr.setVisibility(View.VISIBLE);
+            }
             if (progressBar != null) {
                 progressBar.setVisibility(View.GONE);
             }
@@ -129,7 +146,7 @@ public class QrPaymentActivity extends BaseActivity {
 
         } catch (WriterException e) {
             Log.e(TAG, "❌ Error generating QR code: " + e.getMessage());
-            Toast.makeText(this, "Ошибка генерации QR-кода", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_generating_qr, Toast.LENGTH_SHORT).show();
             if (progressBar != null) {
                 progressBar.setVisibility(View.GONE);
             }
@@ -138,7 +155,30 @@ public class QrPaymentActivity extends BaseActivity {
 
     private void onIHavePaidClicked() {
         btnIHavePaid.setEnabled(false);
-        btnIHavePaid.setText("Обработка...");
+        btnIHavePaid.setText(R.string.processing);
+
+        // Показываем диалог подтверждения
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle(R.string.confirm_payment)
+                .setMessage(R.string.confirm_payment_message_qr)
+                .setPositiveButton(R.string.yes_paid, (dialog, which) -> {
+                    processSuccessPayment();
+                })
+                .setNegativeButton(R.string.not_yet, (dialog, which) -> {
+                    btnIHavePaid.setEnabled(true);
+                    btnIHavePaid.setText(R.string.i_have_paid);
+                })
+                .show();
+    }
+
+    private void processSuccessPayment() {
+        // Показываем прогресс
+        btnIHavePaid.setText(R.string.processing);
+        btnIHavePaid.setEnabled(false);
+
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
         new Handler().postDelayed(() -> {
             cartManager.clearCart();
@@ -154,6 +194,6 @@ public class QrPaymentActivity extends BaseActivity {
 
             startActivity(intent);
             finish();
-        }, 1000);
+        }, 1500);
     }
 }

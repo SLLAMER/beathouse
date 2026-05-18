@@ -26,7 +26,9 @@ public class SbpBanksActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
         totalAmount = getIntent().getDoubleExtra("total_amount", 0);
-        binding.tvAmount.setText(String.format("$%.2f", totalAmount));
+
+        // ✅ ИСПРАВЛЕНО: убраны копейки
+        binding.tvAmount.setText(String.format("$%.0f", totalAmount));
 
         setupToolbar();
         setupRecyclerView();

@@ -5,28 +5,30 @@
     android:id="@+id/cardNotification"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardElevation="1dp"
-    app:cardBackgroundColor="@color/surface_dark"
-    app:cardCornerRadius="8dp"
-    app:strokeColor="@color/outline"
-    app:strokeWidth="1dp">
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/surface_container"
+    app:strokeColor="@color/outline_variant"
+    app:strokeWidth="0.5dp"
+    android:stateListAnimator="@null">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp"
+        android:padding="16dp"
         android:gravity="center_vertical">
 
+        <!-- Иконка типа уведомления -->
         <TextView
             android:id="@+id/tvType"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:gravity="center"
             android:text="📢"
-            android:textSize="20sp"
-            android:background="@drawable/circle_background" />
+            android:textSize="22sp"
+            android:background="@drawable/notification_icon_background" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -35,37 +37,52 @@
             android:layout_marginStart="12dp"
             android:orientation="vertical">
 
+            <!-- Заголовок -->
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Notification Title"
                 android:textColor="@color/on_surface"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:maxLines="1"
                 android:ellipsize="end" />
 
+            <!-- Сообщение -->
             <TextView
                 android:id="@+id/tvMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Notification message"
-                android:textColor="@color/on_surface_variant"
+                android:layout_marginTop="4dp"
+                android:text="Notification message content goes here"
+                android:textColor="@color/on_surface_secondary"
                 android:textSize="13sp"
                 android:maxLines="2"
                 android:ellipsize="end" />
 
+            <!-- Время -->
             <TextView
                 android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="6dp"
                 android:text="Just now"
-                android:textColor="@color/on_surface_variant"
+                android:textColor="@color/on_surface_secondary"
                 android:textSize="11sp"
                 android:alpha="0.7" />
+
         </LinearLayout>
+
+        <!-- Непрочитанный индикатор -->
+        <View
+            android:id="@+id/unreadIndicator"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/unread_indicator"
+            android:visibility="gone" />
+
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>

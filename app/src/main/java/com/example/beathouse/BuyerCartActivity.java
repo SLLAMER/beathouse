@@ -166,7 +166,7 @@ public class BuyerCartActivity extends BaseActivity {
         updateCartUI();
     }
 
-    // ✅ ИСПРАВЛЕННЫЙ метод - убран вызов updateCartItems, вызывающий бесконечный цикл
+    // ✅ ОБНОВЛЕННЫЙ метод UI
     public void updateCartUI() {
         List<CartItem> cartItems = cartManager.getCartItems();
         int itemCount = cartItems.size();
@@ -176,25 +176,31 @@ public class BuyerCartActivity extends BaseActivity {
 
         runOnUiThread(() -> {
             if (itemCount == 0) {
-                binding.emptyState.setVisibility(View.VISIBLE);
-                binding.rvCartItems.setVisibility(View.GONE);
-                binding.cartSummary.setVisibility(View.GONE);
+                showEmptyState();
             } else {
-                binding.emptyState.setVisibility(View.GONE);
-                binding.rvCartItems.setVisibility(View.VISIBLE);
-                binding.cartSummary.setVisibility(View.VISIBLE);
-                binding.tvItemCount.setText(itemCount + " items");
+                showCartContent();
+                binding.tvItemCount.setText(itemCount + " " + getString(R.string.items));
                 binding.tvTotalPrice.setText(cartManager.getFormattedTotal());
 
                 if (total == 0) {
-                    binding.btnCheckout.setText("Download Free Beats");
+                    binding.btnCheckout.setText(getString(R.string.download_free_beats));
                 } else {
-                    binding.btnCheckout.setText("Checkout - " + cartManager.getFormattedTotal());
+                    binding.btnCheckout.setText(getString(R.string.proceed_to_checkout) + " - " + cartManager.getFormattedTotal());
                 }
             }
         });
+    }
 
-        // ✅ УБРАНО: cartAdapter.updateCartItems(cartItems) - ЭТО ВЫЗЫВАЛО БЕСКОНЕЧНЫЙ ЦИКЛ!
+    private void showEmptyState() {
+        binding.emptyState.setVisibility(View.VISIBLE);
+        binding.rvCartItems.setVisibility(View.GONE);
+        binding.cartSummary.setVisibility(View.GONE);
+    }
+
+    private void showCartContent() {
+        binding.emptyState.setVisibility(View.GONE);
+        binding.rvCartItems.setVisibility(View.VISIBLE);
+        binding.cartSummary.setVisibility(View.VISIBLE);
     }
 
     private void setupCheckoutButton() {
@@ -212,7 +218,7 @@ public class BuyerCartActivity extends BaseActivity {
                     processPaidOrder();
                 }
             } else {
-                Toast.makeText(this, "Cart is empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.cart_empty), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -234,7 +240,7 @@ public class BuyerCartActivity extends BaseActivity {
 
     private void createOrdersForAllProducers(List<CartItem> cartItems, boolean isFree) {
         binding.btnCheckout.setEnabled(false);
-        binding.btnCheckout.setText("Processing...");
+        binding.btnCheckout.setText(getString(R.string.processing));
 
         Log.d(TAG, "📝 Creating orders for " + cartItems.size() + " items");
         Log.d(TAG, "  CurrentUserId: " + currentUserId);
@@ -340,10 +346,10 @@ public class BuyerCartActivity extends BaseActivity {
                                             navigateToOrderComplete(allOrderItems);
                                         } else {
                                             Toast.makeText(BuyerCartActivity.this,
-                                                    "Failed to create orders",
+                                                    getString(R.string.failed_to_create_orders),
                                                     Toast.LENGTH_LONG).show();
                                             binding.btnCheckout.setEnabled(true);
-                                            binding.btnCheckout.setText("Retry");
+                                            binding.btnCheckout.setText(getString(R.string.retry));
                                         }
                                     });
                                 }
@@ -357,9 +363,9 @@ public class BuyerCartActivity extends BaseActivity {
             public void onError(String error) {
                 runOnUiThread(() -> {
                     binding.btnCheckout.setEnabled(true);
-                    binding.btnCheckout.setText("Retry");
+                    binding.btnCheckout.setText(getString(R.string.retry));
                     Toast.makeText(BuyerCartActivity.this,
-                            "Error loading beat information: " + error,
+                            getString(R.string.error_loading_beat_info) + error,
                             Toast.LENGTH_LONG).show();
                 });
             }
@@ -417,7 +423,7 @@ public class BuyerCartActivity extends BaseActivity {
         finish();
     }
 
-    // ✅ ИСПРАВЛЕННЫЙ onResume
+    // ✅ ОБНОВЛЕННЫЙ onResume
     @Override
     protected void onResume() {
         super.onResume();

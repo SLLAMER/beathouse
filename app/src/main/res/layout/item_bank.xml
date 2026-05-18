@@ -2,12 +2,18 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardBank"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/surface_container">
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/surface_container"
+    app:strokeColor="@color/outline_variant"
+    app:strokeWidth="0.5dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:stateListAnimator="@null">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,13 +22,16 @@
         android:padding="16dp"
         android:gravity="center_vertical">
 
+        <!-- Иконка банка -->
         <ImageView
             android:id="@+id/iv_bank_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="16dp"
-            android:scaleType="fitCenter" />
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/bank_icon_background"
+            android:padding="10dp" />
 
+        <!-- Название банка -->
         <TextView
             android:id="@+id/tv_bank_name"
             android:layout_width="0dp"
@@ -33,11 +42,12 @@
             android:textSize="16sp"
             android:textColor="@color/on_surface" />
 
+        <!-- Стрелка -->
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/ic_chevron_right"
-            android:tint="@color/on_surface_variant" />
+            app:tint="@color/on_surface_secondary" />
 
     </LinearLayout>
 

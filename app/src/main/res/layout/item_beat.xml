@@ -4,45 +4,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="6dp"
     app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
+    app:cardElevation="1dp"
     app:cardBackgroundColor="@color/surface_container"
-    app:strokeColor="@color/outline"
-    app:strokeWidth="1dp"
-    app:cardUseCompatPadding="true">
+    app:strokeColor="@color/outline_variant"
+    app:strokeWidth="0.5dp"
+    android:stateListAnimator="@null">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="12dp">
 
-        <!-- Верхняя часть: обложка и информация -->
+        <!-- Верхняя часть -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!-- Обложка слева -->
+            <!-- Обложка -->
             <ImageView
                 android:id="@+id/ivCover"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="12dp"
                 android:scaleType="centerCrop"
+                android:src="@drawable/ic_music_note"
                 android:background="@color/surface_variant"
-                android:contentDescription="Beat cover"
-                app:srcCompat="@drawable/ic_music_note" />
+                app:cornerRadius="12dp"
+                android:contentDescription="Beat cover" />
 
-            <!-- Основная информация справа -->
+            <!-- Информация -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <!-- Первая строка: Название и цена -->
+                <!-- Название и цена -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -54,8 +56,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Trapper"
-                        android:textSize="16sp"
+                        android:text="Beat Title"
+                        android:textSize="15sp"
                         android:textStyle="bold"
                         android:textColor="@color/on_surface"
                         android:maxLines="1"
@@ -66,56 +68,44 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="$50"
-                        android:textSize="14sp"
+                        android:textSize="13sp"
                         android:textStyle="bold"
                         android:paddingHorizontal="8dp"
-                        android:paddingVertical="4dp"
+                        android:paddingVertical="2dp"
                         android:background="@drawable/price_background"
                         android:textColor="@color/on_primary" />
 
                 </LinearLayout>
 
-                <!-- Вторая строка: Автор -->
+                <!-- Продюсер -->
                 <TextView
                     android:id="@+id/tvProducer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="by 52NGG"
-                    android:textSize="12sp"
-                    android:textColor="@color/on_surface_variant"
+                    android:text="by Producer"
+                    android:textSize="11sp"
+                    android:textColor="@color/on_surface_secondary"
                     android:layout_marginTop="2dp"
                     android:maxLines="1"
                     android:ellipsize="end" />
 
-                <!-- Третья строка: BPM -->
-                <TextView
-                    android:id="@+id/tvBpm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="150 BPM"
-                    android:textSize="12sp"
-                    android:textColor="@color/on_surface_variant"
-                    android:layout_marginTop="4dp"
-                    android:maxLines="1" />
-
-                <!-- Четвертая строка: Описание -->
-                <TextView
-                    android:id="@+id/tvDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Morioh x Swapa Type Beat"
-                    android:textSize="12sp"
-                    android:textColor="@color/on_surface"
-                    android:layout_marginTop="2dp"
-                    android:maxLines="3"
-                    android:ellipsize="end" />
-
-                <!-- Пятая строка: Теги Key и Genre -->
+                <!-- Теги BPM/Key/Genre -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="6dp">
+
+                    <TextView
+                        android:id="@+id/tvBpm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="120 BPM"
+                        android:textSize="10sp"
+                        android:textColor="@color/on_surface_secondary"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:background="@drawable/tag_background" />
 
                     <TextView
                         android:id="@+id/tvKey"
@@ -123,10 +113,11 @@
                         android:layout_height="wrap_content"
                         android:text="Cmin"
                         android:textSize="10sp"
-                        android:textColor="@color/on_surface_variant"
-                        android:background="@drawable/tag_background"
+                        android:textColor="@color/on_surface_secondary"
                         android:paddingHorizontal="6dp"
-                        android:paddingVertical="2dp" />
+                        android:paddingVertical="2dp"
+                        android:background="@drawable/tag_background"
+                        android:layout_marginStart="4dp" />
 
                     <TextView
                         android:id="@+id/tvGenre"
@@ -134,59 +125,60 @@
                         android:layout_height="wrap_content"
                         android:text="Hip-Hop"
                         android:textSize="10sp"
-                        android:textColor="@color/on_surface_variant"
-                        android:background="@drawable/tag_background"
+                        android:textColor="@color/on_surface_secondary"
                         android:paddingHorizontal="6dp"
                         android:paddingVertical="2dp"
+                        android:background="@drawable/tag_background"
                         android:layout_marginStart="4dp" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <!-- Кнопка корзины справа с бейджем -->
-            <RelativeLayout
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+            <!-- Кнопка корзины -->
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="top"
                 android:layout_marginStart="8dp">
 
                 <ImageButton
                     android:id="@+id/btn_add_to_cart"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_shopping_cart"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="Add to cart"
                     app:tint="@color/primary" />
 
-                <!-- Cart badge -->
                 <View
                     android:id="@+id/cart_badge"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_alignTop="@id/btn_add_to_cart"
-                    android:layout_alignEnd="@id/btn_add_to_cart"
+                    android:layout_gravity="top|end"
                     android:background="@drawable/badge_background"
                     android:visibility="gone" />
 
-            </RelativeLayout>
+            </FrameLayout>
 
         </LinearLayout>
 
-        <!-- Кнопка воспроизведения под битом -->
+        <!-- Кнопка Play -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPlay"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="10dp"
             android:text="Play"
-            android:layout_gravity="center"
+            android:textSize="12sp"
             app:icon="@drawable/ic_play_arrow"
             app:iconGravity="textStart"
-            app:cornerRadius="20dp"
-            app:backgroundTint="@color/primary"
-            android:textColor="@color/on_primary"
-            style="@style/Widget.Material3.Button.ElevatedButton" />
+            app:iconSize="18dp"
+            app:cornerRadius="18dp"
+            app:backgroundTint="@color/surface_variant"
+            android:textColor="@color/primary"
+            style="@style/Widget.Material3.Button.TextButton" />
 
     </LinearLayout>
 

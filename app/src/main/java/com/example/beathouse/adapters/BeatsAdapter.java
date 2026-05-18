@@ -26,6 +26,7 @@ import com.example.beathouse.utils.FirestoreHelper;
 import com.example.beathouse.MiniPlayer;
 import com.google.android.material.button.MaterialButton;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ import java.util.Map;
 public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHolder> {
 
     private List<Beat> beatsList;
+    private List<Beat> beatsListFull; // ✅ Для поиска
     private Context context;
     private MediaPlayer mediaPlayer;
     private int currentlyPlayingPosition = -1;
@@ -55,8 +57,18 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
 
     private OnPlaybackStateChangeListener playbackStateChangeListener;
 
+    // ✅ Слушатель для поиска и фильтрации
+    public interface OnFilterChangeListener {
+        void onFilterChanged(String query, String genre);
+    }
+    private OnFilterChangeListener filterChangeListener;
+
     public void setOnPlaybackStateChangeListener(OnPlaybackStateChangeListener listener) {
         this.playbackStateChangeListener = listener;
+    }
+
+    public void setOnFilterChangeListener(OnFilterChangeListener listener) {
+        this.filterChangeListener = listener;
     }
 
     private void notifyPlaybackStateChanged() {
@@ -79,6 +91,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
 
     public BeatsAdapter(List<Beat> beatsList, Context context) {
         this.beatsList = beatsList;
+        this.beatsListFull = new ArrayList<>(beatsList); // ✅ Сохраняем полный список
         this.context = context;
         this.audioCache = new HashMap<>();
         this.mainHandler = new Handler(Looper.getMainLooper());
@@ -102,6 +115,49 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     public void setMiniPlayer(MiniPlayer miniPlayer) {
         this.miniPlayer = miniPlayer;
         Log.d(TAG, "MiniPlayer set in adapter");
+    }
+
+    // ✅ ПОИСК И ФИЛЬТРАЦИЯ
+    public void filter(String query, String genre) {
+        List<Beat> filteredList = new ArrayList<>();
+
+        for (Beat beat : beatsListFull) {
+            boolean matchesQuery = true;
+            boolean matchesGenre = true;
+
+            // Поиск по названию
+            if (query != null && !query.isEmpty()) {
+                matchesQuery = beat.getTitle().toLowerCase().contains(query.toLowerCase()) ||
+                        beat.getUserName().toLowerCase().contains(query.toLowerCase());
+            }
+
+            // Фильтр по жанру
+            if (genre != null && !genre.isEmpty() && !genre.equals("All")) {
+                matchesGenre = beat.getGenre() != null &&
+                        beat.getGenre().toLowerCase().contains(genre.toLowerCase());
+            }
+
+            if (matchesQuery && matchesGenre) {
+                filteredList.add(beat);
+            }
+        }
+
+        beatsList.clear();
+        beatsList.addAll(filteredList);
+        notifyDataSetChanged();
+
+        if (filterChangeListener != null) {
+            filterChangeListener.onFilterChanged(query, genre);
+        }
+
+        Log.d(TAG, "Filtered: " + filteredList.size() + " beats (query=" + query + ", genre=" + genre + ")");
+    }
+
+    // ✅ Сброс фильтра
+    public void resetFilter() {
+        beatsList.clear();
+        beatsList.addAll(beatsListFull);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -207,12 +263,16 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
 
         if (inCart) {
             holder.btnAddToCart.setImageResource(R.drawable.ic_cart_with_badge);
-            holder.btnAddToCart.setColorFilter(ContextCompat.getColor(context, android.R.color.holo_red_dark));
-            holder.cartBadge.setVisibility(View.VISIBLE);
+            holder.btnAddToCart.setColorFilter(ContextCompat.getColor(context, R.color.primary));
+            if (holder.cartBadge != null) {
+                holder.cartBadge.setVisibility(View.VISIBLE);
+            }
         } else {
             holder.btnAddToCart.setImageResource(R.drawable.ic_shopping_cart);
             holder.btnAddToCart.setColorFilter(ContextCompat.getColor(context, R.color.primary));
-            holder.cartBadge.setVisibility(View.GONE);
+            if (holder.cartBadge != null) {
+                holder.cartBadge.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -225,7 +285,6 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
                 showToast("Failed to remove from cart");
             }
         } else {
-            // ✅ Добавляем с лицензией по умолчанию (MP3+WAV)
             if (cartManager.addToCartWithDefaultLicense(beat)) {
                 updateCartButtonState(holder, beat);
                 showToast("Added to cart");
@@ -641,7 +700,9 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
             stopPlaybackCompletely();
             audioCache.clear();
             this.beatsList.clear();
+            this.beatsListFull.clear();
             this.beatsList.addAll(newBeats);
+            this.beatsListFull.addAll(newBeats);
             notifyDataSetChanged();
         }
     }

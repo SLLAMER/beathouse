@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surface">
+    android:background="@color/background">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -13,7 +13,6 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
             android:fillViewport="true"
             android:clipToPadding="false">
 
@@ -21,97 +20,117 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:padding="16dp"
                 android:gravity="center_horizontal">
 
                 <!-- Profile Header -->
-                <LinearLayout
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_marginBottom="24dp">
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/surface_container"
+                    app:strokeColor="@color/outline_variant"
+                    app:strokeWidth="0.5dp">
 
-                    <RelativeLayout
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginBottom="12dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="24dp">
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/ivAvatar"
+                        <!-- Avatar -->
+                        <RelativeLayout
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:src="@drawable/ic_profile_placeholder"
-                            app:civ_border_width="3dp"
-                            app:civ_border_color="@color/primary" />
+                            android:layout_marginBottom="12dp">
 
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/fabEditAvatar"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:src="@drawable/ic_edit"
-                            app:fabSize="mini"
-                            app:tint="@color/on_primary"
-                            app:backgroundTint="@color/primary"
-                            app:elevation="4dp" />
-                    </RelativeLayout>
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/ivAvatar"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:src="@drawable/ic_profile_placeholder"
+                                app:civ_border_width="3dp"
+                                app:civ_border_color="@color/primary" />
 
-                    <TextView
-                        android:id="@+id/tvUsername"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Username"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/on_surface" />
+                            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                android:id="@+id/fabEditAvatar"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginEnd="4dp"
+                                android:layout_marginBottom="4dp"
+                                android:src="@drawable/ic_edit"
+                                app:fabSize="mini"
+                                app:tint="@color/on_primary"
+                                app:backgroundTint="@color/primary"
+                                app:elevation="4dp" />
 
-                    <TextView
-                        android:id="@+id/tvBioDisplay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text=""
-                        android:textSize="12sp"
-                        android:textColor="@color/on_surface_variant"
-                        android:maxLines="4"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:visibility="gone" />
+                        </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/tvEmail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="email@example.com"
-                        android:textSize="12sp"
-                        android:textColor="@color/on_surface_variant" />
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvUsername"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Username"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/on_surface" />
+
+                        <TextView
+                            android:id="@+id/tvEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="email@example.com"
+                            android:textSize="13sp"
+                            android:textColor="@color/on_surface_secondary" />
+
+                        <TextView
+                            android:id="@+id/tvBioDisplay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text=""
+                            android:textSize="13sp"
+                            android:textColor="@color/on_surface_secondary"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:ellipsize="end"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
                 <!-- Stats Card -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="@color/surface"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/surface_container"
+                    app:strokeColor="@color/outline_variant"
+                    app:strokeWidth="0.5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="16dp">
+                        android:padding="20dp">
 
+                        <!-- Total Spent -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
                             android:gravity="center">
+
                             <TextView
                                 android:id="@+id/tvTotalSpent"
                                 android:layout_width="wrap_content"
@@ -119,26 +138,31 @@
                                 android:text="$0"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                android:textColor="@color/success"
-                                android:gravity="center" />
+                                android:textColor="@color/success" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/spent"
-                                android:textSize="10sp"
-                                android:textColor="@color/on_surface_variant"
-                                android:gravity="center" />
+                                android:textSize="11sp"
+                                android:textColor="@color/on_surface_secondary" />
+
                         </LinearLayout>
 
-                        <View android:layout_width="1dp" android:layout_height="40dp" android:background="@color/outline" />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="40dp"
+                            android:background="@color/outline_variant" />
 
+                        <!-- Beats Purchased -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
                             android:gravity="center">
+
                             <TextView
                                 android:id="@+id/tvBeatsPurchased"
                                 android:layout_width="wrap_content"
@@ -146,26 +170,31 @@
                                 android:text="0"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                android:textColor="@color/primary"
-                                android:gravity="center" />
+                                android:textColor="@color/primary" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/purchased"
-                                android:textSize="10sp"
-                                android:textColor="@color/on_surface_variant"
-                                android:gravity="center" />
+                                android:textSize="11sp"
+                                android:textColor="@color/on_surface_secondary" />
+
                         </LinearLayout>
 
-                        <View android:layout_width="1dp" android:layout_height="40dp" android:background="@color/outline" />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="40dp"
+                            android:background="@color/outline_variant" />
 
+                        <!-- Followers -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
                             android:gravity="center">
+
                             <TextView
                                 android:id="@+id/tvFollowers"
                                 android:layout_width="wrap_content"
@@ -173,26 +202,31 @@
                                 android:text="0"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                android:textColor="@color/primary"
-                                android:gravity="center" />
+                                android:textColor="@color/primary" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/followers"
-                                android:textSize="10sp"
-                                android:textColor="@color/on_surface_variant"
-                                android:gravity="center" />
+                                android:textSize="11sp"
+                                android:textColor="@color/on_surface_secondary" />
+
                         </LinearLayout>
 
-                        <View android:layout_width="1dp" android:layout_height="40dp" android:background="@color/outline" />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="40dp"
+                            android:background="@color/outline_variant" />
 
+                        <!-- Following -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
                             android:gravity="center">
+
                             <TextView
                                 android:id="@+id/tvFollowing"
                                 android:layout_width="wrap_content"
@@ -200,69 +234,106 @@
                                 android:text="0"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                android:textColor="@color/primary"
-                                android:gravity="center" />
+                                android:textColor="@color/primary" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/following_count"
-                                android:textSize="10sp"
-                                android:textColor="@color/on_surface_variant"
-                                android:gravity="center" />
+                                android:textSize="11sp"
+                                android:textColor="@color/on_surface_secondary" />
+
                         </LinearLayout>
+
                     </LinearLayout>
+
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Social Links Icons -->
-                <LinearLayout
-                    android:id="@+id/socialIconsLayout"
+                <!-- Social Links -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/socialLinksCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginBottom="20dp"
-                    android:visibility="gone">
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/surface_container"
+                    app:strokeColor="@color/outline_variant"
+                    app:strokeWidth="0.5dp">
 
-                    <ImageView
-                        android:id="@+id/ivInstagram"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:src="@drawable/ic_instagram"
-                        android:padding="8dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:visibility="gone" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                    <ImageView
-                        android:id="@+id/ivTelegram"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:src="@drawable/ic_telegram"
-                        android:padding="8dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:visibility="gone" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/social_links"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/on_surface"
+                            android:layout_marginBottom="12dp" />
 
-                    <ImageView
-                        android:id="@+id/ivVk"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:src="@drawable/ic_vk"
-                        android:padding="8dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:visibility="gone" />
-                </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/socialIconsLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/ivInstagram"
+                                android:layout_width="44dp"
+                                android:layout_height="44dp"
+                                android:src="@drawable/ic_instagram"
+                                android:padding="10dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:visibility="gone"
+                                app:tint="#E4405F" />
+
+                            <ImageView
+                                android:id="@+id/ivTelegram"
+                                android:layout_width="44dp"
+                                android:layout_height="44dp"
+                                android:src="@drawable/ic_telegram"
+                                android:padding="10dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:visibility="gone"
+                                app:tint="#26A5E4" />
+
+                            <ImageView
+                                android:id="@+id/ivVk"
+                                android:layout_width="44dp"
+                                android:layout_height="44dp"
+                                android:src="@drawable/ic_vk"
+                                android:padding="10dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:visibility="gone"
+                                app:tint="#2787F5" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
                 <!-- Edit Profile Card -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="@color/surface"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/surface_container"
+                    app:strokeColor="@color/outline_variant"
+                    app:strokeWidth="0.5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -275,45 +346,39 @@
                             android:layout_height="wrap_content"
                             android:text="@string/edit_profile"
                             android:textSize="18sp"
-                            android:layout_gravity="center"
                             android:textStyle="bold"
                             android:textColor="@color/on_surface"
                             android:layout_marginBottom="16dp" />
 
+                        <!-- Username -->
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/usernameLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="12dp"
-                            app:boxBackgroundMode="outline"
-                            app:boxCornerRadiusTopStart="8dp"
-                            app:boxCornerRadiusTopEnd="8dp"
-                            app:boxCornerRadiusBottomStart="8dp"
-                            app:boxCornerRadiusBottomEnd="8dp"
-                            app:boxStrokeColor="@color/outline">
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            app:boxBackgroundColor="@color/surface"
+                            app:boxStrokeColor="@color/outline_variant">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etUsername"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:minHeight="48dp"
                                 android:hint="@string/username"
-                                android:maxLines="1"
-                                android:textSize="14sp"
-                                android:background="@android:color/transparent" />
+                                android:textColor="@color/on_surface"
+                                android:textSize="14sp" />
+
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <!-- Bio -->
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/bioLayout"
                             android:layout_width="match_parent"
                             android:layout_height="80dp"
                             android:layout_marginBottom="12dp"
-                            app:boxBackgroundMode="outline"
-                            app:boxCornerRadiusTopStart="8dp"
-                            app:boxCornerRadiusTopEnd="8dp"
-                            app:boxCornerRadiusBottomStart="8dp"
-                            app:boxCornerRadiusBottomEnd="8dp"
-                            app:boxStrokeColor="@color/outline">
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            app:boxBackgroundColor="@color/surface"
+                            app:boxStrokeColor="@color/outline_variant">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etBio"
@@ -321,10 +386,10 @@
                                 android:layout_height="match_parent"
                                 android:hint="@string/bio"
                                 android:inputType="textMultiLine"
-                                android:maxLines="3"
-                                android:textSize="14sp"
-                                android:background="@android:color/transparent"
-                                android:gravity="top|start" />
+                                android:gravity="top"
+                                android:textColor="@color/on_surface"
+                                android:textSize="14sp" />
+
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <!-- Instagram -->
@@ -333,12 +398,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="12dp"
-                            app:boxBackgroundMode="outline"
-                            app:boxCornerRadiusTopStart="8dp"
-                            app:boxCornerRadiusTopEnd="8dp"
-                            app:boxCornerRadiusBottomStart="8dp"
-                            app:boxCornerRadiusBottomEnd="8dp"
-                            app:boxStrokeColor="@color/outline"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            app:boxBackgroundColor="@color/surface"
+                            app:boxStrokeColor="@color/outline_variant"
                             app:startIconDrawable="@drawable/ic_instagram"
                             app:startIconTint="#E4405F">
 
@@ -346,11 +408,11 @@
                                 android:id="@+id/etInstagram"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:minHeight="48dp"
                                 android:hint="Instagram URL"
                                 android:inputType="textUri"
-                                android:textSize="14sp"
-                                android:background="@android:color/transparent" />
+                                android:textColor="@color/on_surface"
+                                android:textSize="14sp" />
+
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <!-- Telegram -->
@@ -359,12 +421,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="12dp"
-                            app:boxBackgroundMode="outline"
-                            app:boxCornerRadiusTopStart="8dp"
-                            app:boxCornerRadiusTopEnd="8dp"
-                            app:boxCornerRadiusBottomStart="8dp"
-                            app:boxCornerRadiusBottomEnd="8dp"
-                            app:boxStrokeColor="@color/outline"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            app:boxBackgroundColor="@color/surface"
+                            app:boxStrokeColor="@color/outline_variant"
                             app:startIconDrawable="@drawable/ic_telegram"
                             app:startIconTint="#26A5E4">
 
@@ -372,11 +431,11 @@
                                 android:id="@+id/etTelegram"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:minHeight="48dp"
                                 android:hint="Telegram URL"
                                 android:inputType="textUri"
-                                android:textSize="14sp"
-                                android:background="@android:color/transparent" />
+                                android:textColor="@color/on_surface"
+                                android:textSize="14sp" />
+
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <!-- VK -->
@@ -385,12 +444,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
-                            app:boxBackgroundMode="outline"
-                            app:boxCornerRadiusTopStart="8dp"
-                            app:boxCornerRadiusTopEnd="8dp"
-                            app:boxCornerRadiusBottomStart="8dp"
-                            app:boxCornerRadiusBottomEnd="8dp"
-                            app:boxStrokeColor="@color/outline"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            app:boxBackgroundColor="@color/surface"
+                            app:boxStrokeColor="@color/outline_variant"
                             app:startIconDrawable="@drawable/ic_vk"
                             app:startIconTint="#2787F5">
 
@@ -398,11 +454,11 @@
                                 android:id="@+id/etVk"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:minHeight="48dp"
                                 android:hint="VK URL"
                                 android:inputType="textUri"
-                                android:textSize="14sp"
-                                android:background="@android:color/transparent" />
+                                android:textColor="@color/on_surface"
+                                android:textSize="14sp" />
+
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <!-- Save Button -->
@@ -413,27 +469,28 @@
                             android:text="@string/save"
                             android:textSize="15sp"
                             android:textStyle="bold"
-                            app:cornerRadius="10dp"
-                            app:backgroundTint="@color/primary" />
+                            app:cornerRadius="12dp"
+                            app:backgroundTint="@color/primary"
+                            android:textColor="@color/on_primary" />
 
                     </LinearLayout>
+
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Switch Role -->
+                <!-- Switch Role Button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSwitchRole"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="24dp"
                     android:text="@string/become_seller"
                     android:textSize="15sp"
-                    android:gravity="center"
+                    android:textStyle="bold"
                     app:cornerRadius="12dp"
                     app:strokeColor="@color/primary"
-                    app:strokeWidth="2dp"
+                    app:strokeWidth="1.5dp"
                     style="@style/Widget.Material3.Button.OutlinedButton" />
-
-                <View android:layout_width="match_parent" android:layout_height="100dp" />
 
             </LinearLayout>
 

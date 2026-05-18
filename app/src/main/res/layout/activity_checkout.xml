@@ -5,18 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/surface">
+    android:background="@color/background">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="@color/surface"
-        app:title="@string/checkout"
-        app:titleTextColor="@color/on_surface"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:navigationIconTint="@color/on_surface"
-        app:elevation="0dp" />
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/surface"
+            app:title="@string/checkout"
+            app:titleTextColor="@color/on_surface"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIconTint="@color/on_surface" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,14 +36,16 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Order Summary -->
+            <!-- Заказ -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
+                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/surface_container"
-                android:layout_marginBottom="16dp">
+                app:strokeColor="@color/outline_variant"
+                app:strokeWidth="0.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -45,7 +54,7 @@
                     android:padding="16dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/order_summary"
                         android:textSize="18sp"
@@ -53,44 +62,69 @@
                         android:textColor="@color/on_surface"
                         android:layout_marginBottom="12dp" />
 
-                    <TextView
-                        android:id="@+id/tv_total_items"
+                    <!-- Список товаров -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_order_items"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="5 beats (2 free + 3 paid)"
-                        android:textSize="14sp"
-                        android:textColor="@color/on_surface_variant"
-                        android:layout_marginBottom="8dp" />
+                        android:nestedScrollingEnabled="false" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/outline"
-                        android:layout_marginVertical="8dp" />
+                        android:background="@color/outline_variant"
+                        android:layout_marginVertical="12dp" />
 
+                    <!-- Количество товаров -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/total_items"
+                            android:textColor="@color/on_surface_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_total_items"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/on_surface"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <!-- Итоговая сумма -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="4dp">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/total_to_pay"
+                            android:textColor="@color/on_surface"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/on_surface" />
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tv_order_total"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$89.97"
+                            android:text="$0"
+                            android:textColor="@color/primary"
                             android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/primary" />
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -98,14 +132,15 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Beats List -->
+            <!-- Способ оплаты -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
+                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/surface_container"
-                android:layout_marginBottom="16dp">
+                app:strokeColor="@color/outline_variant"
+                app:strokeWidth="0.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -114,41 +149,7 @@
                     android:padding="16dp">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/beats_in_order"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/on_surface"
-                        android:layout_marginBottom="12dp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_order_items"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Payment Methods - без иконок -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/surface_container"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/payment_method"
                         android:textSize="18sp"
@@ -162,95 +163,78 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <!-- Карта - без иконки -->
-                        <RadioButton
-                            android:id="@+id/rb_card"
+                        <!-- Карта -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/card_card"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/primary"
-                            android:padding="16dp"
-                            android:text="@string/credit_card"
-                            android:textSize="16sp"
-                            android:textColor="@color/on_surface" />
+                            android:layout_marginBottom="8dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:strokeColor="@color/outline_variant"
+                            app:strokeWidth="0.5dp"
+                            android:stateListAnimator="@null">
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/outline"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp" />
+                            <RadioButton
+                                android:id="@+id/rb_card"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:buttonTint="@color/primary"
+                                android:padding="12dp"
+                                android:text="@string/credit_card"
+                                android:textColor="@color/on_surface"
+                                android:textSize="15sp" />
 
-                        <!-- СБП - без иконки (иконки банков будут внутри SbpBanksActivity) -->
-                        <RadioButton
-                            android:id="@+id/rb_sbp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/primary"
-                            android:padding="16dp"
-                            android:text="@string/sbp"
-                            android:textSize="16sp"
-                            android:textColor="@color/on_surface" />
+                        </com.google.android.material.card.MaterialCardView>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/outline"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp" />
-
-                        <!-- QR код - без иконки -->
-                        <RadioButton
-                            android:id="@+id/rb_qr"
+                        <!-- СБП -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/card_sbp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/primary"
-                            android:padding="16dp"
-                            android:text="@string/qr_code_payment"
-                            android:textSize="16sp"
-                            android:textColor="@color/on_surface" />
+                            android:layout_marginBottom="8dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:strokeColor="@color/outline_variant"
+                            app:strokeWidth="0.5dp"
+                            android:stateListAnimator="@null">
+
+                            <RadioButton
+                                android:id="@+id/rb_sbp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:buttonTint="@color/primary"
+                                android:padding="12dp"
+                                android:text="@string/sbp"
+                                android:textColor="@color/on_surface"
+                                android:textSize="15sp" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- QR код -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/card_qr"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:strokeColor="@color/outline_variant"
+                            app:strokeWidth="0.5dp"
+                            android:stateListAnimator="@null">
+
+                            <RadioButton
+                                android:id="@+id/rb_qr"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:buttonTint="@color/primary"
+                                android:padding="12dp"
+                                android:text="@string/qr_code_payment"
+                                android:textColor="@color/on_surface"
+                                android:textSize="15sp" />
+
+                        </com.google.android.material.card.MaterialCardView>
 
                     </RadioGroup>
-
-                    <!-- QR Code Container -->
-                    <LinearLayout
-                        android:id="@+id/qr_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="20dp"
-                        android:background="@drawable/rounded_container"
-                        android:layout_marginTop="16dp"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/scan_qr_to_pay"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:textColor="@color/on_surface"
-                            android:layout_marginBottom="16dp" />
-
-                        <ImageView
-                            android:id="@+id/iv_qr_code"
-                            android:layout_width="200dp"
-                            android:layout_height="200dp"
-                            android:background="@color/surface"
-                            android:padding="12dp"
-                            android:src="@drawable/ic_qr_code" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/point_camera_to_qr"
-                            android:textSize="12sp"
-                            android:gravity="center"
-                            android:layout_marginTop="16dp"
-                            android:textColor="@color/on_surface_variant" />
-
-                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -260,16 +244,17 @@
 
     </ScrollView>
 
+    <!-- Кнопка оплаты -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_complete_payment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_margin="16dp"
         android:text="@string/continue_to_payment"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/on_primary"
         app:cornerRadius="12dp"
-        app:backgroundTint="@color/primary" />
+        app:backgroundTint="@color/primary"
+        android:textColor="@color/on_primary" />
 
 </LinearLayout>

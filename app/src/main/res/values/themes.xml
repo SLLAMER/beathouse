@@ -1,54 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- ✅ Используем чистую темную тему вместо DayNight -->
-    <style name="Base.Theme.BeatHouse" parent="Theme.Material3.Dark">
-        <!-- Primary colors -->
+
+    <!-- ========== БАЗОВАЯ ТЕМА ДЛЯ MATERIAL 3 ========== -->
+    <style name="Theme.BeatHouse" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Цветовая схема -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorOnPrimary">@color/on_primary</item>
         <item name="colorPrimaryContainer">@color/primary_container</item>
-        <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
-
-        <!-- Surface colors -->
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryContainer">@color/secondary_container</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorErrorContainer">@color/error_container</item>
+        <item name="colorOnError">@color/on_primary</item>
         <item name="colorSurface">@color/surface</item>
-        <item name="colorOnSurface">@color/on_surface</item>
         <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOnSurface">@color/on_surface</item>
         <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
-
-        <!-- Background colors -->
-        <item name="android:colorBackground">@color/background</item>
-        <item name="colorOnBackground">@color/on_background</item>
-
-        <!-- Outline -->
         <item name="colorOutline">@color/outline</item>
 
-        <!-- Remove ActionBar -->
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@color/surface</item>
+        <item name="android:windowLightStatusBar">true</item>
 
-        <!-- Status bar styling -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/surface</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <!-- Navigation Bar -->
+        <item name="android:navigationBarColor">@color/surface</item>
+        <item name="android:windowLightNavigationBar">true</item>
 
-        <!-- Navigation bar styling -->
-        <item name="android:navigationBarColor" tools:targetApi="l">@color/surface</item>
+        <!-- Window Background -->
+        <item name="android:windowBackground">@color/background</item>
+
+        <!-- Анимации -->
+        <item name="android:windowAnimationStyle">@style/Animation.BeatHouse</item>
+
+        <!-- Material 3 компоненты -->
+        <item name="materialButtonStyle">@style/Widget.BeatHouse.Button</item>
+        <item name="materialCardViewStyle">@style/Widget.BeatHouse.Card</item>
     </style>
 
-    <style name="Theme.BeatHouse" parent="Base.Theme.BeatHouse" />
-    <style name="Theme.BeatHouse.Dark" parent="Base.Theme.BeatHouse" />
+    <!-- ========== ТЕМА ДЛЯ SPLASH SCREEN (упрощенная, без зависимостей) ========== -->
+    <style name="Theme.BeatHouse.Splash" parent="Theme.BeatHouse">
+        <item name="android:windowBackground">@color/background</item>
+    </style>
 
-    <!-- Material3 Button Style -->
+    <!-- ========== СТИЛИ КНОПОК ========== -->
     <style name="Widget.BeatHouse.Button" parent="Widget.Material3.Button">
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetBottom">0dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">8dp</item>
+    </style>
+
+    <style name="Widget.BeatHouse.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="strokeWidth">1.5dp</item>
+    </style>
+
+    <style name="Widget.BeatHouse.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textSize">14sp</item>
         <item name="cornerRadius">12dp</item>
     </style>
 
-    <!-- Material3 TextInputLayout Style -->
-    <style name="Widget.BeatHouse.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeWidth">1dp</item>
-        <item name="boxStrokeColor">@color/outline</item>
-        <item name="boxCornerRadiusBottomStart">8dp</item>
-        <item name="boxCornerRadiusBottomEnd">8dp</item>
-        <item name="boxCornerRadiusTopStart">8dp</item>
-        <item name="boxCornerRadiusTopEnd">8dp</item>
+    <!-- ========== СТИЛИ КАРТОЧЕК ========== -->
+    <style name="Widget.BeatHouse.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/outline_variant</item>
+        <item name="strokeWidth">0.5dp</item>
     </style>
+
+    <!-- ========== СТИЛИ ТЕКСТА ========== -->
+    <style name="TextAppearance.BeatHouse.Title" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.BeatHouse.Subtitle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/on_surface_secondary</item>
+    </style>
+
+    <style name="TextAppearance.BeatHouse.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/on_surface_variant</item>
+    </style>
+
+    <!-- ========== СТИЛИ ДЛЯ CHIP ========== -->
+    <style name="Widget.BeatHouse.Chip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipCornerRadius">16dp</item>
+        <item name="chipStrokeColor">@color/outline_variant</item>
+        <item name="chipStrokeWidth">0.5dp</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="chipBackgroundColor">@color/surface_container</item>
+    </style>
+
+    <!-- ========== СТИЛИ ДЛЯ BOTTOM NAVIGATION ========== -->
+    <style name="Widget.BeatHouse.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemIconTint">@color/primary</item>
+        <item name="itemTextColor">@color/on_surface_secondary</item>
+        <item name="itemBackground">@color/surface</item>
+        <item name="android:background">@color/surface</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <!-- ========== АНИМАЦИИ ПЕРЕХОДОВ ========== -->
+    <style name="Animation.BeatHouse" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+    <!-- ========== DARK ТЕМА (опционально) ========== -->
+    <style name="Theme.BeatHouse.Dark" parent="Theme.BeatHouse">
+        <item name="colorSurface">#1C1B1F</item>
+        <item name="colorSurfaceVariant">#2E2C32</item>
+        <item name="colorOnSurface">#E6E1E5</item>
+        <item name="colorOnSurfaceVariant">#CAC4D0</item>
+        <item name="colorOutline">#938F99</item>
+        <item name="android:statusBarColor">@color/background_dark</item>
+        <item name="android:windowBackground">@color/background_dark</item>
+    </style>
+
 </resources>
