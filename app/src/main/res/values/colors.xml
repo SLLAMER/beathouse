@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- ========== ОСНОВНЫЕ ЦВЕТА (Material 3) ========== -->
-    <color name="primary">#EF3124</color>
-    <color name="primary_container">#FFDAD6</color>
+    <!-- ========== ОСНОВНЫЕ ЦВЕТА (Material 3 - Dark Theme) ========== -->
+    <color name="primary">#5D00AA</color>
+    <color name="primary_container">#45007A</color>
     <color name="on_primary">#FFFFFF</color>
-    <color name="on_primary_variant">#EF3124</color>
+    <color name="on_primary_variant">#5D00AA</color>
 
     <!-- ========== ВТОРИЧНЫЕ ЦВЕТА ========== -->
-    <color name="secondary">#625B71</color>
-    <color name="secondary_container">#E8DEF8</color>
-    <color name="on_secondary">#FFFFFF</color>
+    <color name="secondary">#CBC2DB</color>
+    <color name="secondary_container">#4A4458</color>
+    <color name="on_secondary">#332D41</color>
 
     <!-- ========== ПОВЕРХНОСТИ ========== -->
-    <color name="surface">#FDF8F5</color>
-    <color name="surface_variant">#F5EFEB</color>
-    <color name="surface_container">#FFFFFF</color>
-    <color name="surface_container_low">#FDF8F5</color>
-    <color name="surface_container_high">#F5EFEB</color>
+    <color name="surface">#121212</color>
+    <color name="surface_variant">#2C2C2C</color>
+    <color name="surface_container">#1E1E1E</color>
+    <color name="surface_container_low">#1A1A1A</color>
+    <color name="surface_container_high">#252525</color>
 
     <!-- ========== ТЕКСТ ========== -->
-    <color name="on_surface">#1C1B1F</color>
-    <color name="on_surface_variant">#49454F</color>
-    <color name="on_surface_secondary">#6C6A70</color>
+    <color name="on_surface">#E6E1E5</color>
+    <color name="on_surface_variant">#CAC4D0</color>
+    <color name="on_surface_secondary">#B0B0B0</color>
     <color name="on_surface_tertiary">#8E8E93</color>
 
     <!-- ========== ОШИБКИ И УСПЕХ ========== -->
-    <color name="error">#BA1A1A</color>
-    <color name="error_container">#FFDAD6</color>
-    <color name="error_red">#FF3B30</color>
-    <color name="success">#21A038</color>
-    <color name="success_container">#D7FFD7</color>
-    <color name="success_green">#34C759</color>
+    <color name="error">#F2B8B5</color>
+    <color name="error_container">#8C1D18</color>
+    <color name="error_red">#FF897D</color>
+    <color name="success">#81C784</color>
+    <color name="success_container">#1B5E20</color>
+    <color name="success_green">#66BB6A</color>
 
     <!-- ========== ОБВОДКА И РАЗДЕЛИТЕЛИ ========== -->
-    <color name="outline">#CAC4D0</color>
-    <color name="outline_variant">#E7E0EC</color>
-    <color name="divider">#E5E5EA</color>
+    <color name="outline">#938F99</color>
+    <color name="outline_variant">#49454F</color>
+    <color name="divider">#383838</color>
 
     <!-- ========== БЭКГРАУНД ========== -->
-    <color name="background">#F2F2F7</color>
-    <color name="background_dark">#F5EFEB</color>
-    <color name="background_card">#FFFFFF</color>
+    <color name="background">#121212</color>
+    <color name="background_dark">#0A0A0A</color>
+    <color name="background_card">#1E1E1E</color>
 
     <!-- ========== ДОПОЛНИТЕЛЬНЫЕ ЦВЕТА ДЛЯ ТЕМЫ ========== -->
-    <color name="card_background">#FFFFFF</color>
-    <color name="chip_background">#F5F5F5</color>
-    <color name="badge_background">#EF3124</color>
+    <color name="card_background">#1E1E1E</color>
+    <color name="chip_background">#2C2C2C</color>
+    <color name="badge_background">#5D00AA</color>
 
-    <!-- ========== БАЗОВЫЕ ЦВЕТА (для совместимости) ========== -->
+    <!-- ========== БАЗОВЫЕ ЦВЕТА ========== -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#FF808080</color>
 
     <!-- Цвета для статусов -->
-    <color name="status_completed">#21A038</color>
-    <color name="status_pending">#FFA500</color>
-    <color name="status_cancelled">#FF3B30</color>
+    <color name="status_completed">#81C784</color>
+    <color name="status_pending">#FFB74D</color>
+    <color name="status_cancelled">#E57373</color>
 
     <!-- Цвета для соцсетей -->
     <color name="instagram_color">#E4405F</color>
@@ -64,9 +64,9 @@
 
     <!-- Цвета для банков -->
     <color name="sberbank_color">#21A038</color>
-    <color name="tinkoff_color">#EF3124</color>
-    <color name="vtb_color">#003A7A</color>
+    <color name="tinkoff_color">#FFDD2D</color>
+    <color name="vtb_color">#0A59A1</color>
     <color name="alfa_color">#EF3124</color>
 
-    <color name="warning">#FFA500</color>
+    <color name="warning">#FFB74D</color>
 </resources>

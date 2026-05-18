@@ -1,3 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme (Night version is same as main because we want always dark) -->
+    <style name="Theme.BeatHouse" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/surface</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
 </resources>
