@@ -157,8 +157,7 @@
                         android:textColor="@color/on_surface"
                         android:layout_marginBottom="12dp" />
 
-                    <RadioGroup
-                        android:id="@+id/rg_payment_method"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -173,6 +172,8 @@
                             app:cardElevation="0dp"
                             app:strokeColor="@color/outline_variant"
                             app:strokeWidth="0.5dp"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:stateListAnimator="@null">
 
                             <RadioButton
@@ -181,6 +182,7 @@
                                 android:layout_height="wrap_content"
                                 android:buttonTint="@color/primary"
                                 android:padding="12dp"
+                                android:clickable="false"
                                 android:text="@string/credit_card"
                                 android:textColor="@color/on_surface"
                                 android:textSize="15sp" />
@@ -197,6 +199,8 @@
                             app:cardElevation="0dp"
                             app:strokeColor="@color/outline_variant"
                             app:strokeWidth="0.5dp"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:stateListAnimator="@null">
 
                             <RadioButton
@@ -205,6 +209,7 @@
                                 android:layout_height="wrap_content"
                                 android:buttonTint="@color/primary"
                                 android:padding="12dp"
+                                android:clickable="false"
                                 android:text="@string/sbp"
                                 android:textColor="@color/on_surface"
                                 android:textSize="15sp" />
@@ -220,6 +225,8 @@
                             app:cardElevation="0dp"
                             app:strokeColor="@color/outline_variant"
                             app:strokeWidth="0.5dp"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:stateListAnimator="@null">
 
                             <RadioButton
@@ -228,13 +235,14 @@
                                 android:layout_height="wrap_content"
                                 android:buttonTint="@color/primary"
                                 android:padding="12dp"
+                                android:clickable="false"
                                 android:text="@string/qr_code_payment"
                                 android:textColor="@color/on_surface"
                                 android:textSize="15sp" />
 
                         </com.google.android.material.card.MaterialCardView>
 
-                    </RadioGroup>
+                    </LinearLayout>
 
                 </LinearLayout>
 

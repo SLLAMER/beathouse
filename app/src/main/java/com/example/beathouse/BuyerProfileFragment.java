@@ -142,14 +142,8 @@ public class BuyerProfileFragment extends Fragment {
                         Long followers = doc.getLong("followers");
                         Long following = doc.getLong("following");
                         getActivity().runOnUiThread(() -> {
-                            try {
-                                TextView tvFollowers = binding.getRoot().findViewById(R.id.tvFollowers);
-                                if (tvFollowers != null)
-                                    tvFollowers.setText(String.valueOf(followers != null ? Math.max(0, followers) : 0));
-                                TextView tvFollowing = binding.getRoot().findViewById(R.id.tvFollowing);
-                                if (tvFollowing != null)
-                                    tvFollowing.setText(String.valueOf(following != null ? Math.max(0, following) : 0));
-                            } catch (Exception e) {}
+                            binding.tvFollowers.setText(String.valueOf(followers != null ? Math.max(0, followers) : 0));
+                            binding.tvFollowing.setText(String.valueOf(following != null ? Math.max(0, following) : 0));
                             updateUI();
                             setupFollowersFollowingClickListeners();
 
@@ -165,32 +159,26 @@ public class BuyerProfileFragment extends Fragment {
     private void updateUI() {
         if (currentUser == null || getActivity() == null || !isAdded()) return;
 
-        binding.tvUsername.setText(currentUser.getUsername());
+        String roleText = currentUser.getUsername() + " (" + getString(R.string.buyer) + ")";
+        binding.tvUsername.setText(roleText);
         binding.tvEmail.setText(currentUser.getEmail());
 
-        String bio = currentUser.getBio();
-        if (bio != null && !bio.isEmpty()) {
-            binding.tvBioDisplay.setText(bio);
+        if (currentUser.getBio() != null && !currentUser.getBio().isEmpty()) {
+            binding.etBio.setText(currentUser.getBio());
+            binding.tvBioDisplay.setText(currentUser.getBio());
             binding.tvBioDisplay.setVisibility(View.VISIBLE);
         } else {
+            binding.etBio.setText("");
             binding.tvBioDisplay.setVisibility(View.GONE);
         }
 
+        binding.etUsername.setText(currentUser.getUsername());
+        binding.etInstagram.setText(currentUser.getSocialInstagram() != null ? currentUser.getSocialInstagram() : "");
+        binding.etTelegram.setText(currentUser.getSocialTelegram() != null ? currentUser.getSocialTelegram() : "");
+        binding.etVk.setText(currentUser.getSocialVk() != null ? currentUser.getSocialVk() : "");
+
         binding.tvTotalSpent.setText(currentUser.getStats().getFormattedTotalSpent());
         binding.tvBeatsPurchased.setText(String.valueOf(currentUser.getStats().getBeatsPurchased()));
-
-        try {
-            com.google.android.material.textfield.TextInputEditText etUsername = binding.getRoot().findViewById(R.id.etUsername);
-            if (etUsername != null) etUsername.setText(currentUser.getUsername());
-            com.google.android.material.textfield.TextInputEditText etBio = binding.getRoot().findViewById(R.id.etBio);
-            if (etBio != null) etBio.setText(currentUser.getBio() != null ? currentUser.getBio() : "");
-            com.google.android.material.textfield.TextInputEditText etInstagram = binding.getRoot().findViewById(R.id.etInstagram);
-            if (etInstagram != null) etInstagram.setText(currentUser.getSocialInstagram() != null ? currentUser.getSocialInstagram() : "");
-            com.google.android.material.textfield.TextInputEditText etTelegram = binding.getRoot().findViewById(R.id.etTelegram);
-            if (etTelegram != null) etTelegram.setText(currentUser.getSocialTelegram() != null ? currentUser.getSocialTelegram() : "");
-            com.google.android.material.textfield.TextInputEditText etVk = binding.getRoot().findViewById(R.id.etVk);
-            if (etVk != null) etVk.setText(currentUser.getSocialVk() != null ? currentUser.getSocialVk() : "");
-        } catch (Exception e) {}
 
         updateSocialIcons();
 
@@ -204,9 +192,8 @@ public class BuyerProfileFragment extends Fragment {
     }
 
     private void setupFollowersFollowingClickListeners() {
-        TextView tvFollowers = binding.getRoot().findViewById(R.id.tvFollowers);
-        if (tvFollowers != null && tvFollowers.getParent() != null) {
-            View followersContainer = (View) tvFollowers.getParent();
+        if (binding.tvFollowers != null && binding.tvFollowers.getParent() != null) {
+            View followersContainer = (View) binding.tvFollowers.getParent();
             followersContainer.setOnClickListener(v -> {
                 if (currentUser != null) {
                     Intent intent = new Intent(getActivity(), FollowersFollowingActivity.class);
@@ -217,9 +204,8 @@ public class BuyerProfileFragment extends Fragment {
             });
         }
 
-        TextView tvFollowing = binding.getRoot().findViewById(R.id.tvFollowing);
-        if (tvFollowing != null && tvFollowing.getParent() != null) {
-            View followingContainer = (View) tvFollowing.getParent();
+        if (binding.tvFollowing != null && binding.tvFollowing.getParent() != null) {
+            View followingContainer = (View) binding.tvFollowing.getParent();
             followingContainer.setOnClickListener(v -> {
                 if (currentUser != null) {
                     Intent intent = new Intent(getActivity(), FollowersFollowingActivity.class);
@@ -234,38 +220,35 @@ public class BuyerProfileFragment extends Fragment {
     private void updateSocialIcons() {
         if (currentUser == null) return;
         try {
-            LinearLayout socialLayout = binding.getRoot().findViewById(R.id.socialIconsLayout);
+            LinearLayout socialLayout = binding.socialIconsLayout;
             if (socialLayout == null) return;
             boolean hasAny = false;
 
             String ig = currentUser.getSocialInstagram();
-            ImageView ivIg = binding.getRoot().findViewById(R.id.ivInstagram);
-            if (ig != null && !ig.isEmpty() && ivIg != null) {
-                ivIg.setVisibility(View.VISIBLE);
-                ivIg.setOnClickListener(v -> openSocialUrl(ig));
+            if (ig != null && !ig.isEmpty()) {
+                binding.ivInstagram.setVisibility(View.VISIBLE);
+                binding.ivInstagram.setOnClickListener(v -> openSocialUrl(ig));
                 hasAny = true;
-            } else if (ivIg != null) {
-                ivIg.setVisibility(View.GONE);
+            } else {
+                binding.ivInstagram.setVisibility(View.GONE);
             }
 
             String tg = currentUser.getSocialTelegram();
-            ImageView ivTg = binding.getRoot().findViewById(R.id.ivTelegram);
-            if (tg != null && !tg.isEmpty() && ivTg != null) {
-                ivTg.setVisibility(View.VISIBLE);
-                ivTg.setOnClickListener(v -> openSocialUrl(tg));
+            if (tg != null && !tg.isEmpty()) {
+                binding.ivTelegram.setVisibility(View.VISIBLE);
+                binding.ivTelegram.setOnClickListener(v -> openSocialUrl(tg));
                 hasAny = true;
-            } else if (ivTg != null) {
-                ivTg.setVisibility(View.GONE);
+            } else {
+                binding.ivTelegram.setVisibility(View.GONE);
             }
 
             String vk = currentUser.getSocialVk();
-            ImageView ivVk = binding.getRoot().findViewById(R.id.ivVk);
-            if (vk != null && !vk.isEmpty() && ivVk != null) {
-                ivVk.setVisibility(View.VISIBLE);
-                ivVk.setOnClickListener(v -> openSocialUrl(vk));
+            if (vk != null && !vk.isEmpty()) {
+                binding.ivVk.setVisibility(View.VISIBLE);
+                binding.ivVk.setOnClickListener(v -> openSocialUrl(vk));
                 hasAny = true;
-            } else if (ivVk != null) {
-                ivVk.setVisibility(View.GONE);
+            } else {
+                binding.ivVk.setVisibility(View.GONE);
             }
 
             socialLayout.setVisibility(hasAny ? View.VISIBLE : View.GONE);
@@ -349,53 +332,50 @@ public class BuyerProfileFragment extends Fragment {
     private void setupClickListeners() {
         binding.fabEditAvatar.setOnClickListener(v -> openImagePicker());
         binding.ivAvatar.setOnClickListener(v -> openImagePicker());
-
-        try {
-            com.google.android.material.button.MaterialButton btnSave = binding.getRoot().findViewById(R.id.btnSaveProfile);
-            if (btnSave != null) btnSave.setOnClickListener(v -> saveProfile());
-        } catch (Exception e) {}
+        if (binding.btnSaveProfile != null) binding.btnSaveProfile.setOnClickListener(v -> saveProfile());
     }
 
     private void saveProfile() {
         if (currentUser == null || !isAdded()) return;
-        try {
-            com.google.android.material.textfield.TextInputEditText etUsername = binding.getRoot().findViewById(R.id.etUsername);
-            com.google.android.material.textfield.TextInputEditText etBio = binding.getRoot().findViewById(R.id.etBio);
-            com.google.android.material.textfield.TextInputEditText etInstagram = binding.getRoot().findViewById(R.id.etInstagram);
-            com.google.android.material.textfield.TextInputEditText etTelegram = binding.getRoot().findViewById(R.id.etTelegram);
-            com.google.android.material.textfield.TextInputEditText etVk = binding.getRoot().findViewById(R.id.etVk);
 
-            String username = etUsername != null ? etUsername.getText().toString().trim() : "";
-            if (TextUtils.isEmpty(username)) {
-                Toast.makeText(requireContext(), getString(R.string.username_required), Toast.LENGTH_SHORT).show();
-                return;
-            }
+        String username = binding.etUsername.getText().toString().trim();
+        String bio = binding.etBio.getText().toString().trim();
+        String instagram = binding.etInstagram.getText().toString().trim();
+        String telegram = binding.etTelegram.getText().toString().trim();
+        String vk = binding.etVk.getText().toString().trim();
 
-            String userId = currentUser.getId();
-            if (userId == null || userId.isEmpty()) {
-                userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                currentUser.setId(userId);
-            }
-
-            currentUser.setUsername(username);
-            currentUser.setBio(etBio != null ? etBio.getText().toString().trim() : "");
-            currentUser.setSocialInstagram(etInstagram != null ? etInstagram.getText().toString().trim() : "");
-            currentUser.setSocialTelegram(etTelegram != null ? etTelegram.getText().toString().trim() : "");
-            currentUser.setSocialVk(etVk != null ? etVk.getText().toString().trim() : "");
-
-            firestoreHelper.updateUser(currentUser, new FirestoreHelper.FirestoreCallback() {
-                @Override
-                public void onSuccess(Object result) {
-                    if (isAdded()) Toast.makeText(requireContext(), getString(R.string.profile_saved), Toast.LENGTH_SHORT).show();
-                }
-                @Override
-                public void onError(String error) {
-                    if (isAdded()) Toast.makeText(requireContext(), getString(R.string.error_saving_profile) + error, Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (Exception e) {
-            Log.e(TAG, "Error saving profile: " + e.getMessage());
+        if (TextUtils.isEmpty(username)) {
+            binding.usernameLayout.setError(getString(R.string.username_required));
+            return;
         }
+
+        String userId = currentUser.getId();
+        if (userId == null || userId.isEmpty()) {
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            currentUser.setId(userId);
+        }
+
+        currentUser.setUsername(username);
+        currentUser.setBio(bio);
+        currentUser.setSocialInstagram(instagram);
+        currentUser.setSocialTelegram(telegram);
+        currentUser.setSocialVk(vk);
+
+        firestoreHelper.updateUser(currentUser, new FirestoreHelper.FirestoreCallback() {
+            @Override
+            public void onSuccess(Object result) {
+                if (isAdded()) {
+                    Toast.makeText(requireContext(), getString(R.string.profile_saved), Toast.LENGTH_SHORT).show();
+                    binding.usernameLayout.setError(null);
+                }
+            }
+            @Override
+            public void onError(String error) {
+                if (isAdded()) {
+                    Toast.makeText(requireContext(), getString(R.string.error_saving_profile) + error, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void openImagePicker() {
