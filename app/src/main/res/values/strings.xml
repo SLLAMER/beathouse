@@ -183,6 +183,7 @@
 
     <!-- Checkout -->
     <string name="payment_method">Payment Method</string>
+    <string name="items_text">items</string>
     <string name="qr_code_payment">QR Code Payment</string>
     <string name="scan_qr_to_pay">Scan QR Code to Pay</string>
     <string name="complete_payment">Complete Payment</string>

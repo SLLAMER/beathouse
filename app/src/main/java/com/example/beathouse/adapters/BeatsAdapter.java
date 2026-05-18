@@ -262,7 +262,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         boolean inCart = cartManager.isInCart(beat.getId());
 
         if (inCart) {
-            holder.btnAddToCart.setImageResource(R.drawable.ic_cart_with_badge);
+            holder.btnAddToCart.setImageResource(R.drawable.ic_cart_checked);
             holder.btnAddToCart.setColorFilter(ContextCompat.getColor(context, R.color.primary));
             if (holder.cartBadge != null) {
                 holder.cartBadge.setVisibility(View.VISIBLE);
