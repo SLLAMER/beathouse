@@ -603,49 +603,40 @@ public class FirestoreHelper {
     // ========== BEATS ==========
 
     public ListenerRegistration getBeatsRealtime(FirestoreCallback callback) {
-        // Попытка получить отсортированные данные (требует индекса)
-        return db.collection("beats").whereEqualTo("status", "active")
-                .orderBy("createdAt", Query.Direction.DESCENDING)
+        // ✅ Упрощаем запрос, чтобы избежать ошибок с индексами и отсутствующими полями
+        // Загружаем всё, фильтруем на клиенте для максимальной надежности
+        return db.collection("beats")
                 .addSnapshotListener((snap, err) -> {
                     if (err != null) {
-                        Log.w(TAG, "Realtime query with index failed: " + err.getMessage());
-
-                        // Если ошибка из-за отсутствия индекса, пробуем без сортировки
-                        if (err.getMessage() != null && err.getMessage().contains("index")) {
-                            Log.d(TAG, "Falling back to client-side sorting...");
-                            db.collection("beats").whereEqualTo("status", "active")
-                                    .addSnapshotListener((snapFallback, errFallback) -> {
-                                        if (errFallback != null) {
-                                            safeError(callback, errFallback.getMessage());
-                                            return;
-                                        }
-                                        processBeatsSnapshot(snapFallback, callback, true);
-                                    });
-                        } else {
-                            safeError(callback, err.getMessage());
-                        }
+                        Log.e(TAG, "Realtime query failed: " + err.getMessage());
+                        safeError(callback, err.getMessage());
                         return;
                     }
-                    processBeatsSnapshot(snap, callback, false);
+                    processBeatsSnapshot(snap, callback);
                 });
     }
 
-    private void processBeatsSnapshot(com.google.firebase.firestore.QuerySnapshot snap, FirestoreCallback callback, boolean sortLocally) {
+    private void processBeatsSnapshot(com.google.firebase.firestore.QuerySnapshot snap, FirestoreCallback callback) {
         List<Beat> beats = new ArrayList<>();
         if (snap != null) {
             for (DocumentSnapshot d : snap) {
                 Beat b = Beat.fromMap(d.getData());
                 if (b != null) {
                     b.setId(d.getId());
-                    beats.add(b);
+
+                    // ✅ Фильтруем на клиенте: только активные или те, у которых статус не задан (старые биты)
+                    String status = b.getStatus();
+                    if (status == null || "active".equalsIgnoreCase(status)) {
+                        beats.add(b);
+                    }
                 }
             }
         }
 
-        if (sortLocally) {
-            beats.sort((a, b) -> Long.compare(b.getCreatedAt(), a.getCreatedAt()));
-        }
+        // ✅ Всегда сортируем на клиенте по дате создания (новые сверху)
+        beats.sort((a, b) -> Long.compare(b.getCreatedAt(), a.getCreatedAt()));
 
+        Log.d(TAG, "Fetched and filtered " + beats.size() + " beats");
         safeCallback(callback, beats);
     }
 
