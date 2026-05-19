@@ -55,7 +55,7 @@
         android:paddingBottom="4dp"
         app:menu="@menu/bottom_navigation_buyer"
         app:labelVisibilityMode="labeled"
-        app:itemIconTint="@color/primary"
-        app:itemTextColor="@color/on_surface" />
+        app:itemIconTint="@color/bottom_nav_icon_tint"
+        app:itemTextColor="@color/bottom_nav_text_tint" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

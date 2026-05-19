@@ -163,54 +163,48 @@ public class NotificationsActivity extends BaseActivity {
 
     // ✅ Отметить все уведомления как прочитанные
     private void markAllAsRead() {
-        if (notificationsList.isEmpty()) {
-            Toast.makeText(this, getString(R.string.no_notifications), Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.mark_all_read))
                 .setMessage(getString(R.string.confirm_mark_all_read))
                 .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
                     binding.progressBar.setVisibility(View.VISIBLE);
 
-                    WriteBatch batch = FirebaseFirestore.getInstance().batch();
-                    int unreadCount = 0;
+                    FirebaseFirestore.getInstance()
+                            .collection("notifications")
+                            .whereEqualTo("userId", currentUserId)
+                            .whereEqualTo("read", false)
+                            .get()
+                            .addOnSuccessListener(queryDocumentSnapshots -> {
+                                if (queryDocumentSnapshots.isEmpty()) {
+                                    binding.progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(this, getString(R.string.all_already_read), Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
 
-                    for (Map<String, Object> notification : notificationsList) {
-                        Boolean read = (Boolean) notification.get("read");
-                        if (read == null || !read) {
-                            String notificationId = (String) notification.get("notificationId");
-                            if (notificationId != null) {
-                                batch.update(
-                                        FirebaseFirestore.getInstance()
-                                                .collection("notifications")
-                                                .document(notificationId),
-                                        "read", true
-                                );
-                                notification.put("read", true);
-                                unreadCount++;
-                            }
-                        }
-                    }
+                                WriteBatch batch = FirebaseFirestore.getInstance().batch();
+                                int count = queryDocumentSnapshots.size();
 
-                    if (unreadCount == 0) {
-                        binding.progressBar.setVisibility(View.GONE);
-                        Toast.makeText(this, getString(R.string.all_already_read), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+                                for (com.google.firebase.firestore.DocumentSnapshot doc : queryDocumentSnapshots) {
+                                    batch.update(doc.getReference(), "read", true);
+                                }
 
-                    final int finalUnreadCount = unreadCount;
-                    batch.commit().addOnSuccessListener(a -> {
-                        binding.progressBar.setVisibility(View.GONE);
-                        adapter.notifyDataSetChanged();
-                        Toast.makeText(this,
-                                getString(R.string.marked_read_count, finalUnreadCount),
-                                Toast.LENGTH_SHORT).show();
-                    }).addOnFailureListener(e -> {
-                        binding.progressBar.setVisibility(View.GONE);
-                        Toast.makeText(this, getString(R.string.error_prefix) + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
+                                batch.commit().addOnSuccessListener(a -> {
+                                    binding.progressBar.setVisibility(View.GONE);
+                                    // Обновляем локальный список, если эти уведомления там есть
+                                    for (Map<String, Object> notification : notificationsList) {
+                                        notification.put("read", true);
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                    Toast.makeText(this, getString(R.string.marked_read_count, count), Toast.LENGTH_SHORT).show();
+                                }).addOnFailureListener(e -> {
+                                    binding.progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(this, getString(R.string.error_prefix) + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
+                            })
+                            .addOnFailureListener(e -> {
+                                binding.progressBar.setVisibility(View.GONE);
+                                Toast.makeText(this, getString(R.string.error_prefix) + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
                 })
                 .setNegativeButton(getString(R.string.cancel), null)
                 .show();
