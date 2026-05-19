@@ -226,36 +226,11 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
                 Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
                 if (bitmap != null) {
                     imageView.setImageBitmap(bitmap);
-                    return;
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Error loading cover from beat: " + e.getMessage());
             }
         }
-
-        FirestoreHelper helper = new FirestoreHelper();
-        helper.loadBeatCover(beat.getId(), new FirestoreHelper.FirestoreCallback() {
-            @Override
-            public void onSuccess(Object result) {
-                String coverData = (String) result;
-                if (coverData != null && !coverData.isEmpty() && coverData.length() > 100) {
-                    beat.setCoverImage(coverData);
-                    try {
-                        byte[] decodedBytes = Base64.decode(coverData, Base64.DEFAULT);
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-                        if (bitmap != null) {
-                            imageView.setImageBitmap(bitmap);
-                        }
-                    } catch (Exception e) {
-                        Log.e(TAG, "Error decoding cover: " + e.getMessage());
-                    }
-                }
-            }
-            @Override
-            public void onError(String error) {
-                Log.e(TAG, "Error loading cover from Firestore: " + error);
-            }
-        });
     }
 
     private void updateCartButtonState(BeatViewHolder holder, Beat beat) {

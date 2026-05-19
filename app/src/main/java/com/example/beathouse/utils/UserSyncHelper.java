@@ -102,6 +102,11 @@ public class UserSyncHelper {
                 .addOnFailureListener(e -> Log.e(TAG, "❌ Failed to create producer profile: " + e.getMessage()));
     }
 
+    public static void syncUserData(String userId) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        syncSingleUser(db, userId);
+    }
+
     public static void syncSingleUser(FirebaseFirestore db, String userId) {
         db.collection(DatabaseStructure.COLLECTION_USERS).document(userId).get()
                 .addOnSuccessListener(doc -> {

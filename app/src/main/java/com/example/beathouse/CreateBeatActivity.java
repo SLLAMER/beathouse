@@ -347,7 +347,8 @@ public class CreateBeatActivity extends BaseActivity {
 
     private String convertBitmapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        // Сжимаем сильнее для обложек, чтобы они влезли в лимит документа Firestore
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos);
         return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
     }
 

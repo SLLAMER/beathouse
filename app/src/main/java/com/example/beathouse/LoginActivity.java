@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.beathouse.databinding.ActivityLoginBinding;
+import com.example.beathouse.utils.UserSyncHelper;
 import com.example.beathouse.utils.LocaleHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -295,6 +296,8 @@ public class LoginActivity extends BaseActivity {
 
                     String role = userDoc.getString("role");
                     Log.d(TAG, "User role from DB (SERVER): " + role);
+
+                    UserSyncHelper.syncUserData(userId); // ✅ Синхронизируем данные
 
                     FirebaseUser user = mAuth.getCurrentUser();
                     if (user != null) {

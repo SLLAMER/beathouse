@@ -23,11 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.example.beathouse.databinding.ActivityNotificationsBinding;
+
 public class NotificationsActivity extends BaseActivity {
 
-    private RecyclerView recyclerView;
-    private TextView tvEmpty;
-    private View progressBar;
+    private ActivityNotificationsBinding binding;
     private NotificationsAdapter adapter;
     private List<Map<String, Object>> notificationsList;
     private ListenerRegistration notificationsListener;
@@ -37,7 +37,8 @@ public class NotificationsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notifications);
+        binding = ActivityNotificationsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -45,22 +46,28 @@ public class NotificationsActivity extends BaseActivity {
         initViews();
         setupRecyclerView();
         loadNotificationsRealtime();
+
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
+            // Реалтайм слушатель и так обновит данные, но для уверенности:
+            if (notificationsListener != null) {
+                notificationsListener.remove();
+            }
+            loadNotificationsRealtime();
+        });
     }
 
     private void setupToolbar() {
-        MaterialToolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getString(R.string.notifications));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        toolbar.setNavigationOnClickListener(v -> finish());
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_notifications, menu);
+        getMenuInflater().inflate(R.menu.menu_notifications, menu);
         return true;
     }
 
@@ -80,9 +87,6 @@ public class NotificationsActivity extends BaseActivity {
     }
 
     private void initViews() {
-        recyclerView = findViewById(R.id.recycler_notifications);
-        tvEmpty = findViewById(R.id.tv_empty);
-        progressBar = findViewById(R.id.progress_bar);
         notificationsList = new ArrayList<>();
     }
 
@@ -94,12 +98,12 @@ public class NotificationsActivity extends BaseActivity {
             }
         });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        binding.recyclerNotifications.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerNotifications.setAdapter(adapter);
     }
 
     private void loadNotificationsRealtime() {
-        progressBar.setVisibility(View.VISIBLE);
+        binding.progressBar.setVisibility(View.VISIBLE);
 
         notificationsListener = FirebaseFirestore.getInstance()
                 .collection("notifications")
@@ -109,7 +113,8 @@ public class NotificationsActivity extends BaseActivity {
                 .addSnapshotListener((snap, err) -> {
                     if (err != null) {
                         runOnUiThread(() -> {
-                            progressBar.setVisibility(View.GONE);
+                            binding.progressBar.setVisibility(View.GONE);
+                            binding.swipeRefreshLayout.setRefreshing(false);
                             Toast.makeText(this, getString(R.string.error_loading_data), Toast.LENGTH_SHORT).show();
                         });
                         return;
@@ -123,18 +128,18 @@ public class NotificationsActivity extends BaseActivity {
                     }
 
                     runOnUiThread(() -> {
-                        progressBar.setVisibility(View.GONE);
+                        binding.progressBar.setVisibility(View.GONE);
+                        binding.swipeRefreshLayout.setRefreshing(false);
                         notificationsList.clear();
                         notificationsList.addAll(notifications);
                         adapter.notifyDataSetChanged();
 
                         if (notifications.isEmpty()) {
-                            tvEmpty.setVisibility(View.VISIBLE);
-                            tvEmpty.setText(getString(R.string.no_notifications));
-                            recyclerView.setVisibility(View.GONE);
+                            binding.emptyState.setVisibility(View.VISIBLE);
+                            binding.recyclerNotifications.setVisibility(View.GONE);
                         } else {
-                            tvEmpty.setVisibility(View.GONE);
-                            recyclerView.setVisibility(View.VISIBLE);
+                            binding.emptyState.setVisibility(View.GONE);
+                            binding.recyclerNotifications.setVisibility(View.VISIBLE);
                         }
                     });
                 });
@@ -167,7 +172,7 @@ public class NotificationsActivity extends BaseActivity {
                 .setTitle(getString(R.string.mark_all_read))
                 .setMessage(getString(R.string.confirm_mark_all_read))
                 .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
-                    progressBar.setVisibility(View.VISIBLE);
+                    binding.progressBar.setVisibility(View.VISIBLE);
 
                     WriteBatch batch = FirebaseFirestore.getInstance().batch();
                     int unreadCount = 0;
@@ -190,20 +195,20 @@ public class NotificationsActivity extends BaseActivity {
                     }
 
                     if (unreadCount == 0) {
-                        progressBar.setVisibility(View.GONE);
+                        binding.progressBar.setVisibility(View.GONE);
                         Toast.makeText(this, getString(R.string.all_already_read), Toast.LENGTH_SHORT).show();
                         return;
                     }
 
                     final int finalUnreadCount = unreadCount;
                     batch.commit().addOnSuccessListener(a -> {
-                        progressBar.setVisibility(View.GONE);
+                        binding.progressBar.setVisibility(View.GONE);
                         adapter.notifyDataSetChanged();
                         Toast.makeText(this,
                                 getString(R.string.marked_read_count, finalUnreadCount),
                                 Toast.LENGTH_SHORT).show();
                     }).addOnFailureListener(e -> {
-                        progressBar.setVisibility(View.GONE);
+                        binding.progressBar.setVisibility(View.GONE);
                         Toast.makeText(this, getString(R.string.error_prefix) + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
                 })
