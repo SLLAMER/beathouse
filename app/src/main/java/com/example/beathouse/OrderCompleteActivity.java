@@ -1,10 +1,14 @@
 // OrderCompleteActivity.java (ПОЛНОСТЬЮ ГОТОВАЯ ВЕРСИЯ)
 package com.example.beathouse;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,8 +90,10 @@ public class OrderCompleteActivity extends BaseActivity {
         btnViewOrders = findViewById(R.id.btn_view_orders);
         btnContinue = findViewById(R.id.btn_continue_shopping);
 
-        downloadProgressBar.setVisibility(ProgressBar.GONE);
-        tvDownloadProgress.setVisibility(TextView.GONE);
+        if (downloadProgressBar != null) downloadProgressBar.setVisibility(ProgressBar.GONE);
+        if (tvDownloadProgress != null) tvDownloadProgress.setVisibility(TextView.GONE);
+        View progressContainer = findViewById(R.id.download_progress_container);
+        if (progressContainer != null) progressContainer.setVisibility(View.GONE);
     }
 
     private void setupOrderData() {
@@ -124,7 +130,7 @@ public class OrderCompleteActivity extends BaseActivity {
                 Toast.makeText(this, "No beats available", Toast.LENGTH_SHORT).show();
                 return;
             }
-            startDownloadProcess();
+            checkPermissionsAndDownload();
         });
 
         btnViewOrders.setOnClickListener(v -> {
@@ -135,11 +141,36 @@ public class OrderCompleteActivity extends BaseActivity {
         btnContinue.setOnClickListener(v -> navigateToHome());
     }
 
+    private void checkPermissionsAndDownload() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            // Android 10+ does not need WRITE_EXTERNAL_STORAGE for app-specific or MediaStore downloads
+            startDownloadProcess();
+        } else {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+            } else {
+                startDownloadProcess();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            startDownloadProcess();
+        } else {
+            Toast.makeText(this, "Storage permission is required to download beats", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void startDownloadProcess() {
         btnDownload.setEnabled(false);
         btnDownload.setText("Downloading...");
-        downloadProgressBar.setVisibility(ProgressBar.VISIBLE);
-        tvDownloadProgress.setVisibility(TextView.VISIBLE);
+        if (downloadProgressBar != null) downloadProgressBar.setVisibility(ProgressBar.VISIBLE);
+        if (tvDownloadProgress != null) tvDownloadProgress.setVisibility(TextView.VISIBLE);
+        View progressContainer = findViewById(R.id.download_progress_container);
+        if (progressContainer != null) progressContainer.setVisibility(View.VISIBLE);
 
         downloadService.downloadBeats(orderItems, new FirebaseDownloadService.DownloadCallback() {
             @Override

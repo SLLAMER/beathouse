@@ -4,213 +4,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/surface">
+    android:background="@color/background">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/surface"
-        app:title="Order Complete"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:titleTextColor="@color/on_surface"
+        android:background="@android:color/transparent"
+        app:title=""
+        app:navigationIcon="@drawable/ic_close"
         app:navigationIconTint="@color/on_surface" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="32dp">
+            android:paddingHorizontal="24dp"
+            android:paddingBottom="32dp"
+            android:gravity="center_horizontal">
 
-            <!-- Confetti Animation -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <!-- Success Icon/Animation Container -->
+            <FrameLayout
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="24dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:clipChildren="false"
-                android:clipToPadding="false">
+                android:background="@drawable/circle_success_background">
 
-                <TextView
-                    android:id="@+id/tv_confetti1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🎉"
-                    android:textSize="36sp"
-                    android:padding="12dp" />
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_check_circle"
+                    app:tint="@color/primary" />
 
-            </LinearLayout>
+            </FrameLayout>
 
-            <!-- Success Message -->
             <TextView
                 android:id="@+id/tv_success_message"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:gravity="center"
+                android:layout_marginTop="24dp"
                 android:text="Payment Successful!"
                 android:textColor="@color/on_surface"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textAlignment="center" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="Thank you for your purchase! Your beats are now available."
+                android:layout_marginTop="8dp"
+                android:text="Your beats are ready for download"
                 android:textColor="@color/on_surface_variant"
                 android:textSize="16sp"
-                android:lineSpacingExtra="4sp" />
+                android:textAlignment="center" />
 
-            <!-- Order Details -->
+            <!-- Order Info Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                app:cardCornerRadius="16dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/surface_container"
-                app:strokeColor="@color/outline"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="24dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Order Details"
-                        android:textColor="@color/on_surface"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="8dp" />
-
-                    <!-- Order ID -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Order ID"
-                            android:textColor="@color/on_surface_variant"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tv_order_id"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="BH-123456"
-                            android:textColor="@color/on_surface"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <!-- Transaction ID -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Transaction ID"
-                            android:textColor="@color/on_surface_variant"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tv_transaction_id"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="TXN-789012"
-                            android:textColor="@color/on_surface"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <!-- Total Amount -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Total Amount"
-                            android:textColor="@color/on_surface_variant"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tv_total"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="$29.99"
-                            android:textColor="@color/primary"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <!-- Item Count -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Items"
-                            android:textColor="@color/on_surface_variant"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tv_item_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="3 beats"
-                            android:textColor="@color/on_surface"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Download Progress -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/download_progress_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:visibility="gone"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/surface_container"
-                app:strokeColor="@color/outline"
-                app:strokeWidth="1dp">
+                app:cardBackgroundColor="@color/surface_container_low"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/outline_variant">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -219,73 +83,174 @@
                     android:padding="20dp">
 
                     <TextView
-                        android:id="@+id/tv_download_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Order Details"
+                        android:textColor="@color/on_surface"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:alpha="0.6" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@color/outline_variant" />
+
+                    <!-- Details Table -->
+                    <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Downloading your beats..."
-                        android:textAlignment="center"
-                        android:textColor="@color/on_surface"
-                        android:textSize="16sp" />
-
-                    <com.google.android.material.progressindicator.LinearProgressIndicator
-                        android:id="@+id/download_progress_bar"
-                        android:layout_width="match_parent"
-                        android:layout_height="6dp"
                         android:layout_marginTop="16dp"
-                        app:indicatorColor="@color/primary"
-                        app:trackColor="@color/surface_variant"
-                        app:trackCornerRadius="3dp" />
+                        android:stretchColumns="1">
+
+                        <TableRow android:layout_marginBottom="12dp">
+                            <TextView
+                                android:text="Order ID"
+                                android:textColor="@color/on_surface_variant"
+                                android:textSize="14sp" />
+                            <TextView
+                                android:id="@+id/tv_order_id"
+                                android:text="#BH-000000"
+                                android:textColor="@color/on_surface"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:gravity="end" />
+                        </TableRow>
+
+                        <TableRow android:layout_marginBottom="12dp">
+                            <TextView
+                                android:text="Transaction"
+                                android:textColor="@color/on_surface_variant"
+                                android:textSize="14sp" />
+                            <TextView
+                                android:id="@+id/tv_transaction_id"
+                                android:text="TXN-12345"
+                                android:textColor="@color/on_surface"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:gravity="end" />
+                        </TableRow>
+
+                        <TableRow android:layout_marginBottom="12dp">
+                            <TextView
+                                android:text="Items"
+                                android:textColor="@color/on_surface_variant"
+                                android:textSize="14sp" />
+                            <TextView
+                                android:id="@+id/tv_item_count"
+                                android:text="1 beat"
+                                android:textColor="@color/on_surface"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:gravity="end" />
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView
+                                android:text="Total Paid"
+                                android:textColor="@color/on_surface_variant"
+                                android:textSize="14sp" />
+                            <TextView
+                                android:id="@+id/tv_total"
+                                android:text="$0.00"
+                                android:textColor="@color/primary"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:gravity="end" />
+                        </TableRow>
+
+                    </TableLayout>
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Action Buttons -->
+            <!-- Progress Info -->
             <LinearLayout
+                android:id="@+id/download_progress_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:orientation="vertical">
+                android:layout_marginTop="24dp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_download_beats"
+                <TextView
+                    android:id="@+id/tv_download_progress"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:text="Download Beats"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:cornerRadius="12dp"
-                    app:backgroundTint="@color/primary"
-                    android:textColor="@color/on_primary" />
+                    android:layout_height="wrap_content"
+                    android:text="Downloading..."
+                    android:textAlignment="center"
+                    android:textColor="@color/primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_view_orders"
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/download_progress_bar"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="12dp"
-                    android:text="View Orders"
-                    android:textSize="16sp"
-                    app:cornerRadius="12dp"
-                    app:backgroundTint="@android:color/transparent"
-                    app:strokeColor="@color/outline"
-                    app:strokeWidth="1dp"
-                    android:textColor="@color/primary" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_continue_shopping"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
+                    android:layout_height="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Continue Shopping"
-                    android:textSize="16sp"
-                    app:cornerRadius="12dp"
-                    app:backgroundTint="@android:color/transparent"
-                    android:textColor="@color/primary" />
+                    app:indicatorColor="@color/primary"
+                    app:trackColor="@color/surface_variant"
+                    app:trackCornerRadius="4dp" />
 
             </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
+
+    <!-- Bottom Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="@color/background">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_download_beats"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Download Beats"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="16dp"
+            app:backgroundTint="@color/primary"
+            android:textColor="@color/on_primary"
+            app:icon="@drawable/ic_download"
+            app:iconGravity="textStart" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_view_orders"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:text="Order History"
+            android:textSize="16sp"
+            app:cornerRadius="16dp"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:textColor="@color/primary"
+            app:strokeColor="@color/primary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_continue_shopping"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:text="Return to Home"
+            android:textSize="15sp"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:textColor="@color/on_surface_variant" />
+
+    </LinearLayout>
+
+    <!-- Placeholder for confetti or other anims -->
+    <TextView
+        android:id="@+id/tv_confetti1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
 
 </LinearLayout>

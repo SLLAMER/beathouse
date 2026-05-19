@@ -236,15 +236,17 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     private void updateCartButtonState(BeatViewHolder holder, Beat beat) {
         boolean inCart = cartManager.isInCart(beat.getId());
 
+        // Всегда используем иконку корзины
+        holder.btnAddToCart.setImageResource(R.drawable.ic_shopping_cart);
+        holder.btnAddToCart.setColorFilter(ContextCompat.getColor(context, R.color.primary));
+
         if (inCart) {
-            holder.btnAddToCart.setImageResource(R.drawable.ic_check_circle);
-            holder.btnAddToCart.setColorFilter(ContextCompat.getColor(context, R.color.primary));
+            // Если в корзине — показываем кружочек (бейдж)
             if (holder.cartBadge != null) {
                 holder.cartBadge.setVisibility(View.VISIBLE);
             }
         } else {
-            holder.btnAddToCart.setImageResource(R.drawable.ic_shopping_cart);
-            holder.btnAddToCart.setColorFilter(ContextCompat.getColor(context, R.color.primary));
+            // Если нет — скрываем
             if (holder.cartBadge != null) {
                 holder.cartBadge.setVisibility(View.GONE);
             }

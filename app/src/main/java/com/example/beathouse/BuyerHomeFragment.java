@@ -333,7 +333,9 @@ public class BuyerHomeFragment extends Fragment {
     }
 
     private void loadBeats() {
-        showProgress(true);
+        if (allBeats.isEmpty()) {
+            showProgress(true);
+        }
 
         if (beatsListener != null) {
             beatsListener.remove();
@@ -413,12 +415,20 @@ public class BuyerHomeFragment extends Fragment {
     }
 
     private void updateEmpty() {
+        boolean isLoading = (binding.progressBar != null && binding.progressBar.getVisibility() == View.VISIBLE)
+                || binding.swipeRefresh.isRefreshing();
+
         boolean empty = filteredBeats.isEmpty();
+
         if (binding.emptyState != null) {
-            binding.emptyState.setVisibility(empty ? View.VISIBLE : View.GONE);
+            // Показываем empty state только если данных реально нет И мы не в процессе загрузки
+            binding.emptyState.setVisibility(empty && !isLoading ? View.VISIBLE : View.GONE);
         }
+
         if (binding.recyclerViewBeats != null) {
-            binding.recyclerViewBeats.setVisibility(empty ? View.GONE : View.VISIBLE);
+            // Скрываем список только если он пуст И мы не показываем скелетоны
+            boolean showSkeletons = binding.skeletonLayout != null && binding.skeletonLayout.getVisibility() == View.VISIBLE;
+            binding.recyclerViewBeats.setVisibility(empty || showSkeletons ? View.GONE : View.VISIBLE);
         }
     }
 
