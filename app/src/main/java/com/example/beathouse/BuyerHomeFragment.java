@@ -165,16 +165,22 @@ public class BuyerHomeFragment extends Fragment {
 
         String[] genreKeys = {"All", "Hip-Hop", "Trap", "R&B", "Drill", "Pop", "Electronic", "Lo-Fi"};
 
+        binding.genreChipGroup.removeAllViews();
         for (int i = 0; i < genres.length; i++) {
-            Chip chip = new Chip(requireContext());
+            Chip chip = (Chip) getLayoutInflater().inflate(R.layout.layout_genre_chip, binding.genreChipGroup, false);
             chip.setText(genres[i]);
             chip.setTag(genreKeys[i]);
-            chip.setCheckable(true);
-            chip.setChecked(genreKeys[i].equals("All"));
+
+            if (genreKeys[i].equals(selectedGenre)) {
+                chip.setChecked(true);
+            }
+
             final String genreKey = genreKeys[i];
-            chip.setOnClickListener(v1 -> {
-                selectedGenre = genreKey;
-                applyAllFilters();
+            chip.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    selectedGenre = genreKey;
+                    applyAllFilters();
+                }
             });
             binding.genreChipGroup.addView(chip);
         }
@@ -341,12 +347,14 @@ public class BuyerHomeFragment extends Fragment {
                     getActivity().runOnUiThread(() -> {
                         showProgress(false);
                         binding.swipeRefresh.setRefreshing(false);
-                        if (beats != null && !beats.isEmpty()) {
-                            allBeats.clear();
+
+                        allBeats.clear();
+                        if (beats != null) {
                             allBeats.addAll(beats);
-                            applyAllFilters();
                             Log.d(TAG, "Loaded " + beats.size() + " beats from realtime listener");
                         }
+
+                        applyAllFilters();
                         updateEmpty();
                         updateSkeletonVisibility();
                     });
@@ -359,6 +367,8 @@ public class BuyerHomeFragment extends Fragment {
                     getActivity().runOnUiThread(() -> {
                         showProgress(false);
                         binding.swipeRefresh.setRefreshing(false);
+                        allBeats.clear();
+                        applyAllFilters();
                         updateEmpty();
                         updateSkeletonVisibility();
                     });
