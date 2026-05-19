@@ -53,6 +53,7 @@ public class LoginActivity extends BaseActivity {
     private void setupLoginMode() {
         binding.tvSubtitle.setText(getString(R.string.sign_in_to_continue));
         binding.btnAction.setText(getString(R.string.sign_in));
+        binding.roleCard.setVisibility(View.GONE);
         binding.roleSelector.setVisibility(View.GONE);
         binding.usernameLayout.setVisibility(View.GONE);
         binding.forgotPassword.setVisibility(View.VISIBLE);
@@ -112,6 +113,7 @@ public class LoginActivity extends BaseActivity {
 
         if (isLoginMode) {
             binding.usernameLayout.setVisibility(View.VISIBLE);
+            binding.roleCard.setVisibility(View.VISIBLE);
             binding.roleSelector.setVisibility(View.VISIBLE);
             binding.forgotPassword.setVisibility(View.GONE);
             binding.tvSubtitle.setText(getString(R.string.create_new_account));
@@ -121,6 +123,7 @@ public class LoginActivity extends BaseActivity {
             binding.rbBuyer.setChecked(true);
         } else {
             binding.usernameLayout.setVisibility(View.GONE);
+            binding.roleCard.setVisibility(View.GONE);
             binding.roleSelector.setVisibility(View.GONE);
             binding.forgotPassword.setVisibility(View.VISIBLE);
             binding.tvSubtitle.setText(getString(R.string.sign_in_to_continue));
