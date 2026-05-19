@@ -261,6 +261,6 @@ public class PlayerActivity extends BaseActivity {
         super.onDestroy();
         stopProgressUpdates();
         progressHandler.removeCallbacksAndMessages(null);
-        staticBeatsAdapter = null;
+        // staticBeatsAdapter = null; // ✅ Не обнуляем, чтобы сохранить связь
     }
 }

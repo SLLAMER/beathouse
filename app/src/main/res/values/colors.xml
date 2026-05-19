@@ -17,6 +17,7 @@
     <color name="surface_container">#F8F8F8</color>
     <color name="surface_container_low">#FAFAFA</color>
     <color name="surface_container_high">#F0F0F0</color>
+    <color name="surface_container_highest">#E0E0E0</color>
 
     <!-- ========== ТЕКСТ ========== -->
     <color name="on_surface">#1C1B1F</color>

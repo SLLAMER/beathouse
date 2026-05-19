@@ -191,10 +191,37 @@ public class CardPaymentActivity extends BaseActivity {
             binding.progressBar.setVisibility(View.GONE);
             Toast.makeText(this, getString(R.string.payment_successful), Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(this, BuyerOrderCompleteActivity.class);
-            intent.putExtra("total", totalAmount);
-            startActivity(intent);
-            finish();
+            processOrderCreation();
         }, 2000);
+    }
+
+    private void processOrderCreation() {
+        String orderId = getIntent().getStringExtra("order_id");
+        String itemsJson = getIntent().getStringExtra("cart_items");
+        java.util.List<com.example.beathouse.models.CartItem> cartItems = new com.google.gson.Gson().fromJson(itemsJson, new com.google.gson.reflect.TypeToken<java.util.ArrayList<com.example.beathouse.models.CartItem>>() {}.getType());
+
+        if (cartItems == null || cartItems.isEmpty()) {
+            finish();
+            return;
+        }
+
+        new com.example.beathouse.utils.OrderManager(this).processOrderCreation(cartItems, "CARD", new com.example.beathouse.utils.OrderManager.OrderCallback() {
+            @Override
+            public void onAllOrdersCreated(java.util.List<com.example.beathouse.models.Order> createdOrders) {
+                Intent intent = new Intent(CardPaymentActivity.this, BuyerOrderCompleteActivity.class);
+                intent.putExtra("total", totalAmount);
+                intent.putExtra("order_id", orderId);
+                intent.putExtra("item_count", cartItems.size());
+                intent.putExtra("order_items", itemsJson);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(CardPaymentActivity.this, error, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
     }
 }
