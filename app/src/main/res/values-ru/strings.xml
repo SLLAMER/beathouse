@@ -116,6 +116,7 @@
     <string name="already_have_account">Уже есть аккаунт?</string>
     <string name="sign_up">Зарегистрироваться</string>
     <string name="create_new_account">Создать новый аккаунт</string>
+    <string name="forgot_password">Забыли пароль?</string>
     <string name="enter_email_first">Сначала введите email</string>
     <string name="password_min_length">Пароль должен быть не менее 6 символов</string>
 
