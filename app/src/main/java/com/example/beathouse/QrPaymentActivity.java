@@ -181,19 +181,35 @@ public class QrPaymentActivity extends BaseActivity {
         }
 
         new Handler().postDelayed(() -> {
-            cartManager.clearCart();
-
-            Intent intent = new Intent(this, BuyerOrderCompleteActivity.class);
-            intent.putExtra("total", totalAmount);
-            intent.putExtra("item_count", cartItems != null ? cartItems.size() : 0);
-            intent.putExtra("transaction_id", "QR_" + System.currentTimeMillis());
-            intent.putExtra("order_id", orderId);
-
-            Gson gson = new Gson();
-            intent.putExtra("order_items", gson.toJson(cartItems));
-
-            startActivity(intent);
-            finish();
+            processOrderCreation();
         }, 1500);
+    }
+
+    private void processOrderCreation() {
+        if (cartItems == null || cartItems.isEmpty()) {
+            finish();
+            return;
+        }
+
+        String itemsJson = new com.google.gson.Gson().toJson(cartItems);
+
+        new com.example.beathouse.utils.OrderManager(this).processOrderCreation(cartItems, "QR", new com.example.beathouse.utils.OrderManager.OrderCallback() {
+            @Override
+            public void onAllOrdersCreated(java.util.List<com.example.beathouse.models.Order> createdOrders) {
+                Intent intent = new Intent(QrPaymentActivity.this, BuyerOrderCompleteActivity.class);
+                intent.putExtra("total", totalAmount);
+                intent.putExtra("order_id", orderId);
+                intent.putExtra("item_count", cartItems.size());
+                intent.putExtra("order_items", itemsJson);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(QrPaymentActivity.this, error, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
     }
 }

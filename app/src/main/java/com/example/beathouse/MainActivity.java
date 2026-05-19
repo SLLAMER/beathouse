@@ -212,6 +212,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_seller, menu);
+        setupNotificationBadge(menu);
         return true;
     }
 

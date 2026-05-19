@@ -674,8 +674,9 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
 
     public void updateBeatsList(List<Beat> newBeats) {
         if (newBeats != null) {
-            stopPlaybackCompletely();
-            audioCache.clear();
+            // ✅ Убираем принудительную остановку при обновлении списка,
+            // чтобы музыка не прерывалась при переключении вкладок.
+            // stopPlaybackCompletely();
 
             if (newBeats != this.beatsList) {
                 this.beatsList.clear();
@@ -694,6 +695,13 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     }
 
     public void releaseMediaPlayer() {
+        // Мы НЕ освобождаем MediaPlayer здесь, так как он должен продолжать играть при смене фрагментов.
+        // Мы только отключаем MiniPlayer от адаптера, если это необходимо,
+        // но вообще лучше оставить его живым в рамках MainActivity.
+        Log.d(TAG, "releaseMediaPlayer called (no-op for persistence)");
+    }
+
+    public void stopAndReleaseCompletely() {
         stopPlaybackCompletely();
         if (mediaPlayer != null) {
             try {

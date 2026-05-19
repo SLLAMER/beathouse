@@ -155,6 +155,11 @@ public class MiniPlayer {
                         miniPlayerCard.setAlpha(1f);
                     }
                 });
+            } else {
+                // Если ничего не играет, скрываем плеер
+                runOnUiThread(() -> {
+                    if (miniPlayerCard != null) miniPlayerCard.setVisibility(View.GONE);
+                });
             }
             updatePlayButton();
         }

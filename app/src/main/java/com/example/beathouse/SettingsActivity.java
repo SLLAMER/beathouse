@@ -3,6 +3,7 @@ package com.example.beathouse;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -79,6 +80,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setupListeners() {
+        binding.btnChangeEmail.setOnClickListener(v -> showChangeEmailDialog());
+        binding.btnChangePassword.setOnClickListener(v -> showChangePasswordDialog());
+
         rgLanguage.setOnCheckedChangeListener((group, checkedId) -> {
             String newLang;
             if (checkedId == R.id.rbRussian) {
@@ -229,5 +233,96 @@ public class SettingsActivity extends AppCompatActivity {
                         Toast.makeText(this, getString(R.string.error_deleting_account) + e.getMessage(), Toast.LENGTH_LONG).show();
                     });
         }
+    }
+
+    private void showChangeEmailDialog() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_change_email, null);
+        android.widget.EditText etCurrentPassword = view.findViewById(R.id.etCurrentPassword);
+        android.widget.EditText etNewEmail = view.findViewById(R.id.etNewEmail);
+
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.change_email))
+                .setView(view)
+                .setPositiveButton(getString(R.string.save), (dialog, which) -> {
+                    String password = etCurrentPassword.getText().toString().trim();
+                    String newEmail = etNewEmail.getText().toString().trim();
+                    if (!password.isEmpty() && !newEmail.isEmpty()) {
+                        updateEmail(password, newEmail);
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancel), null)
+                .show();
+    }
+
+    private void updateEmail(String password, String newEmail) {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) return;
+
+        com.google.firebase.auth.AuthCredential credential = com.google.firebase.auth.EmailAuthProvider
+                .getCredential(user.getEmail(), password);
+
+        user.reauthenticate(credential).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                user.updateEmail(newEmail).addOnCompleteListener(emailTask -> {
+                    if (emailTask.isSuccessful()) {
+                        db.collection("users").document(user.getUid()).update("email", newEmail);
+                        Toast.makeText(this, getString(R.string.email_updated), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, getString(R.string.error_prefix) + emailTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                Toast.makeText(this, getString(R.string.wrong_password), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showChangePasswordDialog() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_change_password, null);
+        android.widget.EditText etCurrentPassword = view.findViewById(R.id.etCurrentPassword);
+        android.widget.EditText etNewPassword = view.findViewById(R.id.etNewPassword);
+        android.widget.EditText etConfirmPassword = view.findViewById(R.id.etConfirmPassword);
+
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.change_password))
+                .setView(view)
+                .setPositiveButton(getString(R.string.save), (dialog, which) -> {
+                    String currentPassword = etCurrentPassword.getText().toString().trim();
+                    String newPassword = etNewPassword.getText().toString().trim();
+                    String confirmPassword = etConfirmPassword.getText().toString().trim();
+
+                    if (currentPassword.isEmpty() || newPassword.isEmpty()) return;
+
+                    if (!newPassword.equals(confirmPassword)) {
+                        Toast.makeText(this, getString(R.string.passwords_dont_match), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    updatePassword(currentPassword, newPassword);
+                })
+                .setNegativeButton(getString(R.string.cancel), null)
+                .show();
+    }
+
+    private void updatePassword(String currentPassword, String newPassword) {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) return;
+
+        com.google.firebase.auth.AuthCredential credential = com.google.firebase.auth.EmailAuthProvider
+                .getCredential(user.getEmail(), currentPassword);
+
+        user.reauthenticate(credential).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                user.updatePassword(newPassword).addOnCompleteListener(passTask -> {
+                    if (passTask.isSuccessful()) {
+                        Toast.makeText(this, getString(R.string.password_updated), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, getString(R.string.error_prefix) + passTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                Toast.makeText(this, getString(R.string.wrong_password), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
