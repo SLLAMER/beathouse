@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- ========== ПРЕМИАЛЬНАЯ ЧЕРНАЯ ПАЛИТРА (BeatStars/iOS Style) ========== -->
+    <!-- ========== ПРЕМИАЛЬНАЯ ЧИСТО ЧЕРНАЯ ПАЛИТРА (TRUE BLACK) ========== -->
     <color name="primary">#B966FF</color>
     <color name="primary_container">#1A0033</color>
     <color name="on_primary">#FFFFFF</color>
     <color name="on_primary_variant">#D0BCFF</color>
 
+    <!-- Вторичные цвета - глубокий серый, без оттенков -->
     <color name="secondary">#8E8E93</color>
-    <color name="secondary_container">#1C1C1E</color>
+    <color name="secondary_container">#151517</color>
     <color name="on_secondary">#FFFFFF</color>
 
-    <!-- ПОВЕРХНОСТИ -->
+    <!-- ПОВЕРХНОСТИ - ТОЛЬКО ЧЕРНЫЙ И ТЕМНО-СЕРЫЙ -->
     <color name="background">#000000</color>
     <color name="background_dark">#000000</color>
     <color name="surface">#000000</color>
-    <color name="surface_variant">#1C1C1E</color>
+    <color name="surface_variant">#000000</color>
     <color name="surface_container">#0A0A0A</color>
     <color name="surface_container_low">#000000</color>
     <color name="surface_container_high">#121212</color>
     <color name="surface_container_highest">#1C1C1E</color>
 
-    <!-- ТЕКСТ -->
+    <!-- ТЕКСТ - МАКСИМАЛЬНЫЙ КОНТРАСТ -->
     <color name="on_surface">#FFFFFF</color>
-    <color name="on_surface_variant">#8E8E93</color>
-    <color name="on_surface_secondary">#636366</color>
-    <color name="on_surface_tertiary">#48484A</color>
+    <color name="on_surface_variant">#A0A0A0</color>
+    <color name="on_surface_secondary">#707070</color>
+    <color name="on_surface_tertiary">#505050</color>
 
-    <!-- АКЦЕНТЫ И ГРАНИЦЫ -->
+    <!-- АКЦЕНТЫ И ГРАНИЦЫ - ТОНКИЕ -->
     <color name="outline">#1C1C1E</color>
     <color name="outline_variant">#2C2C2E</color>
-    <color name="divider">#1C1C1E</color>
+    <color name="divider">#1A1A1A</color>
 
     <!-- СТАТУСЫ -->
     <color name="error">#FF453A</color>
@@ -38,12 +39,12 @@
     <color name="success_green">#32D74B</color>
     <color name="warning">#FF9F0A</color>
 
-    <color name="success_container">#003300</color>
-    <color name="error_container">#440000</color>
+    <color name="success_container">#002200</color>
+    <color name="error_container">#330000</color>
 
     <!-- ДОПОЛНИТЕЛЬНО -->
     <color name="card_background">#0A0A0A</color>
-    <color name="chip_background">#1C1C1E</color>
+    <color name="chip_background">#151517</color>
     <color name="badge_background">#B966FF</color>
     <color name="nav_icon_selected">#B966FF</color>
 
@@ -52,7 +53,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#8E8E93</color>
 
-    <!-- Цвета для соцсетей -->
+    <!-- Соцсети - сохраняем оригинальные цвета -->
     <color name="instagram_color">#E4405F</color>
     <color name="telegram_color">#26A5E4</color>
     <color name="vk_color">#2787F5</color>

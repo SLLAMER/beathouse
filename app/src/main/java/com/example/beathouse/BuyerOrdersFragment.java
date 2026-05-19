@@ -90,6 +90,7 @@ public class BuyerOrdersFragment extends Fragment {
             }
         });
 
+        // ✅ Использование правильного ID из XML
         binding.recyclerViewOrders.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewOrders.setAdapter(adapter);
     }
@@ -289,6 +290,7 @@ public class BuyerOrdersFragment extends Fragment {
         if (binding.emptyState != null) {
             binding.emptyState.setVisibility(show ? View.VISIBLE : View.GONE);
         }
+        // ✅ Использование правильного ID из XML
         binding.recyclerViewOrders.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 

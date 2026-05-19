@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surface">
+    android:background="@color/background">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -29,25 +29,26 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:layout_marginBottom="24dp">
+                    android:layout_marginBottom="32dp"
+                    android:layout_marginTop="16dp">
 
                     <RelativeLayout
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginBottom="12dp">
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginBottom="16dp">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/profileImage"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
                             android:src="@drawable/ic_profile_placeholder"
-                            app:civ_border_width="0dp"
-                            app:civ_border_color="@color/primary" />
+                            app:civ_border_width="2dp"
+                            app:civ_border_color="@color/outline" />
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:id="@+id/fabEditPhoto"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentBottom="true"
                             android:layout_marginEnd="4dp"
@@ -64,17 +65,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Username"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:textStyle="bold"
-                        android:textColor="@color/on_surface" />
+                        android:textColor="@color/on_surface"
+                        android:letterSpacing="-0.02" />
 
                     <TextView
                         android:id="@+id/tvBioDisplay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="8dp"
                         android:text=""
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:textColor="@color/on_surface_variant"
                         android:maxLines="4"
                         android:ellipsize="end"
@@ -87,24 +89,26 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="email@example.com"
-                        android:textSize="12sp"
-                        android:textColor="@color/on_surface_variant" />
+                        android:textSize="14sp"
+                        android:textColor="@color/on_surface_secondary" />
                 </LinearLayout>
 
-                <!-- Stats Card -->
+                <!-- Stats Card (Premium Style) -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="@color/surface"
-                    android:layout_marginBottom="20dp">
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/surface_container"
+                    app:strokeColor="@color/outline"
+                    app:strokeWidth="1dp"
+                    android:layout_marginBottom="24dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="16dp">
+                        android:padding="20dp">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -119,18 +123,20 @@
                                 android:text="0"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                android:textColor="@color/primary" />
+                                android:textColor="@color/on_surface" />
                             <TextView
                                 android:id="@+id/tvBeatsLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/beats_label"
-                                android:textSize="10sp"
+                                android:textSize="11sp"
+                                android:textAllCaps="true"
+                                android:letterSpacing="0.05"
                                 android:textColor="@color/on_surface_variant" />
                         </LinearLayout>
 
-                        <View android:layout_width="1dp" android:layout_height="40dp" android:background="@color/outline" />
+                        <View android:layout_width="1dp" android:layout_height="32dp" android:layout_gravity="center" android:background="@color/outline" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -145,18 +151,20 @@
                                 android:text="$0"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                android:textColor="@color/success" />
+                                android:textColor="@color/on_surface" />
                             <TextView
                                 android:id="@+id/tvTotalLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/total_label"
-                                android:textSize="10sp"
+                                android:textSize="11sp"
+                                android:textAllCaps="true"
+                                android:letterSpacing="0.05"
                                 android:textColor="@color/on_surface_variant" />
                         </LinearLayout>
 
-                        <View android:layout_width="1dp" android:layout_height="40dp" android:background="@color/outline" />
+                        <View android:layout_width="1dp" android:layout_height="32dp" android:layout_gravity="center" android:background="@color/outline" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -171,17 +179,19 @@
                                 android:text="0"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                android:textColor="@color/primary" />
+                                android:textColor="@color/on_surface" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/followers"
-                                android:textSize="10sp"
+                                android:textSize="11sp"
+                                android:textAllCaps="true"
+                                android:letterSpacing="0.05"
                                 android:textColor="@color/on_surface_variant" />
                         </LinearLayout>
 
-                        <View android:layout_width="1dp" android:layout_height="40dp" android:background="@color/outline" />
+                        <View android:layout_width="1dp" android:layout_height="32dp" android:layout_gravity="center" android:background="@color/outline" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -196,67 +206,76 @@
                                 android:text="0"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                android:textColor="@color/primary" />
+                                android:textColor="@color/on_surface" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/following_count"
-                                android:textSize="10sp"
+                                android:textSize="11sp"
+                                android:textAllCaps="true"
+                                android:letterSpacing="0.05"
                                 android:textColor="@color/on_surface_variant" />
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Social Links Icons -->
+                <!-- Social Icons (RESTORED IDS) -->
                 <LinearLayout
                     android:id="@+id/socialLinksLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="24dp"
                     android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/ivInstagram"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:src="@drawable/ic_instagram"
-                        android:padding="8dp"
+                        android:padding="12dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"
-                        android:visibility="gone" />
+                        app:tint="@color/on_surface" />
 
                     <ImageView
                         android:id="@+id/ivTelegram"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:src="@drawable/ic_telegram"
-                        android:padding="8dp"
+                        android:padding="12dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"
-                        android:visibility="gone" />
+                        app:tint="@color/on_surface"
+                        android:layout_marginStart="16dp" />
 
                     <ImageView
                         android:id="@+id/ivVk"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:src="@drawable/ic_vk"
-                        android:padding="8dp"
+                        android:padding="12dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"
-                        android:visibility="gone" />
+                        app:tint="@color/on_surface"
+                        android:layout_marginStart="16dp" />
                 </LinearLayout>
 
-                <!-- Edit Profile Card -->
+                <!-- Edit Profile Card (RESTORED FIELDS) -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="@color/surface"
-                    android:layout_marginBottom="20dp">
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/surface_container"
+                    app:strokeColor="@color/outline"
+                    app:strokeWidth="1dp"
+                    android:layout_marginBottom="24dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -280,10 +299,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="12dp"
                             app:boxBackgroundMode="outline"
-                            app:boxCornerRadiusTopStart="8dp"
-                            app:boxCornerRadiusTopEnd="8dp"
-                            app:boxCornerRadiusBottomStart="8dp"
-                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp"
                             app:boxStrokeColor="@color/outline">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -303,10 +322,10 @@
                             android:layout_height="80dp"
                             android:layout_marginBottom="12dp"
                             app:boxBackgroundMode="outline"
-                            app:boxCornerRadiusTopStart="8dp"
-                            app:boxCornerRadiusTopEnd="8dp"
-                            app:boxCornerRadiusBottomStart="8dp"
-                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp"
                             app:boxStrokeColor="@color/outline">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -328,13 +347,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="12dp"
                             app:boxBackgroundMode="outline"
-                            app:boxCornerRadiusTopStart="8dp"
-                            app:boxCornerRadiusTopEnd="8dp"
-                            app:boxCornerRadiusBottomStart="8dp"
-                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp"
                             app:boxStrokeColor="@color/outline"
-                            app:startIconDrawable="@drawable/ic_instagram"
-                            app:startIconTint="@color/instagram_color">
+                            app:startIconDrawable="@drawable/ic_instagram">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etInstagram"
@@ -354,13 +372,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="12dp"
                             app:boxBackgroundMode="outline"
-                            app:boxCornerRadiusTopStart="8dp"
-                            app:boxCornerRadiusTopEnd="8dp"
-                            app:boxCornerRadiusBottomStart="8dp"
-                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp"
                             app:boxStrokeColor="@color/outline"
-                            app:startIconDrawable="@drawable/ic_telegram"
-                            app:startIconTint="@color/telegram_color">
+                            app:startIconDrawable="@drawable/ic_telegram">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etTelegram"
@@ -380,13 +397,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
                             app:boxBackgroundMode="outline"
-                            app:boxCornerRadiusTopStart="8dp"
-                            app:boxCornerRadiusTopEnd="8dp"
-                            app:boxCornerRadiusBottomStart="8dp"
-                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp"
                             app:boxStrokeColor="@color/outline"
-                            app:startIconDrawable="@drawable/ic_vk"
-                            app:startIconTint="@color/vk_color">
+                            app:startIconDrawable="@drawable/ic_vk">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etVk"
@@ -406,7 +422,7 @@
                             android:text="@string/save"
                             android:textSize="15sp"
                             android:textStyle="bold"
-                            app:cornerRadius="10dp"
+                            app:cornerRadius="12dp"
                             app:backgroundTint="@color/primary" />
 
                     </LinearLayout>
@@ -416,14 +432,14 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSwitchRole"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="56dp"
                     android:text="@string/switch_role"
-                    android:textSize="15sp"
-                    android:gravity="center"
-                    app:cornerRadius="12dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="16dp"
                     app:strokeColor="@color/primary"
-                    app:strokeWidth="2dp"
+                    app:strokeWidth="1.5dp"
+                    android:textColor="@color/primary"
                     style="@style/Widget.Material3.Button.OutlinedButton" />
 
                 <View android:layout_width="match_parent" android:layout_height="100dp" />
