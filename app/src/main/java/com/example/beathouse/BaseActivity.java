@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.beathouse.utils.LocaleHelper;
@@ -97,12 +98,6 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_buyer, menu); // Or menu_seller depending on subclass
-        setupNotificationBadge(menu);
-        return true;
-    }
 
     protected void setupNotificationBadge(Menu menu) {
         MenuItem item = menu.findItem(R.id.action_notifications);
@@ -110,6 +105,12 @@ public class BaseActivity extends AppCompatActivity {
             item.setActionView(R.layout.layout_notification_badge);
             View actionView = item.getActionView();
             notificationBadge = actionView.findViewById(R.id.tv_badge);
+
+            // Настройка иконки в зависимости от темы
+            ImageView ivIcon = actionView.findViewById(R.id.iv_icon);
+            if (ivIcon != null) {
+                ivIcon.setImageResource(R.drawable.ic_notifications);
+            }
 
             actionView.setOnClickListener(v -> {
                 onOptionsItemSelected(item);
