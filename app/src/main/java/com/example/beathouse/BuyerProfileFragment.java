@@ -131,8 +131,12 @@ public class BuyerProfileFragment extends Fragment {
         userListener = FirebaseFirestore.getInstance().collection("users").document(userId)
                 .addSnapshotListener((doc, err) -> {
                     if (err != null || doc == null || !doc.exists()) {
-                        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
-                            swipeRefreshLayout.setRefreshing(false);
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(() -> {
+                                if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
+                            });
                         }
                         return;
                     }
@@ -200,6 +204,9 @@ public class BuyerProfileFragment extends Fragment {
                     intent.putExtra("user_id", currentUser.getId());
                     intent.putExtra("user_name", currentUser.getUsername());
                     startActivity(intent);
+                    if (getActivity() != null) {
+                        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
                 }
             });
         }
@@ -212,6 +219,9 @@ public class BuyerProfileFragment extends Fragment {
                     intent.putExtra("user_id", currentUser.getId());
                     intent.putExtra("user_name", currentUser.getUsername());
                     startActivity(intent);
+                    if (getActivity() != null) {
+                        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
                 }
             });
         }

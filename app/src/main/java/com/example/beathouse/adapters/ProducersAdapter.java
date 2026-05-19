@@ -51,18 +51,12 @@ public class ProducersAdapter extends RecyclerView.Adapter<ProducersAdapter.View
         holder.tvProducerName.setText(producer.getDisplayName() != null && !producer.getDisplayName().isEmpty()
                 ? producer.getDisplayName() : producer.getUsername());
 
-        // ✅ Рейтинг звездами
-        holder.ratingBar.setRating((float) producer.getRating());
-
-        // ✅ Текстовый рейтинг
-        holder.tvRating.setText(String.format("%.1f", producer.getRating()));
+        // ✅ Слушатель для рейтинга в реальном времени
+        loadProducerStatsRealtime(producer.getProducerId(), holder);
 
         // ✅ Статистика
         String stats = producer.getTotalBeats() + " beats • " + producer.getTotalSales() + " sales";
         holder.tvProducerStats.setText(stats);
-
-        // ✅ Подписчики
-        holder.tvFollowers.setText(producer.getFollowers() + " followers");
 
         // Верификация
         holder.ivVerified.setVisibility(producer.isVerified() ? View.VISIBLE : View.GONE);
@@ -105,6 +99,25 @@ public class ProducersAdapter extends RecyclerView.Adapter<ProducersAdapter.View
     @Override
     public int getItemCount() {
         return producers != null ? producers.size() : 0;
+    }
+
+    private void loadProducerStatsRealtime(String producerId, ViewHolder holder) {
+        com.google.firebase.firestore.FirebaseFirestore db = com.google.firebase.firestore.FirebaseFirestore.getInstance();
+        db.collection("producers").document(producerId)
+                .addSnapshotListener((doc, err) -> {
+                    if (err != null || doc == null || !doc.exists()) return;
+                    Double rating = doc.getDouble("rating");
+                    Long followers = doc.getLong("followers");
+                    if (holder.ratingBar != null) {
+                        holder.ratingBar.setRating(rating != null ? rating.floatValue() : 0);
+                    }
+                    if (holder.tvRating != null) {
+                        holder.tvRating.setText(String.format("%.1f", rating != null ? rating : 0.0));
+                    }
+                    if (holder.tvFollowers != null) {
+                        holder.tvFollowers.setText((followers != null ? followers : 0) + " followers");
+                    }
+                });
     }
 
     public void updateProducers(List<Producer> newProducers) {
