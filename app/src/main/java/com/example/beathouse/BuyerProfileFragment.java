@@ -204,9 +204,6 @@ public class BuyerProfileFragment extends Fragment {
                     intent.putExtra("user_id", currentUser.getId());
                     intent.putExtra("user_name", currentUser.getUsername());
                     startActivity(intent);
-                    if (getActivity() != null) {
-                        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    }
                 }
             });
         }
@@ -219,9 +216,6 @@ public class BuyerProfileFragment extends Fragment {
                     intent.putExtra("user_id", currentUser.getId());
                     intent.putExtra("user_name", currentUser.getUsername());
                     startActivity(intent);
-                    if (getActivity() != null) {
-                        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    }
                 }
             });
         }

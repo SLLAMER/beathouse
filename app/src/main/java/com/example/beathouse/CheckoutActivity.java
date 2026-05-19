@@ -237,12 +237,18 @@ public class CheckoutActivity extends BaseActivity {
             Log.e("CHECKOUT_DEBUG", "=== NAVIGATING TO CardPaymentActivity ===");
             Intent intent = new Intent(this, CardPaymentActivity.class);
             intent.putExtra("total_amount", totalAmount);
+            intent.putExtra("order_id", "BH_CARD_" + System.currentTimeMillis());
+            Gson gson = new Gson();
+            intent.putExtra("cart_items", gson.toJson(cartItems));
             startActivity(intent);
             finish();
         } else if (checkedId == R.id.rb_sbp) {
             Log.e("CHECKOUT_DEBUG", "=== NAVIGATING TO SbpBanksActivity ===");
             Intent intent = new Intent(this, SbpBanksActivity.class);
             intent.putExtra("total_amount", totalAmount);
+            intent.putExtra("order_id", "BH_SBP_" + System.currentTimeMillis());
+            Gson gson = new Gson();
+            intent.putExtra("cart_items", gson.toJson(cartItems));
             startActivity(intent);
             finish();
         } else if (checkedId == R.id.rb_qr) {
