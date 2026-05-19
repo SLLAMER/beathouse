@@ -387,10 +387,14 @@ public class BuyerHomeFragment extends Fragment {
     }
 
     private void updateSkeletonVisibility() {
-        if (binding.skeletonLayout != null && filteredBeats.isEmpty() && allBeats.isEmpty()) {
-            binding.skeletonLayout.setVisibility(View.VISIBLE);
-        } else if (binding.skeletonLayout != null) {
-            binding.skeletonLayout.setVisibility(View.GONE);
+        if (binding.skeletonLayout != null) {
+            if (binding.progressBar != null && binding.progressBar.getVisibility() == View.VISIBLE) {
+                binding.skeletonLayout.setVisibility(View.VISIBLE);
+            } else if (allBeats.isEmpty() && binding.swipeRefresh.isRefreshing()) {
+                binding.skeletonLayout.setVisibility(View.VISIBLE);
+            } else {
+                binding.skeletonLayout.setVisibility(View.GONE);
+            }
         }
     }
 

@@ -33,7 +33,7 @@
 
         <!-- Empty State -->
         <include
-            android:id="@+id/empty_state"
+            android:id="@+id/empty_state_include"
             layout="@layout/empty_state"
             android:visibility="gone" />
 

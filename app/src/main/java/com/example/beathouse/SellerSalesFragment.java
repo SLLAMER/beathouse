@@ -277,8 +277,8 @@ public class SellerSalesFragment extends Fragment {
 
     private void updateEmpty() {
         boolean empty = salesList.isEmpty();
-        if (binding.emptyState != null) {
-            binding.emptyState.getRoot().setVisibility(empty ? View.VISIBLE : View.GONE);
+        if (binding.emptyStateInclude != null) {
+            binding.emptyStateInclude.getRoot().setVisibility(empty ? View.VISIBLE : View.GONE);
         }
         binding.recyclerViewOrders.setVisibility(empty ? View.GONE : View.VISIBLE);
     }

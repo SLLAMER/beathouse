@@ -59,6 +59,11 @@ public class Beat implements Serializable {
     private boolean hasCover = false;
 
     public Beat() {
+        this.title = "";
+        this.userName = "";
+        this.genre = "Hip-Hop";
+        this.key = "Cmin";
+        this.description = "";
         this.createdAt = System.currentTimeMillis();
         this.isExclusive = false;
         this.licenseType = LICENSE_MP3_WAV;
@@ -152,9 +157,9 @@ public class Beat implements Serializable {
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
-    public String getTitle() { return title; }
+    public String getTitle() { return title != null ? title : ""; }
     public void setTitle(String title) { this.title = title != null ? title.trim() : ""; }
-    public String getUserName() { return userName; }
+    public String getUserName() { return userName != null ? userName : "Unknown Producer"; }
     public void setUserName(String userName) { this.userName = userName != null ? userName.trim() : "Unknown Producer"; }
     public int getBpm() { return bpm; }
     public void setBpm(int bpm) { this.bpm = Math.max(60, Math.min(220, bpm)); }

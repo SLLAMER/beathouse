@@ -7,5 +7,6 @@
     app:chipStrokeColor="@color/outline_variant"
     app:chipStrokeWidth="1dp"
     app:chipCornerRadius="16dp"
+    app:checkedIconVisible="false"
     android:textColor="@color/on_surface"
     style="@style/Widget.Material3.Chip.Filter" />
