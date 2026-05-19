@@ -167,6 +167,7 @@ public class BuyerHomeFragment extends Fragment {
 
         binding.genreChipGroup.removeAllViews();
         for (int i = 0; i < genres.length; i++) {
+            // ✅ Используем специальный макет layout_genre_chip без галочки
             Chip chip = (Chip) getLayoutInflater().inflate(R.layout.layout_genre_chip, binding.genreChipGroup, false);
             chip.setText(genres[i]);
             chip.setTag(genreKeys[i]);
@@ -333,7 +334,9 @@ public class BuyerHomeFragment extends Fragment {
     }
 
     private void loadBeats() {
-        showProgress(true);
+        if (!binding.swipeRefresh.isRefreshing()) {
+            showProgress(true);
+        }
 
         if (beatsListener != null) {
             beatsListener.remove();
@@ -413,6 +416,13 @@ public class BuyerHomeFragment extends Fragment {
     }
 
     private void updateEmpty() {
+        // ✅ Не показываем пустой экран, если идет процесс обновления (pull-to-refresh)
+        if (binding.swipeRefresh.isRefreshing()) {
+            if (binding.emptyState != null) binding.emptyState.setVisibility(View.GONE);
+            if (binding.recyclerViewBeats != null) binding.recyclerViewBeats.setVisibility(View.VISIBLE);
+            return;
+        }
+
         boolean empty = filteredBeats.isEmpty();
         if (binding.emptyState != null) {
             binding.emptyState.setVisibility(empty ? View.VISIBLE : View.GONE);
@@ -439,9 +449,7 @@ public class BuyerHomeFragment extends Fragment {
             beatsListener.remove();
             beatsListener = null;
         }
-        if (beatsAdapter != null) {
-            beatsAdapter.releaseMediaPlayer();
-        }
+        // ✅ НЕ вызываем releaseMediaPlayer(), чтобы музыка продолжала играть при переключении вкладок
         binding = null;
     }
 }

@@ -36,8 +36,9 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     private List<Beat> beatsList;
     private List<Beat> beatsListFull; // ✅ Для поиска
     private Context context;
-    private MediaPlayer mediaPlayer;
-    private int currentlyPlayingPosition = -1;
+    private static MediaPlayer mediaPlayer;
+    private static int currentlyPlayingPosition = -1;
+    private static String currentlyPlayingBeatId = null;
     private Map<String, String> audioCache;
     private Handler mainHandler;
     private MiniPlayer miniPlayer;
@@ -46,9 +47,9 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     private static BeatsAdapter staticInstance;
 
     // Состояние воспроизведения
-    private int savedPosition = 0;
-    private boolean wasPlaying = false;
-    private boolean isMediaPlayerPreparing = false;
+    private static int savedPosition = 0;
+    private static boolean wasPlaying = false;
+    private static boolean isMediaPlayerPreparing = false;
 
     // Слушатель изменений состояния воспроизведения
     public interface OnPlaybackStateChangeListener {
@@ -95,13 +96,31 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         this.context = context;
         this.audioCache = new HashMap<>();
         this.mainHandler = new Handler(Looper.getMainLooper());
-        this.mediaPlayer = new MediaPlayer();
+
+        if (mediaPlayer == null) {
+            mediaPlayer = new MediaPlayer();
+            setupMediaPlayerListeners();
+        }
+
         this.cartManager = new CartManager(context);
-        setupMediaPlayerListeners();
 
         staticInstance = this;
 
+        // Если что-то уже играет, восстанавливаем позицию в новом списке
+        restorePlayingPosition();
+
         Log.d(TAG, "BeatsAdapter created with " + (beatsList != null ? beatsList.size() : 0) + " beats");
+    }
+
+    private void restorePlayingPosition() {
+        if (currentlyPlayingBeatId != null) {
+            for (int i = 0; i < beatsList.size(); i++) {
+                if (currentlyPlayingBeatId.equals(beatsList.get(i).getId())) {
+                    currentlyPlayingPosition = i;
+                    break;
+                }
+            }
+        }
     }
 
     public static BeatsAdapter getInstance() {
@@ -307,6 +326,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         stopPlaybackCompletely();
 
         currentlyPlayingPosition = position;
+        currentlyPlayingBeatId = beat.getId();
         isMediaPlayerPreparing = true;
 
         if (miniPlayer != null) {
@@ -491,6 +511,8 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         isMediaPlayerPreparing = false;
         savedPosition = 0;
         wasPlaying = false;
+        currentlyPlayingBeatId = null;
+        currentlyPlayingPosition = -1;
     }
 
     public void playBeatAtPosition(int position) {
@@ -672,8 +694,9 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
 
     public void updateBeatsList(List<Beat> newBeats) {
         if (newBeats != null) {
-            stopPlaybackCompletely();
-            audioCache.clear();
+            // ✅ Не останавливаем воспроизведение при обновлении списка,
+            // чтобы музыка не прерывалась при переключении вкладок или возврате назад
+            // stopPlaybackCompletely();
 
             if (newBeats != this.beatsList) {
                 this.beatsList.clear();
@@ -682,7 +705,16 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
 
             this.beatsListFull.clear();
             this.beatsListFull.addAll(newBeats);
+
+            // Восстанавливаем позицию в новом списке
+            restorePlayingPosition();
+
             notifyDataSetChanged();
+
+            // ✅ Если плеер играет, уведомляем UI
+            if (isPlaying()) {
+                notifyPlaybackStateChanged();
+            }
         }
     }
 

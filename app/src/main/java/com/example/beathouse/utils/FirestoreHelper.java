@@ -603,12 +603,28 @@ public class FirestoreHelper {
     // ========== BEATS ==========
 
     public ListenerRegistration getBeatsRealtime(FirestoreCallback callback) {
-        // ✅ Упрощаем запрос, чтобы избежать ошибок с индексами и отсутствующими полями
-        // Загружаем всё, фильтруем на клиенте для максимальной надежности
+        // ✅ Используем фильтр по статусу прямо в запросе для надежности
         return db.collection("beats")
+                .whereEqualTo("status", "active")
                 .addSnapshotListener((snap, err) -> {
                     if (err != null) {
                         Log.e(TAG, "Realtime query failed: " + err.getMessage());
+                        // Если индекс не создан, откатываемся к клиентской фильтрации
+                        if (err.getMessage() != null && err.getMessage().contains("INDEX")) {
+                            loadBeatsWithClientSideFiltering(callback);
+                        } else {
+                            safeError(callback, err.getMessage());
+                        }
+                        return;
+                    }
+                    processBeatsSnapshot(snap, callback);
+                });
+    }
+
+    private void loadBeatsWithClientSideFiltering(FirestoreCallback callback) {
+        db.collection("beats")
+                .addSnapshotListener((snap, err) -> {
+                    if (err != null) {
                         safeError(callback, err.getMessage());
                         return;
                     }
@@ -624,10 +640,14 @@ public class FirestoreHelper {
                 if (b != null) {
                     b.setId(d.getId());
 
-                    // ✅ Фильтруем на клиенте: только активные или те, у которых статус не задан (старые биты)
+                    // ✅ Двойная проверка на клиенте для максимальной безопасности
                     String status = b.getStatus();
+                    // Показываем если статус active ИЛИ если статус вообще не задан (старые биты)
+                    // Но НИКОГДА не показываем deleted
                     if (status == null || "active".equalsIgnoreCase(status)) {
-                        beats.add(b);
+                        if (!"deleted".equalsIgnoreCase(status)) {
+                            beats.add(b);
+                        }
                     }
                 }
             }
