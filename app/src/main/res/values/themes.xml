@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- ========== БАЗОВАЯ ТЕМА ДЛЯ MATERIAL 3 ========== -->
-    <style name="Theme.BeatHouse" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.BeatHouse" parent="Theme.Material3.Dark.NoActionBar">
         <!-- Цветовая схема -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryContainer">@color/primary_container</item>
@@ -21,11 +21,11 @@
 
         <!-- Status Bar -->
         <item name="android:statusBarColor">@color/surface</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
 
         <!-- Navigation Bar -->
         <item name="android:navigationBarColor">@color/surface</item>
-        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLightNavigationBar">false</item>
 
         <!-- Window Background -->
         <item name="android:windowBackground">@color/background</item>

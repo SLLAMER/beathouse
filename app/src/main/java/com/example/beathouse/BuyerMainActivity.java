@@ -20,6 +20,7 @@ public class BuyerMainActivity extends BaseActivity {
     private String currentUserId;
     private FirebaseFirestore db;
     private MiniPlayer miniPlayer;
+    private com.example.beathouse.adapters.BeatsAdapter beatsAdapter;
     private static final String TAG = "BuyerMainActivity";
 
     @Override
@@ -72,12 +73,28 @@ public class BuyerMainActivity extends BaseActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
 
+        setupPlayer();
         setupBuyerNavigation();
 
         if (getSupportFragmentManager().getFragments().isEmpty()) {
             loadFragment(new BuyerHomeFragment());
             binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
         }
+    }
+
+    private void setupPlayer() {
+        if (beatsAdapter == null) {
+            beatsAdapter = new com.example.beathouse.adapters.BeatsAdapter(new java.util.ArrayList<>(), this);
+        }
+        if (miniPlayer == null) {
+            miniPlayer = new MiniPlayer(binding.miniPlayerCard, beatsAdapter, this);
+            beatsAdapter.setMiniPlayer(miniPlayer);
+        }
+    }
+
+    public com.example.beathouse.adapters.BeatsAdapter getBeatsAdapter() {
+        if (beatsAdapter == null) setupPlayer();
+        return beatsAdapter;
     }
 
     public void setMiniPlayer(MiniPlayer player) {

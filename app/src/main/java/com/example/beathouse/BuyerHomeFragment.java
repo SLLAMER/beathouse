@@ -86,18 +86,13 @@ public class BuyerHomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         firestoreHelper = new FirestoreHelper();
-        beatsAdapter = new BeatsAdapter(filteredBeats, requireContext());
 
-        // ✅ Настройка MiniPlayer
-        if (getActivity() != null) {
-            View activityRoot = getActivity().findViewById(R.id.miniPlayerCard);
-            if (activityRoot != null) {
-                miniPlayer = new MiniPlayer(activityRoot, beatsAdapter, requireContext());
-                beatsAdapter.setMiniPlayer(miniPlayer);
-                Log.d(TAG, "MiniPlayer initialized from Activity root");
-            } else {
-                Log.e(TAG, "miniPlayerCard not found in Activity layout");
-            }
+        // ✅ Получаем общий адаптер из Activity
+        if (getActivity() instanceof BuyerMainActivity) {
+            beatsAdapter = ((BuyerMainActivity) getActivity()).getBeatsAdapter();
+            Log.d(TAG, "Shared BeatsAdapter retrieved from BuyerMainActivity");
+        } else {
+            beatsAdapter = new BeatsAdapter(filteredBeats, requireContext());
         }
 
         // ✅ Настройка RecyclerView
@@ -449,9 +444,7 @@ public class BuyerHomeFragment extends Fragment {
             beatsListener.remove();
             beatsListener = null;
         }
-        if (beatsAdapter != null) {
-            beatsAdapter.releaseMediaPlayer();
-        }
+        // Мы НЕ вызываем releaseMediaPlayer(), чтобы музыка продолжала играть
         binding = null;
     }
 }
