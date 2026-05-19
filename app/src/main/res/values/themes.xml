@@ -19,6 +19,9 @@
         <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
         <item name="colorOutline">@color/outline</item>
 
+        <!-- Пытаемся убрать фиолетовый оттенок корректным способом для M3 -->
+        <!-- android:surfaceTint доступен с API 31, для более старых используем colorSurface -->
+
         <!-- Status Bar -->
         <item name="android:statusBarColor">@color/background</item>
         <item name="android:windowLightStatusBar">false</item>
@@ -40,6 +43,7 @@
         <!-- Material 3 компоненты -->
         <item name="materialButtonStyle">@style/Widget.BeatHouse.Button</item>
         <item name="materialCardViewStyle">@style/Widget.BeatHouse.Card</item>
+        <item name="bottomNavigationStyle">@style/Widget.BeatHouse.BottomNavigation</item>
     </style>
 
     <style name="Theme.BeatHouse.Splash" parent="Theme.BeatHouse">
@@ -104,8 +108,8 @@
     </style>
 
     <style name="Widget.BeatHouse.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
-        <item name="itemIconTint">@color/primary</item>
-        <item name="itemTextColor">@color/on_surface_secondary</item>
+        <item name="itemIconTint">@color/bottom_nav_icon_tint</item>
+        <item name="itemTextColor">@color/bottom_nav_text_tint</item>
         <item name="itemBackground">@color/surface</item>
         <item name="android:background">@color/surface</item>
         <item name="elevation">0dp</item>
