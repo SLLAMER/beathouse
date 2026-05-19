@@ -47,6 +47,7 @@ public class MiniPlayer {
             initViews();
             setupListeners();
             setupSwipeToClose();
+            syncFromAdapter(); // ✅ Синхронизируем состояние при создании
         } else {
             Log.e(TAG, "MiniPlayer card not found");
         }
@@ -147,6 +148,12 @@ public class MiniPlayer {
                     tvMiniTitle.setText(currentBeat.getTitle());
                     tvMiniProducer.setText("by " + currentBeat.getUserName());
                     loadCoverWithFallback(currentBeat);
+
+                    // ✅ Показываем карточку, если что-то играет или готово к игре
+                    if (miniPlayerCard.getVisibility() != View.VISIBLE) {
+                        miniPlayerCard.setVisibility(View.VISIBLE);
+                        miniPlayerCard.setAlpha(1f);
+                    }
                 });
             }
             updatePlayButton();
