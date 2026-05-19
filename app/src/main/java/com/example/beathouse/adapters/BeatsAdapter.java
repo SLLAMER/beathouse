@@ -674,9 +674,13 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         if (newBeats != null) {
             stopPlaybackCompletely();
             audioCache.clear();
-            this.beatsList.clear();
+
+            if (newBeats != this.beatsList) {
+                this.beatsList.clear();
+                this.beatsList.addAll(newBeats);
+            }
+
             this.beatsListFull.clear();
-            this.beatsList.addAll(newBeats);
             this.beatsListFull.addAll(newBeats);
             notifyDataSetChanged();
         }

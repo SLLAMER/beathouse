@@ -16,7 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.beathouse.adapters.SalesAdapter;
-import com.example.beathouse.databinding.FragmentBuyerOrdersBinding;
+import com.example.beathouse.databinding.FragmentSalesBinding;
 import com.example.beathouse.models.Order;
 import com.example.beathouse.utils.FirestoreHelper;
 import com.example.beathouse.utils.LocaleHelper;
@@ -29,7 +29,7 @@ import java.util.List;
 
 public class SellerSalesFragment extends Fragment {
 
-    private FragmentBuyerOrdersBinding binding;
+    private FragmentSalesBinding binding;
     private FirestoreHelper firestoreHelper;
     private SalesAdapter adapter;
     private List<Order> salesList;
@@ -49,7 +49,7 @@ public class SellerSalesFragment extends Fragment {
 
     @Nullable @Override
     public View onCreateView(@NonNull LayoutInflater i, @Nullable ViewGroup c, @Nullable Bundle s) {
-        binding = FragmentBuyerOrdersBinding.inflate(i, c, false);
+        binding = FragmentSalesBinding.inflate(i, c, false);
         setHasOptionsMenu(true);
         return binding.getRoot();
     }
@@ -277,8 +277,8 @@ public class SellerSalesFragment extends Fragment {
 
     private void updateEmpty() {
         boolean empty = salesList.isEmpty();
-        if (binding.emptyState != null) {
-            binding.emptyState.setVisibility(empty ? View.VISIBLE : View.GONE);
+        if (binding.emptyStateInclude != null) {
+            binding.emptyStateInclude.getRoot().setVisibility(empty ? View.VISIBLE : View.GONE);
         }
         binding.recyclerViewOrders.setVisibility(empty ? View.GONE : View.VISIBLE);
     }
