@@ -41,4 +41,5 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.google.zxing:core:3.5.2")
+    testImplementation("junit:junit:4.13.2")
 }

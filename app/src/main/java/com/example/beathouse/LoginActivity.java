@@ -329,13 +329,38 @@ public class LoginActivity extends BaseActivity {
                 });
     }
 
-    private void resetPassword(String email) {
-        showLoading(true);
-        mAuth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(task -> {
-                    showLoading(false);
-                    Toast.makeText(this, task.isSuccessful() ? getString(R.string.reset_email_sent) : getString(R.string.reset_email_error), Toast.LENGTH_LONG).show();
-                });
+    private void resetPassword(String initialEmail) {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_forgot_password, null);
+        androidx.appcompat.app.AlertDialog dialog = new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create();
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        com.google.android.material.textfield.TextInputEditText etEmail = dialogView.findViewById(R.id.etEmail);
+        com.google.android.material.button.MaterialButton btnReset = dialogView.findViewById(R.id.btnReset);
+
+        etEmail.setText(initialEmail);
+
+        btnReset.setOnClickListener(v -> {
+            String email = etEmail.getText().toString().trim();
+            if (email.isEmpty()) {
+                etEmail.setError(getString(R.string.email_required));
+                return;
+            }
+
+            dialog.dismiss();
+            showLoading(true);
+            mAuth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener(task -> {
+                        showLoading(false);
+                        Toast.makeText(this, task.isSuccessful() ? getString(R.string.reset_email_sent) : getString(R.string.reset_email_error), Toast.LENGTH_LONG).show();
+                    });
+        });
+
+        dialog.show();
     }
 
     private void showLoading(boolean show) {
