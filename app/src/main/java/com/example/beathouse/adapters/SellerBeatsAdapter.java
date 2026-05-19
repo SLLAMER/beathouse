@@ -115,29 +115,17 @@ public class SellerBeatsAdapter extends RecyclerView.Adapter<SellerBeatsAdapter.
 
         imageView.setImageResource(R.drawable.ic_music_note);
 
-        FirestoreHelper helper = new FirestoreHelper();
-        helper.loadBeatCover(beat.getId(), new FirestoreHelper.FirestoreCallback() {
-            @Override
-            public void onSuccess(Object result) {
-                String coverData = (String) result;
-                if (coverData != null && !coverData.isEmpty() && coverData.length() > 100) {
-                    beat.setCoverImage(coverData);
-                    try {
-                        byte[] decodedBytes = Base64.decode(coverData, Base64.DEFAULT);
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-                        if (bitmap != null) {
-                            imageView.setImageBitmap(bitmap);
-                        }
-                    } catch (Exception e) {
-                        Log.e("SellerBeatsAdapter", "Error decoding cover: " + e.getMessage());
-                    }
+        if (beat.hasCover() && beat.getCoverImage() != null && !beat.getCoverImage().isEmpty()) {
+            try {
+                byte[] decodedBytes = Base64.decode(beat.getCoverImage(), Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                if (bitmap != null) {
+                    imageView.setImageBitmap(bitmap);
                 }
+            } catch (Exception e) {
+                Log.e("SellerBeatsAdapter", "Error decoding cover: " + e.getMessage());
             }
-            @Override
-            public void onError(String error) {
-                Log.e("SellerBeatsAdapter", "Error loading cover: " + error);
-            }
-        });
+        }
     }
 
     private void showEditDialog(Beat beat, int position) {

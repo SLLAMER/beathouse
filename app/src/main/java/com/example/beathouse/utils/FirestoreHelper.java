@@ -8,6 +8,7 @@ import com.example.beathouse.models.Order;
 import com.example.beathouse.models.Producer;
 import com.example.beathouse.models.User;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.Blob;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,10 +43,14 @@ public class FirestoreHelper {
     }
 
     private void safeCallback(FirestoreCallback callback, Object result) {
-        if (callback != null) callback.onSuccess(result);
+        if (callback != null) {
+            new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> callback.onSuccess(result));
+        }
     }
     private void safeError(FirestoreCallback callback, String error) {
-        if (callback != null) callback.onError(error);
+        if (callback != null) {
+            new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> callback.onError(error));
+        }
     }
 
     // ========== ROLE SWITCH ==========
@@ -400,6 +405,15 @@ public class FirestoreHelper {
             if (callback != null) callback.onError("Audio required");
             return;
         }
+
+        byte[] audioBytes;
+        try {
+            audioBytes = android.util.Base64.decode(audio, android.util.Base64.DEFAULT);
+        } catch (Exception e) {
+            if (callback != null) callback.onError("Failed to decode audio: " + e.getMessage());
+            return;
+        }
+
         if (beat.getId() == null || beat.getId().isEmpty())
             beat.setId(db.collection("beats").document().getId());
 
@@ -412,29 +426,33 @@ public class FirestoreHelper {
         if (cover != null && !cover.isEmpty() && cover.length() <= CHUNK_SIZE)
             data.put("coverImage", cover);
 
-        Log.d(TAG, "💾 Saving new beat: " + beat.getTitle());
-        Log.d(TAG, "  ID: " + beat.getId());
-        Log.d(TAG, "  ProducerId: " + beat.getProducerId());
+        Log.d(TAG, "💾 Saving new beat: " + beat.getTitle() + " (" + audioBytes.length + " bytes)");
 
         db.collection("beats").document(beat.getId()).set(data)
                 .addOnSuccessListener(a -> {
                     Log.d(TAG, "✅ Beat document created");
-                    List<String> chunks = splitIntoChunks(audio, CHUNK_SIZE);
+                    List<byte[]> chunks = splitIntoByteChunks(audioBytes, CHUNK_SIZE);
                     WriteBatch batch = db.batch();
                     CollectionReference ref = db.collection("beats").document(beat.getId()).collection("audio_chunks");
                     Map<String, Object> info = new HashMap<>();
-                    info.put("totalChunks", chunks.size()); info.put("totalSize", audio.length());
+                    info.put("totalChunks", chunks.size());
+                    info.put("totalSize", audioBytes.length);
+                    info.put("useBlob", true);
                     batch.set(ref.document("info"), info);
+
                     for (int i = 0; i < chunks.size(); i++) {
                         Map<String, Object> cd = new HashMap<>();
-                        cd.put("data", chunks.get(i)); cd.put("index", i);
+                        cd.put("dataBlob", Blob.fromBytes(chunks.get(i)));
+                        cd.put("index", i);
                         batch.set(ref.document("chunk_" + i), cd);
+
                         if (callback != null && (i % 5 == 0 || i == chunks.size() - 1))
                             callback.onProgress(i + 1, chunks.size(), "audio");
                     }
+
                     batch.commit()
                             .addOnSuccessListener(av -> {
-                                Log.d(TAG, "✅ Audio chunks saved: " + chunks.size() + " chunks");
+                                Log.d(TAG, "✅ Audio chunks saved as Blobs: " + chunks.size() + " chunks");
                                 audioCache.put(beat.getId(), audio);
                                 updateProducerStats(beat.getProducerId());
                                 if (callback != null) callback.onComplete(beat.getId());
@@ -450,19 +468,17 @@ public class FirestoreHelper {
                 });
     }
 
-    // ✅ ЗАГРУЗКА ОБЛОЖКИ - ВСЕГДА СВЕЖИЕ ДАННЫЕ (без кэша)
-    public void loadBeatCover(String beatId, FirestoreCallback callback) {
-        db.collection("beats").document(beatId).get()
-                .addOnSuccessListener(doc -> {
-                    String cover = doc.getString("coverImage");
-                    if (cover != null && !cover.isEmpty()) {
-                        safeCallback(callback, cover);
-                    } else {
-                        safeCallback(callback, null);
-                    }
-                })
-                .addOnFailureListener(e -> safeError(callback, e.getMessage()));
+    private List<byte[]> splitIntoByteChunks(byte[] data, int size) {
+        List<byte[]> chunks = new ArrayList<>();
+        for (int i = 0; i < data.length; i += size) {
+            int length = Math.min(size, data.length - i);
+            byte[] chunk = new byte[length];
+            System.arraycopy(data, i, chunk, 0, length);
+            chunks.add(chunk);
+        }
+        return chunks;
     }
+
 
     public void loadBeatAudioSmart(String beatId, FirestoreCallback callback) {
         String cached = audioCache.get(beatId);
@@ -474,18 +490,40 @@ public class FirestoreHelper {
         String cached = audioCache.get(beatId);
         if (cached != null) { safeCallback(callback, cached); return; }
 
-        db.collection("beats").document(beatId).collection("audio_chunks")
-                .orderBy("index").get()
-                .addOnSuccessListener(chunkSnap -> {
-                    if (chunkSnap.isEmpty()) { safeError(callback, "No audio"); return; }
-                    StringBuilder fullAudio = new StringBuilder();
-                    for (DocumentSnapshot chunkDoc : chunkSnap) {
-                        String chunk = chunkDoc.getString("data");
-                        if (chunk != null) fullAudio.append(chunk);
-                    }
-                    String result = fullAudio.toString();
-                    audioCache.put(beatId, result);
-                    safeCallback(callback, result);
+        db.collection("beats").document(beatId).collection("audio_chunks").document("info").get()
+                .addOnSuccessListener(infoDoc -> {
+                    boolean useBlob = infoDoc.exists() && infoDoc.contains("useBlob") && Boolean.TRUE.equals(infoDoc.getBoolean("useBlob"));
+
+                    db.collection("beats").document(beatId).collection("audio_chunks")
+                            .orderBy("index").get()
+                            .addOnSuccessListener(chunkSnap -> {
+                                if (chunkSnap.isEmpty()) { safeError(callback, "No audio"); return; }
+
+                                if (useBlob) {
+                                    java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
+                                    for (DocumentSnapshot chunkDoc : chunkSnap) {
+                                        Blob blob = chunkDoc.getBlob("dataBlob");
+                                        if (blob != null) {
+                                            try {
+                                                baos.write(blob.toBytes());
+                                            } catch (Exception e) {}
+                                        }
+                                    }
+                                    String result = android.util.Base64.encodeToString(baos.toByteArray(), android.util.Base64.DEFAULT);
+                                    audioCache.put(beatId, result);
+                                    safeCallback(callback, result);
+                                } else {
+                                    StringBuilder fullAudio = new StringBuilder();
+                                    for (DocumentSnapshot chunkDoc : chunkSnap) {
+                                        String chunk = chunkDoc.getString("data");
+                                        if (chunk != null) fullAudio.append(chunk);
+                                    }
+                                    String result = fullAudio.toString();
+                                    audioCache.put(beatId, result);
+                                    safeCallback(callback, result);
+                                }
+                            })
+                            .addOnFailureListener(e -> safeError(callback, e.getMessage()));
                 })
                 .addOnFailureListener(e -> safeError(callback, e.getMessage()));
     }
@@ -565,22 +603,50 @@ public class FirestoreHelper {
     // ========== BEATS ==========
 
     public ListenerRegistration getBeatsRealtime(FirestoreCallback callback) {
+        // Попытка получить отсортированные данные (требует индекса)
         return db.collection("beats").whereEqualTo("status", "active")
                 .orderBy("createdAt", Query.Direction.DESCENDING)
                 .addSnapshotListener((snap, err) -> {
-                    if (err != null) { safeError(callback, err.getMessage()); return; }
-                    List<Beat> beats = new ArrayList<>();
-                    if (snap != null) {
-                        for (DocumentSnapshot d : snap) {
-                            Beat b = Beat.fromMap(d.getData());
-                            if (b != null) {
-                                b.setId(d.getId());
-                                beats.add(b);
-                            }
+                    if (err != null) {
+                        Log.w(TAG, "Realtime query with index failed: " + err.getMessage());
+
+                        // Если ошибка из-за отсутствия индекса, пробуем без сортировки
+                        if (err.getMessage() != null && err.getMessage().contains("index")) {
+                            Log.d(TAG, "Falling back to client-side sorting...");
+                            db.collection("beats").whereEqualTo("status", "active")
+                                    .addSnapshotListener((snapFallback, errFallback) -> {
+                                        if (errFallback != null) {
+                                            safeError(callback, errFallback.getMessage());
+                                            return;
+                                        }
+                                        processBeatsSnapshot(snapFallback, callback, true);
+                                    });
+                        } else {
+                            safeError(callback, err.getMessage());
                         }
+                        return;
                     }
-                    safeCallback(callback, beats);
+                    processBeatsSnapshot(snap, callback, false);
                 });
+    }
+
+    private void processBeatsSnapshot(com.google.firebase.firestore.QuerySnapshot snap, FirestoreCallback callback, boolean sortLocally) {
+        List<Beat> beats = new ArrayList<>();
+        if (snap != null) {
+            for (DocumentSnapshot d : snap) {
+                Beat b = Beat.fromMap(d.getData());
+                if (b != null) {
+                    b.setId(d.getId());
+                    beats.add(b);
+                }
+            }
+        }
+
+        if (sortLocally) {
+            beats.sort((a, b) -> Long.compare(b.getCreatedAt(), a.getCreatedAt()));
+        }
+
+        safeCallback(callback, beats);
     }
 
     public void searchBeats(String query, FirestoreCallback callback) {
@@ -715,12 +781,6 @@ public class FirestoreHelper {
                 });
     }
 
-    private List<String> splitIntoChunks(String data, int size) {
-        List<String> chunks = new ArrayList<>();
-        for (int i = 0; i < data.length(); i += size)
-            chunks.add(data.substring(i, Math.min(data.length(), i + size)));
-        return chunks;
-    }
 
     public void clearCache() {
         audioCache.clear();

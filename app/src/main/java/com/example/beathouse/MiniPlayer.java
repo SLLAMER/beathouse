@@ -232,27 +232,8 @@ public class MiniPlayer {
         if (beat.hasCover() && beat.getCoverImage() != null) {
             setCoverImage(beat.getCoverImage());
         } else {
-            loadCoverFromFirestore(beat);
+            setDefaultCover();
         }
-    }
-
-    private void loadCoverFromFirestore(Beat beat) {
-        new FirestoreHelper().loadBeatCover(beat.getId(), new FirestoreHelper.FirestoreCallback() {
-            @Override
-            public void onSuccess(Object result) {
-                String data = (String) result;
-                if (data != null && !data.isEmpty()) {
-                    beat.setCoverImage(data);
-                    setCoverImage(data);
-                } else {
-                    setDefaultCover();
-                }
-            }
-            @Override
-            public void onError(String error) {
-                setDefaultCover();
-            }
-        });
     }
 
     private void setCoverImage(String base64) {
