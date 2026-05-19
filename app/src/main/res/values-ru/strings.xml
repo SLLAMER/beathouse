@@ -62,6 +62,13 @@
     <string name="you_are_now_seller">Теперь вы продавец! Приложение будет перезапущено.</string>
     <string name="social_links">Социальные сети</string>
     <string name="become_seller_text">Стать продавцом</string>
+    <string name="role_buyer">🎵 Покупатель</string>
+    <string name="role_seller">🎹 Продавец</string>
+    <string name="beat_title">Название бита</string>
+    <string name="license_prices">Цены лицензий</string>
+    <string name="price_mp3_wav">Цена MP3 + WAV</string>
+    <string name="price_track_out">Цена Track Out (Stems)</string>
+    <string name="price_exclusive">Цена Exclusive Rights</string>
 
     <!-- Followers/Following -->
     <string name="followers">Подписчики</string>
@@ -428,4 +435,5 @@
     <!-- QR Payment -->
     <string name="confirm_payment_message_qr">Вы успешно оплатили заказ?</string>
 
+    <string name="free_beat">Бесплатный бит</string>
 </resources>

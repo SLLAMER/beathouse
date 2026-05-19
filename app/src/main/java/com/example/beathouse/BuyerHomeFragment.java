@@ -135,6 +135,17 @@ public class BuyerHomeFragment extends Fragment {
                     applyAllFilters();
                 }
             });
+
+            etSearch.setOnEditorActionListener((v, actionId, event) -> {
+                if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH) {
+                    applyAllFilters();
+                    // Скрываем клавиатуру
+                    android.view.inputmethod.InputMethodManager imm = (android.view.inputmethod.InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(etSearch.getWindowToken(), 0);
+                    return true;
+                }
+                return false;
+            });
         }
 
     }

@@ -107,6 +107,17 @@ public class HomeFragment extends Fragment {
                     applyAllFilters();
                 }
             });
+
+            binding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
+                if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH) {
+                    applyAllFilters();
+                    // Скрываем клавиатуру
+                    android.view.inputmethod.InputMethodManager imm = (android.view.inputmethod.InputMethodManager) requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(binding.etSearch.getWindowToken(), 0);
+                    return true;
+                }
+                return false;
+            });
         }
     }
 

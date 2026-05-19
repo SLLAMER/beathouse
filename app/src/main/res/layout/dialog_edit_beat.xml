@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit Beat"
+                android:text="@string/edit_beat"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="@color/on_surface" />
@@ -72,7 +72,7 @@
                 android:id="@+id/etEditTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Beat Title"
+                android:hint="@string/beat_title"
                 android:textColor="@color/on_surface"
                 android:textSize="16sp" />
 
@@ -102,9 +102,10 @@
                     android:id="@+id/etEditGenre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Genre"
+                    android:hint="@string/genre_all"
                     android:textColor="@color/on_surface"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:completionThreshold="0" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,9 +125,10 @@
                     android:id="@+id/etEditKey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Key"
+                    android:hint="@string/select_key"
                     android:textColor="@color/on_surface"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:completionThreshold="0" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -168,7 +170,7 @@
                 android:id="@+id/tvLicensePricesHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="License Prices"
+                android:text="@string/license_prices"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@color/primary"
@@ -187,7 +189,7 @@
                     android:id="@+id/etEditPriceMp3Wav"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="MP3 + WAV Price"
+                    android:hint="@string/price_mp3_wav"
                     android:inputType="numberDecimal"
                     android:textColor="@color/on_surface"
                     android:textSize="14sp" />
@@ -206,7 +208,7 @@
                     android:id="@+id/etEditPriceTrackOut"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Track Out (Stems) Price"
+                    android:hint="@string/price_track_out"
                     android:inputType="numberDecimal"
                     android:textColor="@color/on_surface"
                     android:textSize="14sp" />
@@ -225,7 +227,7 @@
                     android:id="@+id/etEditPriceExclusive"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Exclusive Rights Price"
+                    android:hint="@string/price_exclusive"
                     android:inputType="numberDecimal"
                     android:textColor="@color/on_surface"
                     android:textSize="14sp" />
@@ -248,7 +250,7 @@
                     android:id="@+id/etEditDescription"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:hint="Description"
+                    android:hint="@string/bio"
                     android:gravity="top"
                     android:inputType="textMultiLine"
                     android:textColor="@color/on_surface"
@@ -280,7 +282,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Free Beat"
+                    android:text="@string/free_beat"
                     android:textColor="@color/on_surface"
                     android:textStyle="bold"
                     android:textSize="16sp" />
@@ -303,7 +305,7 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginBottom="12dp"
-            android:text="Update Cover Image"
+            android:text="@string/select_cover"
             app:icon="@drawable/ic_add_photo"
             app:cornerRadius="12dp" />
 
@@ -311,7 +313,7 @@
             android:id="@+id/btnSaveBeat"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Save Changes"
+            android:text="@string/save"
             app:icon="@drawable/ic_save"
             app:cornerRadius="12dp"
             android:textStyle="bold" />

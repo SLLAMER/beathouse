@@ -60,6 +60,13 @@
     <string name="become_seller_message">You will be able to upload and sell beats!</string>
     <string name="switching_to_seller">Switching to Seller...</string>
     <string name="you_are_now_seller">You are now a Seller! App will restart.</string>
+    <string name="role_buyer">🎵 Buyer</string>
+    <string name="role_seller">🎹 Seller</string>
+    <string name="beat_title">Beat Title</string>
+    <string name="license_prices">License Prices</string>
+    <string name="price_mp3_wav">MP3 + WAV Price</string>
+    <string name="price_track_out">Track Out (Stems) Price</string>
+    <string name="price_exclusive">Exclusive Rights Price</string>
 
     <!-- Followers/Following -->
     <string name="followers">Followers</string>
@@ -444,4 +451,5 @@
     <!-- QR Payment -->
     <string name="confirm_payment_message_qr">Have you successfully completed the payment?</string>
 
+    <string name="free_beat">Free Beat</string>
 </resources>

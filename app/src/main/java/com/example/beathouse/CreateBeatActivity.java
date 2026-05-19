@@ -38,10 +38,16 @@ public class CreateBeatActivity extends BaseActivity {
     private User currentUser;
     private Beat editingBeat = null;
 
-    private String[] genres = {"Hip-Hop", "Trap", "R&B", "Drill", "Pop", "Electronic", "Jazz", "Rock", "Lo-Fi", "Afrobeats", "BoomBap"};
-    private String[] keys = {"Cmin", "Cmaj", "C#min", "C#maj", "Dmin", "Dmaj", "D#min", "D#maj",
+    private String[] genres = {
+            "Hip-Hop", "Trap", "R&B", "Drill", "Pop", "Electronic", "Lo-Fi",
+            "Rock", "Jazz", "Classical", "Country", "Blues", "Reggae", "Funk",
+            "Soul", "Disco", "Techno", "House", "Ambient", "Dubstep", "Grime"
+    };
+    private String[] keys = {
+            "Cmin", "Cmaj", "C#min", "C#maj", "Dmin", "Dmaj", "D#min", "D#maj",
             "Emin", "Emaj", "Fmin", "Fmaj", "F#min", "F#maj", "Gmin", "Gmaj",
-            "G#min", "G#maj", "Amin", "Amaj", "A#min", "A#maj", "Bmin", "Bmaj"};
+            "G#min", "G#maj", "Amin", "Amaj", "A#min", "A#maj", "Bmin", "Bmaj"
+    };
 
     private static final int PICK_AUDIO_REQUEST = 1;
     private static final int PICK_COVER_REQUEST = 2;
