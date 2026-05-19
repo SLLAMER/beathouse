@@ -2,25 +2,25 @@
 <resources>
     <!-- ========== ОСНОВНЫЕ ЦВЕТА (Material 3) ========== -->
     <color name="primary">#B966FF</color>
-    <color name="primary_container">#4F378B</color>
+    <color name="primary_container">#21005D</color>
     <color name="on_primary">#FFFFFF</color>
     <color name="on_primary_variant">#D0BCFF</color>
 
     <!-- ========== ВТОРИЧНЫЕ ЦВЕТА ========== -->
     <color name="secondary">#CCC2DC</color>
-    <color name="secondary_container">#4A4458</color>
+    <color name="secondary_container">#332D41</color>
     <color name="on_secondary">#332D41</color>
 
-    <!-- ========== ПОВЕРХНОСТИ (DARK) ========== -->
-    <color name="surface">#1C1B1F</color>
-    <color name="surface_variant">#49454F</color>
-    <color name="surface_container">#232323</color>
-    <color name="surface_container_low">#1C1B1F</color>
-    <color name="surface_container_high">#2B2930</color>
-    <color name="surface_container_highest">#36343B</color>
+    <!-- ========== ПОВЕРХНОСТИ (BLACK - BeatStars style) ========== -->
+    <color name="surface">#000000</color>
+    <color name="surface_variant">#121212</color>
+    <color name="surface_container">#0A0A0A</color>
+    <color name="surface_container_low">#050505</color>
+    <color name="surface_container_high">#111111</color>
+    <color name="surface_container_highest">#1A1A1A</color>
 
-    <!-- ========== ТЕКСТ (LIGHT ON DARK) ========== -->
-    <color name="on_surface">#E6E1E5</color>
+    <!-- ========== ТЕКСТ (LIGHT ON BLACK) ========== -->
+    <color name="on_surface">#FFFFFF</color>
     <color name="on_surface_variant">#CAC4D0</color>
     <color name="on_surface_secondary">#938F99</color>
     <color name="on_surface_tertiary">#79747E</color>
@@ -34,20 +34,20 @@
     <color name="success_green">#4CAF50</color>
 
     <!-- ========== ОБВОДКА И РАЗДЕЛИТЕЛИ ========== -->
-    <color name="outline">#938F99</color>
-    <color name="outline_variant">#49454F</color>
-    <color name="divider">#49454F</color>
+    <color name="outline">#333333</color>
+    <color name="outline_variant">#222222</color>
+    <color name="divider">#1A1A1A</color>
 
     <!-- ========== БЭКГРАУНД ========== -->
-    <color name="background">#121212</color>
+    <color name="background">#000000</color>
     <color name="background_dark">#000000</color>
-    <color name="background_card">#1E1E1E</color>
+    <color name="background_card">#0A0A0A</color>
 
     <!-- ========== ДОПОЛНИТЕЛЬНЫЕ ЦВЕТА ДЛЯ ТЕМЫ ========== -->
-    <color name="card_background">#1E1E1E</color>
-    <color name="chip_background">#2B2930</color>
+    <color name="card_background">#0A0A0A</color>
+    <color name="chip_background">#1A1A1A</color>
     <color name="badge_background">#B966FF</color>
-    <color name="nav_icon_selected">#D0BCFF</color>
+    <color name="nav_icon_selected">#B966FF</color>
 
     <!-- ========== БАЗОВЫЕ ЦВЕТА ========== -->
     <color name="black">#FF000000</color>

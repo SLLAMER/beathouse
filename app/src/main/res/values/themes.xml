@@ -24,11 +24,15 @@
         <item name="android:windowLightStatusBar">false</item>
 
         <!-- Navigation Bar -->
-        <item name="android:navigationBarColor">@color/surface</item>
+        <item name="android:navigationBarColor">@color/background</item>
         <item name="android:windowLightNavigationBar">false</item>
 
         <!-- Window Background -->
         <item name="android:windowBackground">@color/background</item>
+
+        <!-- Splash Screen (Android 12+) -->
+        <item name="android:windowSplashScreenBackground" tools:targetApi="31">@color/background</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="31">@mipmap/ic_launcher</item>
 
         <!-- Анимации -->
         <item name="android:windowAnimationStyle">@style/Animation.BeatHouse</item>
@@ -40,6 +44,8 @@
 
     <style name="Theme.BeatHouse.Splash" parent="Theme.BeatHouse">
         <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
     </style>
 
     <style name="Widget.BeatHouse.Button" parent="Widget.Material3.Button">
