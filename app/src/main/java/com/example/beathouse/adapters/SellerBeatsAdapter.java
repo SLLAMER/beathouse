@@ -175,15 +175,23 @@ public class SellerBeatsAdapter extends RecyclerView.Adapter<SellerBeatsAdapter.
         etTitle.setText(beat.getTitle());
         loadCoverImageToDialog(beat);
 
-        String[] genres = {"Hip-Hop", "Trap", "R&B", "Drill", "Pop", "Electronic", "Lo-Fi"};
+        String[] genres = {
+                "Hip-Hop", "Trap", "R&B", "Drill", "Pop", "Electronic", "Lo-Fi",
+                "Rock", "Jazz", "Classical", "Country", "Blues", "Reggae", "Funk",
+                "Soul", "Disco", "Techno", "House", "Ambient", "Dubstep", "Grime"
+        };
         ArrayAdapter<String> genreAdapter = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, genres);
         etGenre.setAdapter(genreAdapter);
-        etGenre.setText(beat.getGenre());
+        etGenre.setText(beat.getGenre(), false);
 
-        String[] keys = {"Cmin", "Cmaj", "Dmin", "Dmaj", "Emin", "Emaj", "Fmin", "Fmaj", "Gmin", "Gmaj", "Amin", "Amaj", "Bmin", "Bmaj"};
+        String[] keys = {
+                "Cmin", "Cmaj", "C#min", "C#maj", "Dmin", "Dmaj", "D#min", "D#maj",
+                "Emin", "Emaj", "Fmin", "Fmaj", "F#min", "F#maj", "Gmin", "Gmaj",
+                "G#min", "G#maj", "Amin", "Amaj", "A#min", "A#maj", "Bmin", "Bmaj"
+        };
         ArrayAdapter<String> keyAdapter = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, keys);
         etKey.setAdapter(keyAdapter);
-        etKey.setText(beat.getKey());
+        etKey.setText(beat.getKey(), false);
 
         etBpm.setText(String.valueOf(beat.getBpm()));
 

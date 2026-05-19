@@ -280,38 +280,54 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="24dp">
+                    android:layout_marginBottom="24dp"
+                    android:gravity="center_vertical">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnFollow"
                         android:layout_width="0dp"
-                        android:layout_height="48dp"
+                        android:layout_height="52dp"
                         android:layout_weight="1"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="4dp"
                         android:text="@string/follow"
-                        app:cornerRadius="12dp" />
+                        android:textSize="14sp"
+                        app:cornerRadius="12dp"
+                        android:padding="0dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnRate"
                         android:layout_width="0dp"
-                        android:layout_height="48dp"
+                        android:layout_height="52dp"
                         android:layout_weight="1"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="4dp"
                         android:text="@string/rate"
+                        android:textSize="14sp"
                         app:cornerRadius="12dp"
+                        android:padding="0dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
                         style="@style/Widget.Material3.Button.OutlinedButton" />
 
-                    <ImageButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnMessage"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="0"
-                        android:layout_marginStart="8dp"
-                        android:src="@drawable/ic_message"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_marginStart="4dp"
+                        app:icon="@drawable/ic_message"
+                        app:iconSize="24dp"
+                        app:iconTint="@color/primary"
                         android:contentDescription="@string/message"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:padding="0dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        app:cornerRadius="12dp"
+                        app:strokeColor="@color/outline_variant"
+                        app:strokeWidth="0.5dp" />
 
                 </LinearLayout>
 

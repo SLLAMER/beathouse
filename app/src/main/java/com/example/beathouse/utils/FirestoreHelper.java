@@ -137,7 +137,15 @@ public class FirestoreHelper {
                                     @Override
                                     public void onSuccess(Object result) {
                                         Log.d(TAG, "✅ User document deleted");
-                                        deleteProducerDocument(userId, callback);
+                                        deleteUserFollows(userId, new FirestoreCallback() {
+                                            @Override
+                                            public void onSuccess(Object result) {
+                                                Log.d(TAG, "✅ User follows deleted");
+                                                deleteProducerDocument(userId, callback);
+                                            }
+                                            @Override
+                                            public void onError(String error) { safeError(callback, error); }
+                                        });
                                     }
                                     @Override
                                     public void onError(String error) { safeError(callback, error); }
@@ -154,6 +162,23 @@ public class FirestoreHelper {
             @Override
             public void onError(String error) { safeError(callback, error); }
         });
+    }
+
+    private void deleteUserFollows(String userId, FirestoreCallback callback) {
+        db.collection("follows").whereEqualTo("followerId", userId).get()
+                .addOnSuccessListener(snap1 -> {
+                    WriteBatch batch = db.batch();
+                    for (DocumentSnapshot doc : snap1) batch.delete(doc.getReference());
+                    db.collection("follows").whereEqualTo("followingId", userId).get()
+                            .addOnSuccessListener(snap2 -> {
+                                for (DocumentSnapshot doc : snap2) batch.delete(doc.getReference());
+                                batch.commit()
+                                        .addOnSuccessListener(a -> safeCallback(callback, true))
+                                        .addOnFailureListener(e -> safeError(callback, e.getMessage()));
+                            })
+                            .addOnFailureListener(e -> safeCallback(callback, true));
+                })
+                .addOnFailureListener(e -> safeCallback(callback, true));
     }
 
     private void deleteUserBeats(String userId, FirestoreCallback callback) {
@@ -545,7 +570,15 @@ public class FirestoreHelper {
                 .addSnapshotListener((snap, err) -> {
                     if (err != null) { safeError(callback, err.getMessage()); return; }
                     List<Beat> beats = new ArrayList<>();
-                    if (snap != null) for (DocumentSnapshot d : snap) beats.add(Beat.fromMap(d.getData()));
+                    if (snap != null) {
+                        for (DocumentSnapshot d : snap) {
+                            Beat b = Beat.fromMap(d.getData());
+                            if (b != null) {
+                                b.setId(d.getId());
+                                beats.add(b);
+                            }
+                        }
+                    }
                     safeCallback(callback, beats);
                 });
     }
