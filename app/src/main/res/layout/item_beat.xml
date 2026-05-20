@@ -7,12 +7,11 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="24dp"
     app:cardElevation="0dp"
     app:cardBackgroundColor="@color/surface_container"
     app:strokeColor="@color/outline"
-    app:strokeWidth="1dp"
-    android:stateListAnimator="@null">
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,18 +19,15 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Верхняя часть -->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content">
 
-            <!-- Обложка -->
+            <!-- Cover Image -->
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginEnd="16dp"
+                android:id="@+id/coverCard"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp">
@@ -41,59 +37,50 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_music_note"
-                    android:background="@color/surface_variant"
-                    android:contentDescription="Beat cover" />
+                    android:background="@color/surface_variant" />
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Информация -->
+            <!-- Text Info -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical">
+                android:layout_toEndOf="@id/coverCard"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical">
 
-                <!-- Название -->
                 <TextView
                     android:id="@+id/tvTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Beat Title"
-                    android:textSize="17sp"
+                    android:text="cg"
+                    android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="@color/on_surface"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    android:letterSpacing="-0.01" />
+                    android:textColor="@color/on_surface" />
 
-                <!-- Продюсер -->
                 <TextView
                     android:id="@+id/tvProducer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="by Producer"
-                    android:textSize="13sp"
+                    android:text="by 52NGG"
+                    android:textSize="14sp"
                     android:textColor="@color/on_surface_variant"
-                    android:layout_marginTop="2dp"
-                    android:maxLines="1"
-                    android:ellipsize="end" />
+                    android:layout_marginTop="2dp" />
 
-                <!-- Теги BPM/Key/Genre -->
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="12dp">
 
                     <TextView
                         android:id="@+id/tvBpm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="120 BPM"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:textColor="@color/on_surface_secondary"
                         android:paddingHorizontal="8dp"
-                        android:paddingVertical="3dp"
+                        android:paddingVertical="4dp"
                         android:background="@drawable/tag_background" />
 
                     <TextView
@@ -101,62 +88,62 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cmin"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:textColor="@color/on_surface_secondary"
                         android:paddingHorizontal="8dp"
-                        android:paddingVertical="3dp"
+                        android:paddingVertical="4dp"
                         android:background="@drawable/tag_background"
-                        android:layout_marginStart="6dp" />
+                        android:layout_marginStart="8dp" />
 
                     <TextView
                         android:id="@+id/tvGenre"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="Hip-Hop"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:textColor="@color/on_surface_secondary"
                         android:paddingHorizontal="8dp"
-                        android:paddingVertical="3dp"
+                        android:paddingVertical="4dp"
                         android:background="@drawable/tag_background"
-                        android:layout_marginStart="6dp" />
+                        android:layout_marginStart="8dp"
+                        android:maxLines="2"
+                        android:gravity="center"
+                        android:ellipsize="end" />
 
                 </LinearLayout>
-
             </LinearLayout>
 
-            <!-- Правая часть: Цена и корзина -->
+            <!-- Price and Cart -->
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:orientation="vertical"
-                android:gravity="end|top"
-                android:layout_marginStart="8dp">
+                android:gravity="end">
 
                 <TextView
                     android:id="@+id/tvPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="$50"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="4dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
                     android:background="@drawable/price_background"
                     android:textColor="@color/on_primary" />
 
                 <FrameLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="12dp">
 
                     <ImageButton
                         android:id="@+id/btn_add_to_cart"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:src="@drawable/ic_shopping_cart"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="Add to cart"
                         app:tint="@color/primary" />
 
                     <View
@@ -166,39 +153,26 @@
                         android:layout_gravity="top|end"
                         android:background="@drawable/badge_background"
                         android:visibility="gone" />
-
                 </FrameLayout>
-
             </LinearLayout>
+        </RelativeLayout>
 
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/on_surface_variant"
-            android:layout_marginTop="8dp"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:visibility="gone" />
-
-        <!-- Кнопка Play (Премиальный стиль) -->
+        <!-- Play Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPlay"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:layout_marginTop="16dp"
             android:text="Play"
-            android:textSize="14sp"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:icon="@drawable/ic_play_arrow"
             app:iconGravity="textStart"
-            app:iconSize="20dp"
-            app:cornerRadius="12dp"
-            app:backgroundTint="@color/surface_variant"
+            app:iconPadding="8dp"
+            app:cornerRadius="16dp"
+            app:backgroundTint="@color/surface_container_highest"
             android:textColor="@color/on_surface"
-            app:strokeColor="@color/outline_variant"
+            app:strokeColor="@color/outline"
             app:strokeWidth="1dp"
             style="@style/Widget.Material3.Button.TextButton" />
 

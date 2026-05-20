@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="24dp"
     app:cardElevation="0dp"
     app:cardBackgroundColor="@color/surface_container"
     app:strokeColor="@color/outline"
@@ -15,48 +15,46 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="center_vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <!-- Cover -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="0dp"
-            app:strokeWidth="0dp">
-            <ImageView
-                android:id="@+id/ivBeatCover"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_music_note"
-                android:background="@color/surface_variant" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tvBeatTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="16dp"
-            android:layout_gravity="center_vertical">
+            android:layout_gravity="center_horizontal"
+            android:text="Beat Title"
+            android:textColor="@color/on_surface"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
 
-            <TextView
-                android:id="@+id/tvBeatTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Beat Title"
-                android:textColor="@color/on_surface"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:letterSpacing="-0.01" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/coverCard"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+                <ImageView
+                    android:id="@+id/ivBeatCover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_music_note"
+                    android:background="@color/surface_variant" />
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_toEndOf="@id/coverCard"
+                android:layout_marginStart="16dp"
+                android:layout_centerVertical="true"
                 android:orientation="horizontal">
 
                 <TextView
@@ -64,76 +62,73 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="120 BPM"
-                    android:textSize="11sp"
-                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:textColor="@color/on_surface_secondary"
                     android:paddingHorizontal="8dp"
-                    android:paddingVertical="3dp"
+                    android:paddingVertical="4dp"
                     android:background="@drawable/tag_background" />
 
                 <TextView
                     android:id="@+id/tvBeatKey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
                     android:text="Cmin"
-                    android:textSize="11sp"
-                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:textColor="@color/on_surface_secondary"
                     android:paddingHorizontal="8dp"
-                    android:paddingVertical="3dp"
-                    android:background="@drawable/tag_background" />
+                    android:paddingVertical="4dp"
+                    android:background="@drawable/tag_background"
+                    android:layout_marginStart="8dp" />
 
                 <TextView
                     android:id="@+id/tvBeatGenre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:text="Hip-Hop"
-                    android:textSize="11sp"
-                    android:textColor="@color/on_surface_variant"
+                    android:text="Trap"
+                    android:textSize="12sp"
+                    android:textColor="@color/on_surface_secondary"
                     android:paddingHorizontal="8dp"
-                    android:paddingVertical="3dp"
-                    android:background="@drawable/tag_background" />
+                    android:paddingVertical="4dp"
+                    android:background="@drawable/tag_background"
+                    android:layout_marginStart="8dp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvBeatPrice"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="$29"
-                android:textColor="@color/primary"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <ImageButton
+                    android:id="@+id/btnEditBeat"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_edit"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:tint="@color/on_surface_variant" />
 
-        <!-- Action Buttons -->
-        <LinearLayout
+                <ImageButton
+                    android:id="@+id/btnDeleteBeat"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_delete"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:tint="@color/error" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvBeatPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageButton
-                android:id="@+id/btnEditBeat"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:src="@drawable/ic_edit"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Edit"
-                app:tint="@color/on_surface_variant" />
-
-            <ImageButton
-                android:id="@+id/btnDeleteBeat"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/ic_delete"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Delete"
-                app:tint="@color/error" />
-
-        </LinearLayout>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="$50"
+            android:textColor="@color/primary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
