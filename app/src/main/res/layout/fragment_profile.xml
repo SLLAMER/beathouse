@@ -108,7 +108,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="20dp">
+                        android:padding="12dp">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -121,7 +121,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:textColor="@color/on_surface" />
                             <TextView
@@ -130,13 +130,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/beats_label"
-                                android:textSize="11sp"
+                                android:textSize="10sp"
                                 android:textAllCaps="true"
                                 android:letterSpacing="0.05"
-                                android:textColor="@color/on_surface_variant" />
+                                android:textColor="@color/on_surface_variant"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:ellipsize="end" />
                         </LinearLayout>
 
-                        <View android:layout_width="1dp" android:layout_height="32dp" android:layout_gravity="center" android:background="@color/outline" />
+                        <View android:layout_width="1dp" android:layout_height="24dp" android:layout_gravity="center" android:background="@color/outline" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -149,7 +152,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="$0"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:textColor="@color/on_surface" />
                             <TextView
@@ -158,13 +161,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/total_label"
-                                android:textSize="11sp"
+                                android:textSize="10sp"
                                 android:textAllCaps="true"
                                 android:letterSpacing="0.05"
-                                android:textColor="@color/on_surface_variant" />
+                                android:textColor="@color/on_surface_variant"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:ellipsize="end" />
                         </LinearLayout>
 
-                        <View android:layout_width="1dp" android:layout_height="32dp" android:layout_gravity="center" android:background="@color/outline" />
+                        <View android:layout_width="1dp" android:layout_height="24dp" android:layout_gravity="center" android:background="@color/outline" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -177,7 +183,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:textColor="@color/on_surface" />
                             <TextView
@@ -185,13 +191,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/followers"
-                                android:textSize="11sp"
+                                android:textSize="10sp"
                                 android:textAllCaps="true"
                                 android:letterSpacing="0.05"
-                                android:textColor="@color/on_surface_variant" />
+                                android:textColor="@color/on_surface_variant"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:ellipsize="end" />
                         </LinearLayout>
 
-                        <View android:layout_width="1dp" android:layout_height="32dp" android:layout_gravity="center" android:background="@color/outline" />
+                        <View android:layout_width="1dp" android:layout_height="24dp" android:layout_gravity="center" android:background="@color/outline" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -204,7 +213,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:textColor="@color/on_surface" />
                             <TextView
@@ -212,10 +221,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/following_count"
-                                android:textSize="11sp"
+                                android:textSize="10sp"
                                 android:textAllCaps="true"
                                 android:letterSpacing="0.05"
-                                android:textColor="@color/on_surface_variant" />
+                                android:textColor="@color/on_surface_variant"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:ellipsize="end" />
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
