@@ -163,20 +163,21 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:paddingHorizontal="2dp">
                         <TextView
                             android:id="@+id/tvBeatsCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@color/primary" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/beats_label"
-                            android:textSize="10sp"
+                            android:textSize="9sp"
                             android:textColor="@color/on_surface_variant"
                             android:maxLines="1"
                             android:ellipsize="end"
@@ -188,20 +189,21 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:paddingHorizontal="2dp">
                         <TextView
                             android:id="@+id/tvSalesCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@color/primary" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/sales_tab"
-                            android:textSize="10sp"
+                            android:textSize="9sp"
                             android:textColor="@color/on_surface_variant"
                             android:maxLines="1"
                             android:ellipsize="end"
@@ -213,20 +215,21 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:paddingHorizontal="2dp">
                         <TextView
                             android:id="@+id/tvFollowersCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@color/primary" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/followers"
-                            android:textSize="10sp"
+                            android:textSize="9sp"
                             android:textColor="@color/on_surface_variant"
                             android:maxLines="1"
                             android:ellipsize="end"
@@ -238,20 +241,21 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:paddingHorizontal="2dp">
                         <TextView
                             android:id="@+id/tvFollowingCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@color/primary" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/following_count"
-                            android:textSize="10sp"
+                            android:textSize="9sp"
                             android:textColor="@color/on_surface_variant"
                             android:maxLines="1"
                             android:ellipsize="end"
@@ -295,7 +299,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_marginBottom="24dp">
 
                 <com.google.android.material.button.MaterialButton
@@ -304,9 +307,10 @@
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
                     android:layout_weight="1"
-                    android:layout_marginEnd="4dp"
+                    android:layout_marginEnd="2dp"
                     android:text="@string/follow"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
+                    android:paddingHorizontal="4dp"
                     app:cornerRadius="12dp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -315,9 +319,11 @@
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
                     android:layout_weight="1"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="2dp"
                     android:text="@string/rate"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
+                    android:paddingHorizontal="4dp"
                     app:cornerRadius="12dp"
                     style="@style/Widget.Material3.Button.OutlinedButton" />
 

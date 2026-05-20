@@ -115,13 +115,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:paddingHorizontal="2dp">
                             <TextView
                                 android:id="@+id/tvBeatsCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:textColor="@color/on_surface" />
                             <TextView
@@ -130,7 +131,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/beats_label"
-                                android:textSize="10sp"
+                                android:textSize="9sp"
                                 android:textAllCaps="true"
                                 android:letterSpacing="0.05"
                                 android:textColor="@color/on_surface_variant"
@@ -146,13 +147,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:paddingHorizontal="2dp">
                             <TextView
                                 android:id="@+id/tvTotalSpent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="$0"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:textColor="@color/on_surface" />
                             <TextView
@@ -161,7 +163,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/total_label"
-                                android:textSize="10sp"
+                                android:textSize="9sp"
                                 android:textAllCaps="true"
                                 android:letterSpacing="0.05"
                                 android:textColor="@color/on_surface_variant"
@@ -177,13 +179,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:paddingHorizontal="2dp">
                             <TextView
                                 android:id="@+id/tvFollowersCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:textColor="@color/on_surface" />
                             <TextView
@@ -191,7 +194,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/followers"
-                                android:textSize="10sp"
+                                android:textSize="9sp"
                                 android:textAllCaps="true"
                                 android:letterSpacing="0.05"
                                 android:textColor="@color/on_surface_variant"
@@ -207,13 +210,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:paddingHorizontal="2dp">
                             <TextView
                                 android:id="@+id/tvFollowingCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:textColor="@color/on_surface" />
                             <TextView
@@ -221,7 +225,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/following_count"
-                                android:textSize="10sp"
+                                android:textSize="9sp"
                                 android:textAllCaps="true"
                                 android:letterSpacing="0.05"
                                 android:textColor="@color/on_surface_variant"
