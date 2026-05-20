@@ -749,6 +749,36 @@ public class FirestoreHelper {
                 });
     }
 
+    public ListenerRegistration getSellerSalesRealtime(String sellerId, FirestoreCallback callback) {
+        Log.d(TAG, "📊 Listening for sales for seller: " + sellerId);
+        if (sellerId == null || sellerId.isEmpty()) {
+            safeCallback(callback, new ArrayList<Order>());
+            return null;
+        }
+        return db.collection("orders")
+                .whereEqualTo("producerId", sellerId)
+                .orderBy("createdAt", Query.Direction.DESCENDING)
+                .addSnapshotListener((snap, err) -> {
+                    if (err != null) {
+                        Log.e(TAG, "❌ Realtime sales error: " + err.getMessage());
+                        safeError(callback, err.getMessage());
+                        return;
+                    }
+                    List<Order> orders = new ArrayList<>();
+                    if (snap != null) {
+                        for (DocumentSnapshot d : snap) {
+                            Order order = Order.fromMap(d.getData());
+                            if (order != null) {
+                                order.setId(d.getId());
+                                orders.add(order);
+                            }
+                        }
+                    }
+                    Log.d(TAG, "✅ Realtime sales updated: " + orders.size());
+                    safeCallback(callback, orders);
+                });
+    }
+
     public void getSellerSales(String sellerId, FirestoreCallback callback) {
         Log.d(TAG, "📊 Loading sales for seller: " + sellerId);
         if (sellerId == null || sellerId.isEmpty()) {
@@ -761,7 +791,10 @@ public class FirestoreHelper {
                     List<Order> orders = new ArrayList<>();
                     for (DocumentSnapshot d : snap) {
                         Order order = Order.fromMap(d.getData());
-                        if (order != null) orders.add(order);
+                        if (order != null) {
+                            order.setId(d.getId());
+                            orders.add(order);
+                        }
                     }
                     Log.d(TAG, "✅ Loaded " + orders.size() + " sales for seller: " + sellerId);
                     safeCallback(callback, orders);

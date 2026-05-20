@@ -50,12 +50,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
 
                 <!-- Название -->
                 <TextView
                     android:id="@+id/tvTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Beat Title"
                     android:textSize="17sp"
@@ -68,7 +69,7 @@
                 <!-- Продюсер -->
                 <TextView
                     android:id="@+id/tvProducer"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="by Producer"
                     android:textSize="13sp"

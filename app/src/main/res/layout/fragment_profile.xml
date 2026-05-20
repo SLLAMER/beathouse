@@ -239,7 +239,7 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"
-                        app:tint="@color/on_surface" />
+                        app:tint="@color/instagram_color" />
 
                     <ImageView
                         android:id="@+id/ivTelegram"
@@ -250,7 +250,7 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"
-                        app:tint="@color/on_surface"
+                        app:tint="@color/telegram_color"
                         android:layout_marginStart="16dp" />
 
                     <ImageView
@@ -262,7 +262,7 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"
-                        app:tint="@color/on_surface"
+                        app:tint="@color/vk_color"
                         android:layout_marginStart="16dp" />
                 </LinearLayout>
 
