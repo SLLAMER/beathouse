@@ -3,19 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surface"
+    android:background="@color/background"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        app:elevation="0dp">
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/surface"
             app:title="BeatHouse"
-            app:titleTextColor="@color/on_surface" />
+            app:titleCentered="true"
+            app:titleTextColor="@color/on_surface"
+            app:titleTextAppearance="@style/TextAppearance.BeatHouse.Title" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Контент с отступом снизу для навигации -->
@@ -23,39 +27,41 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="80dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <!-- Mini Player Card с содержимым через include -->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/miniPlayerCard"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="72dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="88dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:visibility="gone"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="8dp"
-        app:cardBackgroundColor="@color/surface_container">
+        app:cardCornerRadius="16dp"
+        app:cardElevation="12dp"
+        app:cardBackgroundColor="@color/surface_container"
+        app:strokeColor="@color/outline"
+        app:strokeWidth="1dp">
 
         <include layout="@layout/layout_mini_player" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="80dp"
         android:layout_gravity="bottom"
         android:background="@color/surface"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
+        app:elevation="0dp"
         app:menu="@menu/bottom_navigation_buyer"
         app:labelVisibilityMode="labeled"
         app:itemIconTint="@color/bottom_nav_icon_tint"
-        app:itemTextColor="@color/bottom_nav_text_tint" />
+        app:itemTextColor="@color/bottom_nav_text_tint"
+        app:itemRippleColor="@color/primary_container" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

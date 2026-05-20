@@ -3,32 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surface"
-    android:padding="24dp"
+    android:background="@color/background"
     android:fillViewport="true">
 
-    <!-- ✅ ВСЁ ОБЁРНУТО В ОДИН LinearLayout -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center">
+        android:padding="32dp"
+        android:gravity="center_horizontal">
 
-        <!-- Compact Header -->
+        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginBottom="40dp">
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="48dp">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginBottom="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textSize="32sp"
+                android:text="BeatHouse"
+                android:textSize="36sp"
                 android:textStyle="bold"
-                android:textColor="@color/primary" />
+                android:textColor="@color/primary"
+                android:letterSpacing="-0.03" />
 
             <TextView
                 android:id="@+id/tvSubtitle"
@@ -37,213 +44,183 @@
                 android:text="@string/sign_in_to_continue"
                 android:textSize="16sp"
                 android:textColor="@color/on_surface_variant"
-                android:layout_marginTop="4dp" />
+                android:layout_marginTop="8dp" />
         </LinearLayout>
 
-        <!-- Form Section -->
-        <LinearLayout
+        <!-- Input Fields -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="16dp"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxStrokeColor="@color/outline"
+            app:hintTextColor="@color/primary"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
-            <!-- Email -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailLayout"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:boxBackgroundMode="outline"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusBottomEnd="8dp"
-                app:boxStrokeColor="@color/outline"
-                app:errorEnabled="true"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/on_surface"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/email_required"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:textSize="15sp"
-                    android:paddingStart="14dp"
-                    android:paddingEnd="14dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Username -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/usernameLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:visibility="gone"
-                app:boxBackgroundMode="outline"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusBottomEnd="8dp"
-                app:boxStrokeColor="@color/outline"
-                app:errorEnabled="true"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etUsername"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/username"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:textSize="15sp"
-                    android:paddingStart="14dp"
-                    android:paddingEnd="14dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Password -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                app:boxBackgroundMode="outline"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusBottomEnd="8dp"
-                app:boxStrokeColor="@color/outline"
-                app:endIconMode="password_toggle"
-                app:errorEnabled="true"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/password_required"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:textSize="15sp"
-                    android:paddingStart="14dp"
-                    android:paddingEnd="14dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Role Selector -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/roleCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/surface_container"
-                app:strokeColor="@color/outline_variant"
-                app:strokeWidth="0.5dp">
-
-                <RadioGroup
-                    android:id="@+id/roleSelector"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="4dp">
-
-                    <RadioButton
-                        android:id="@+id/rbBuyer"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="1"
-                        android:text="@string/role_buyer"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:background="@drawable/selector_role_tab"
-                        android:textColor="@color/selector_role_text"
-                        android:checked="true" />
-
-                    <RadioButton
-                        android:id="@+id/rbSeller"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="1"
-                        android:text="@string/role_seller"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:background="@drawable/selector_role_tab"
-                        android:textColor="@color/selector_role_text" />
-                </RadioGroup>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Forgot Password -->
-            <TextView
-                android:id="@+id/forgotPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/forgot_password"
-                android:textSize="13sp"
-                android:textColor="@color/primary"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingVertical="1dp"
-                android:paddingHorizontal="3dp" />
-        </LinearLayout>
-
-        <!-- Progress -->
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/usernameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:visibility="gone"
-            android:indeterminateTint="@color/primary" />
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxStrokeColor="@color/outline"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
-        <!-- Action Button -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:inputType="text"
+                android:textColor="@color/on_surface"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxStrokeColor="@color/outline"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/on_surface_variant"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textColor="@color/on_surface"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/forgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot_password"
+            android:textColor="@color/primary"
+            android:textSize="14sp"
+            android:layout_gravity="end"
+            android:layout_marginBottom="24dp"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+        <!-- Role Selector -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/roleCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:visibility="gone"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/surface_container"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/outline">
+
+            <RadioGroup
+                android:id="@+id/roleSelector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="6dp">
+
+                <RadioButton
+                    android:id="@+id/rbBuyer"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/role_buyer"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:background="@drawable/selector_role_tab"
+                    android:textColor="@color/selector_role_text"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/rbSeller"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/role_seller"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:background="@drawable/selector_role_tab"
+                    android:textColor="@color/selector_role_text" />
+            </RadioGroup>
+        </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAction"
             android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_height="56dp"
             android:text="@string/sign_in"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginBottom="12dp"
-            app:cornerRadius="8dp"
-            style="@style/Widget.Material3.Button" />
+            app:cornerRadius="16dp"
+            android:layout_marginBottom="24dp" />
 
-        <!-- Switch Mode -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"
+            android:indeterminateTint="@color/primary" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginTop="8dp">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/switchMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/dont_have_account"
-                android:textSize="13sp"
                 android:textColor="@color/on_surface_variant"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingVertical="2dp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tvSwitchAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/create_account"
-                android:textSize="13sp"
+                android:text=" Sign Up"
                 android:textColor="@color/primary"
                 android:textStyle="bold"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingVertical="1dp" />
+                android:textSize="15sp"
+                android:padding="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless" />
         </LinearLayout>
 
     </LinearLayout>
-    <!-- ✅ КОНЕЦ ЕДИНСТВЕННОГО ДОЧЕРНЕГО ЭЛЕМЕНТА -->
 </ScrollView>

@@ -20,15 +20,19 @@
         <item name="colorOutline">@color/outline</item>
 
         <!-- Status Bar -->
-        <item name="android:statusBarColor">@color/surface</item>
+        <item name="android:statusBarColor">@color/background</item>
         <item name="android:windowLightStatusBar">false</item>
 
         <!-- Navigation Bar -->
-        <item name="android:navigationBarColor">@color/surface</item>
+        <item name="android:navigationBarColor">@color/background</item>
         <item name="android:windowLightNavigationBar">false</item>
 
         <!-- Window Background -->
         <item name="android:windowBackground">@color/background</item>
+
+        <!-- Splash Screen (Android 12+) -->
+        <item name="android:windowSplashScreenBackground" tools:targetApi="31">@color/background</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="31">@mipmap/ic_launcher</item>
 
         <!-- Анимации -->
         <item name="android:windowAnimationStyle">@style/Animation.BeatHouse</item>
@@ -36,74 +40,88 @@
         <!-- Material 3 компоненты -->
         <item name="materialButtonStyle">@style/Widget.BeatHouse.Button</item>
         <item name="materialCardViewStyle">@style/Widget.BeatHouse.Card</item>
+        <item name="bottomNavigationStyle">@style/Widget.BeatHouse.BottomNavigation</item>
+        <item name="appBarLayoutStyle">@style/Widget.BeatHouse.AppBarLayout</item>
+        <item name="chipStyle">@style/Widget.BeatHouse.Chip</item>
     </style>
 
-    <!-- Остальные стили без изменений -->
     <style name="Theme.BeatHouse.Splash" parent="Theme.BeatHouse">
         <item name="android:windowBackground">@color/background</item>
     </style>
 
+    <style name="Widget.BeatHouse.AppBarLayout" parent="Widget.Material3.AppBarLayout">
+        <item name="android:background">@color/surface</item>
+        <item name="backgroundTint">@color/surface</item>
+    </style>
+
     <style name="Widget.BeatHouse.Button" parent="Widget.Material3.Button">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="cornerRadius">12dp</item>
+        <item name="cornerRadius">14dp</item>
         <item name="iconGravity">textStart</item>
         <item name="iconPadding">8dp</item>
+        <item name="android:insetTop">4dp</item>
+        <item name="android:insetBottom">4dp</item>
         <item name="backgroundTint">@color/primary</item>
         <item name="android:textColor">@color/on_primary</item>
     </style>
 
     <style name="Widget.BeatHouse.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="cornerRadius">12dp</item>
+        <item name="cornerRadius">14dp</item>
         <item name="strokeWidth">1.5dp</item>
-        <item name="strokeColor">@color/primary</item>
-        <item name="android:textColor">@color/primary</item>
+        <item name="strokeColor">@color/outline_variant</item>
+        <item name="android:textColor">@color/on_surface</item>
     </style>
 
     <style name="Widget.BeatHouse.Button.Text" parent="Widget.Material3.Button.TextButton">
-        <item name="android:textSize">14sp</item>
-        <item name="cornerRadius">12dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="cornerRadius">14dp</item>
         <item name="android:textColor">@color/primary</item>
     </style>
 
     <style name="Widget.BeatHouse.Card" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardCornerRadius">16dp</item>
+        <item name="cardCornerRadius">18dp</item>
         <item name="cardElevation">0dp</item>
-        <item name="strokeColor">@color/outline_variant</item>
-        <item name="strokeWidth">0.5dp</item>
+        <item name="strokeColor">@color/outline</item>
+        <item name="strokeWidth">1dp</item>
         <item name="cardBackgroundColor">@color/surface_container</item>
     </style>
 
     <style name="TextAppearance.BeatHouse.Title" parent="TextAppearance.Material3.HeadlineSmall">
         <item name="android:textColor">@color/on_surface</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">-0.01</item>
     </style>
 
     <style name="TextAppearance.BeatHouse.Subtitle" parent="TextAppearance.Material3.TitleMedium">
-        <item name="android:textColor">@color/on_surface_secondary</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:letterSpacing">0.01</item>
     </style>
 
     <style name="TextAppearance.BeatHouse.Body" parent="TextAppearance.Material3.BodyMedium">
-        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textColor">@color/on_surface_secondary</item>
     </style>
 
     <style name="Widget.BeatHouse.Chip" parent="Widget.Material3.Chip.Filter">
-        <item name="chipCornerRadius">16dp</item>
-        <item name="chipStrokeColor">@color/outline_variant</item>
-        <item name="chipStrokeWidth">0.5dp</item>
+        <item name="chipCornerRadius">12dp</item>
+        <item name="chipStrokeColor">@color/outline</item>
+        <item name="chipStrokeWidth">1dp</item>
         <item name="android:textColor">@color/on_surface_variant</item>
         <item name="chipBackgroundColor">@color/surface_container</item>
         <item name="checkedIconTint">@color/primary</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="Widget.BeatHouse.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
-        <item name="itemIconTint">@color/primary</item>
-        <item name="itemTextColor">@color/on_surface_secondary</item>
+        <item name="itemIconTint">@color/bottom_nav_icon_tint</item>
+        <item name="itemTextColor">@color/bottom_nav_text_tint</item>
         <item name="itemBackground">@color/surface</item>
         <item name="android:background">@color/surface</item>
         <item name="elevation">0dp</item>
+        <item name="itemPaddingTop">12dp</item>
+        <item name="itemPaddingBottom">12dp</item>
     </style>
 
     <!-- ========== АНИМАЦИИ ПЕРЕХОДОВ ========== -->

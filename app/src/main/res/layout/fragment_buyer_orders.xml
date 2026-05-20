@@ -17,7 +17,7 @@
 
             <!-- Progress Bar -->
             <ProgressBar
-                android:id="@+id/progress_bar"
+                android:id="@+id/progressBar"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
@@ -27,7 +27,7 @@
 
             <!-- Orders List -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_orders"
+                android:id="@+id/recyclerViewOrders"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
@@ -39,7 +39,7 @@
 
             <!-- Empty State -->
             <LinearLayout
-                android:id="@+id/empty_state"
+                android:id="@+id/emptyState"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
