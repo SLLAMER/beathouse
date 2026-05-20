@@ -51,74 +51,67 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_marginBottom="16dp"
-            app:boxBackgroundMode="outline"
-            app:boxCornerRadiusTopStart="16dp"
-            app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusBottomStart="16dp"
-            app:boxCornerRadiusBottomEnd="16dp"
-            app:boxStrokeColor="@color/outline"
-            app:hintTextColor="@color/primary"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            app:boxBackgroundMode="none"
+            app:hintEnabled="false"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:hint="Email"
+                android:gravity="center"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/on_surface"
-                android:textSize="16sp" />
+                android:background="@android:color/transparent"
+                android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/usernameLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_marginBottom="16dp"
             android:visibility="gone"
-            app:boxBackgroundMode="outline"
-            app:boxCornerRadiusTopStart="16dp"
-            app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusBottomStart="16dp"
-            app:boxCornerRadiusBottomEnd="16dp"
-            app:boxStrokeColor="@color/outline"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            app:boxBackgroundMode="none"
+            app:hintEnabled="false"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etUsername"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:hint="Username"
+                android:gravity="center"
                 android:inputType="text"
                 android:textColor="@color/on_surface"
-                android:textSize="16sp" />
+                android:background="@android:color/transparent"
+                android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            app:boxBackgroundMode="outline"
-            app:boxCornerRadiusTopStart="16dp"
-            app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusBottomStart="16dp"
-            app:boxCornerRadiusBottomEnd="16dp"
-            app:boxStrokeColor="@color/outline"
+            android:layout_height="64dp"
+            android:layout_marginBottom="24dp"
+            app:boxBackgroundMode="none"
+            app:hintEnabled="false"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/on_surface_variant"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            style="@style/Widget.Material3.TextInputLayout.FilledBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:hint="Password"
+                android:gravity="center"
                 android:inputType="textPassword"
                 android:textColor="@color/on_surface"
-                android:textSize="16sp" />
+                android:background="@android:color/transparent"
+                android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -127,9 +120,9 @@
             android:layout_height="wrap_content"
             android:text="@string/forgot_password"
             android:textColor="@color/primary"
-            android:textSize="14sp"
-            android:layout_gravity="end"
-            android:layout_marginBottom="24dp"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="32dp"
             android:padding="8dp"
             android:background="?attr/selectableItemBackgroundBorderless" />
 
@@ -181,12 +174,12 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAction"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="64dp"
             android:text="@string/sign_in"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            app:cornerRadius="16dp"
-            android:layout_marginBottom="24dp" />
+            app:cornerRadius="20dp"
+            android:layout_marginBottom="32dp" />
 
         <ProgressBar
             android:id="@+id/progressBar"

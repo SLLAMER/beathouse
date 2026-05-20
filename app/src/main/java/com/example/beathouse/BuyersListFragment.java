@@ -21,6 +21,7 @@ import com.example.beathouse.models.User;
 import com.example.beathouse.utils.FirestoreHelper;
 import com.example.beathouse.utils.LocaleHelper;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.ListenerRegistration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,6 +37,7 @@ public class BuyersListFragment extends Fragment {
     private List<User> filteredList;
     private FirestoreHelper firestoreHelper;
     private String currentUserId;
+    private ListenerRegistration salesListener;
     private static final String TAG = "BuyersListFragment";
 
     @Override
@@ -122,10 +124,11 @@ public class BuyersListFragment extends Fragment {
     }
 
     private void loadBuyersForSeller() {
+        if (salesListener != null) salesListener.remove();
         binding.progressBar.setVisibility(View.VISIBLE);
 
-        // 1. Получаем все заказы (продажи) текущего продавца
-        firestoreHelper.getSellerSales(currentUserId, new FirestoreHelper.FirestoreCallback() {
+        // 1. Получаем все заказы (продажи) текущего продавца в реальном времени
+        salesListener = firestoreHelper.getSellerSalesRealtime(currentUserId, new FirestoreHelper.FirestoreCallback() {
             @Override
             public void onSuccess(Object result) {
                 List<Order> orders = (List<Order>) result;
@@ -133,6 +136,8 @@ public class BuyersListFragment extends Fragment {
                 if (orders == null || orders.isEmpty()) {
                     runOnUiThread(() -> {
                         binding.progressBar.setVisibility(View.GONE);
+                        buyersList.clear();
+                        adapter.updateList(buyersList);
                         updateEmpty();
                     });
                     return;
@@ -150,6 +155,8 @@ public class BuyersListFragment extends Fragment {
                 if (uniqueBuyerIds.isEmpty()) {
                     runOnUiThread(() -> {
                         binding.progressBar.setVisibility(View.GONE);
+                        buyersList.clear();
+                        adapter.updateList(buyersList);
                         updateEmpty();
                     });
                     return;
@@ -257,6 +264,10 @@ public class BuyersListFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (salesListener != null) {
+            salesListener.remove();
+            salesListener = null;
+        }
         if (adapter != null) {
             adapter.removeAllListeners();
         }
