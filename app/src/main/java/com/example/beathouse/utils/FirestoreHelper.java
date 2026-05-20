@@ -542,7 +542,20 @@ public class FirestoreHelper {
     public void updateUser(User user, FirestoreCallback callback) {
         if (user.getId() == null || user.getId().isEmpty()) { safeError(callback, "User ID is null"); return; }
         db.collection("users").document(user.getId()).set(user.toMap())
-                .addOnSuccessListener(a -> safeCallback(callback, user))
+                .addOnSuccessListener(a -> {
+                    // ✅ Синхронизируем изменения в коллекцию producers, если пользователь продавец
+                    if (user.isSeller()) {
+                        Map<String, Object> producerUpdates = new HashMap<>();
+                        producerUpdates.put("username", user.getUsername());
+                        producerUpdates.put("displayName", user.getUsername());
+                        producerUpdates.put("bio", user.getBio() != null ? user.getBio() : "");
+                        producerUpdates.put("profileImage", user.getProfileImage() != null ? user.getProfileImage() : "");
+
+                        db.collection("producers").document(user.getId()).update(producerUpdates)
+                                .addOnFailureListener(e -> Log.e(TAG, "Failed to sync producer profile: " + e.getMessage()));
+                    }
+                    safeCallback(callback, user);
+                })
                 .addOnFailureListener(e -> safeError(callback, e.getMessage()));
     }
 
