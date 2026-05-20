@@ -17,7 +17,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/surface"
             app:title="BeatHouse"
-            app:titleCentered="true"
+            app:titleCentered="false"
             app:titleTextColor="@color/on_surface"
             app:titleTextAppearance="@style/TextAppearance.BeatHouse.Title" />
     </com.google.android.material.appbar.AppBarLayout>

@@ -4,17 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="24dp"
     android:background="@color/surface">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="@string/advanced_filter"
-        android:textSize="22sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="@color/on_surface"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="32dp" />
 
     <!-- Sorting Section -->
     <TextView
@@ -30,18 +31,18 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        app:cardCornerRadius="12dp"
+        android:layout_marginBottom="24dp"
+        app:cardCornerRadius="20dp"
         app:cardElevation="0dp"
         app:cardBackgroundColor="@color/surface_container"
-        app:strokeColor="@color/outline_variant"
-        app:strokeWidth="0.5dp">
+        app:strokeColor="@color/outline"
+        app:strokeWidth="1dp">
 
         <RadioGroup
             android:id="@+id/rg_sort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:padding="12dp">
 
             <RadioButton
                 android:id="@+id/rb_default"
@@ -50,7 +51,8 @@
                 android:text="@string/default_sort"
                 android:textColor="@color/on_surface"
                 android:buttonTint="@color/primary"
-                android:padding="8dp" />
+                android:padding="12dp"
+                android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/rb_price_asc"
@@ -59,7 +61,8 @@
                 android:text="@string/price_lowest_first"
                 android:textColor="@color/on_surface"
                 android:buttonTint="@color/primary"
-                android:padding="8dp" />
+                android:padding="12dp"
+                android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/rb_price_desc"
@@ -68,7 +71,8 @@
                 android:text="@string/price_highest_first"
                 android:textColor="@color/on_surface"
                 android:buttonTint="@color/primary"
-                android:padding="8dp" />
+                android:padding="12dp"
+                android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/rb_bpm_asc"
@@ -77,7 +81,8 @@
                 android:text="@string/bpm_slowest_first"
                 android:textColor="@color/on_surface"
                 android:buttonTint="@color/primary"
-                android:padding="8dp" />
+                android:padding="12dp"
+                android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/rb_bpm_desc"
@@ -86,7 +91,8 @@
                 android:text="@string/bpm_fastest_first"
                 android:textColor="@color/on_surface"
                 android:buttonTint="@color/primary"
-                android:padding="8dp" />
+                android:padding="12dp"
+                android:textSize="16sp" />
 
         </RadioGroup>
     </com.google.android.material.card.MaterialCardView>
@@ -106,57 +112,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="24dp"
         android:gravity="center_vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
+            android:id="@+id/et_bpm_min"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            app:boxCornerRadiusTopStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:boxStrokeColor="@color/outline_variant">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_bpm_min"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/min_bpm"
-                android:inputType="number"
-                android:textColor="@color/on_surface"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:hint="Mi..."
+            android:inputType="number"
+            android:textColor="@color/on_surface"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="—"
             android:textColor="@color/on_surface_variant"
-            android:layout_marginHorizontal="12dp" />
+            android:layout_marginHorizontal="16dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
+            android:id="@+id/et_bpm_max"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            app:boxCornerRadiusTopStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:boxStrokeColor="@color/outline_variant">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_bpm_max"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/max_bpm"
-                android:inputType="number"
-                android:textColor="@color/on_surface"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:hint="M..."
+            android:inputType="number"
+            android:textColor="@color/on_surface"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -171,28 +159,33 @@
         android:textAllCaps="true"
         android:layout_marginBottom="12dp" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        app:boxCornerRadiusTopStart="12dp"
-        app:boxCornerRadiusTopEnd="12dp"
-        app:boxCornerRadiusBottomStart="12dp"
-        app:boxCornerRadiusBottomEnd="12dp"
-        app:boxStrokeColor="@color/outline_variant"
-        app:startIconDrawable="@drawable/ic_filter"
-        app:startIconTint="@color/on_surface_variant">
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/rounded_container"
+        android:backgroundTint="@color/surface_container">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_filter"
+            app:tint="@color/on_surface_variant" />
+
+        <EditText
             android:id="@+id/et_tag_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/tag_hint"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:hint="Enter tag (..."
             android:inputType="text"
             android:textColor="@color/on_surface"
-            android:textSize="14sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:background="@android:color/transparent"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <!-- Action Buttons -->
     <LinearLayout
@@ -204,30 +197,26 @@
             android:id="@+id/btn_clear"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:minHeight="52dp"
+            android:layout_height="56dp"
             android:layout_weight="1"
             android:text="@string/clear"
             android:textColor="@color/on_surface"
-            app:strokeColor="@color/outline_variant"
-            app:cornerRadius="12dp"
-            android:layout_marginEnd="6dp"
-            android:paddingHorizontal="8dp"
-            android:textSize="14sp" />
+            android:textStyle="bold"
+            app:strokeColor="@color/outline"
+            app:cornerRadius="16dp"
+            android:layout_marginEnd="8dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_apply"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:minHeight="52dp"
+            android:layout_height="56dp"
             android:layout_weight="1"
             android:text="@string/apply"
             android:textColor="@color/on_primary"
+            android:textStyle="bold"
             app:backgroundTint="@color/primary"
-            app:cornerRadius="12dp"
-            android:layout_marginStart="6dp"
-            android:paddingHorizontal="8dp"
-            android:textSize="14sp" />
+            app:cornerRadius="16dp"
+            android:layout_marginStart="8dp" />
 
     </LinearLayout>
 
@@ -236,8 +225,9 @@
         style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/cancel_btn"
+        android:textStyle="bold"
         android:textColor="@color/error" />
 
 </LinearLayout>

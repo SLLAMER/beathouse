@@ -23,6 +23,7 @@ import com.example.beathouse.utils.LocaleHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -38,6 +39,7 @@ public class SellerSalesFragment extends Fragment {
     private boolean isSelectionMode = false;
     private List<String> selectedOrderIds = new ArrayList<>();
     private MaterialButton btnDeleteSelected;
+    private ListenerRegistration salesListener;
     private static final String TAG = "SellerSalesFragment";
 
     @Override
@@ -244,13 +246,15 @@ public class SellerSalesFragment extends Fragment {
     private void loadSales() {
         if (binding == null || currentUserId == null) return;
 
-        binding.progressBar.setVisibility(View.VISIBLE);
-        Log.d(TAG, "📊 Loading sales for seller: " + currentUserId);
+        if (salesListener != null) salesListener.remove();
 
-        firestoreHelper.getSellerSales(currentUserId, new FirestoreHelper.FirestoreCallback() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "📊 Listening for sales for seller: " + currentUserId);
+
+        salesListener = firestoreHelper.getSellerSalesRealtime(currentUserId, new FirestoreHelper.FirestoreCallback() {
             public void onSuccess(Object r) {
                 List<Order> orders = (List<Order>) r;
-                Log.d(TAG, "✅ Loaded " + (orders != null ? orders.size() : 0) + " sales");
+                Log.d(TAG, "✅ Realtime sales updated: " + (orders != null ? orders.size() : 0));
 
                 if (getActivity() != null) getActivity().runOnUiThread(() -> {
                     binding.progressBar.setVisibility(View.GONE);
@@ -261,6 +265,8 @@ public class SellerSalesFragment extends Fragment {
                         filteredList.addAll(orders);
                         adapter.updateSales(salesList);
                         Log.d(TAG, "📋 Displaying " + salesList.size() + " sales");
+                    } else {
+                        adapter.updateSales(new ArrayList<>());
                     }
                     updateEmpty();
                 });
@@ -296,6 +302,10 @@ public class SellerSalesFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (salesListener != null) {
+            salesListener.remove();
+            salesListener = null;
+        }
         binding = null;
     }
 }

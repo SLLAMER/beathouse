@@ -40,7 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginStart="16dp">
+            android:layout_marginStart="16dp"
+            android:layout_gravity="center_vertical">
 
             <TextView
                 android:id="@+id/tvBeatTitle"
@@ -63,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="120 BPM"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:textColor="@color/on_surface_variant"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
@@ -75,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:text="Cmin"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:textColor="@color/on_surface_variant"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
@@ -87,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:text="Hip-Hop"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:textColor="@color/on_surface_variant"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
@@ -98,7 +99,7 @@
                 android:id="@+id/tvBeatPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="2dp"
                 android:text="$29"
                 android:textColor="@color/primary"
                 android:textSize="15sp"
