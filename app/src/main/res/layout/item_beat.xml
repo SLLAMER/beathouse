@@ -92,7 +92,7 @@
                         android:text="120 BPM"
                         android:textSize="10sp"
                         android:textColor="@color/on_surface_secondary"
-                        android:paddingHorizontal="6dp"
+                        android:paddingHorizontal="4dp"
                         android:paddingVertical="2dp"
                         android:background="@drawable/tag_background"
                         android:maxLines="1" />
@@ -104,10 +104,10 @@
                         android:text="Cmin"
                         android:textSize="10sp"
                         android:textColor="@color/on_surface_secondary"
-                        android:paddingHorizontal="6dp"
+                        android:paddingHorizontal="4dp"
                         android:paddingVertical="2dp"
                         android:background="@drawable/tag_background"
-                        android:layout_marginStart="6dp"
+                        android:layout_marginStart="4dp"
                         android:maxLines="1" />
 
                     <TextView
@@ -117,10 +117,10 @@
                         android:text="Hip-Hop"
                         android:textSize="10sp"
                         android:textColor="@color/on_surface_secondary"
-                        android:paddingHorizontal="6dp"
+                        android:paddingHorizontal="4dp"
                         android:paddingVertical="2dp"
                         android:background="@drawable/tag_background"
-                        android:layout_marginStart="6dp"
+                        android:layout_marginStart="4dp"
                         android:maxLines="1"
                         android:ellipsize="end" />
 
