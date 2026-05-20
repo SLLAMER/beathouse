@@ -154,7 +154,6 @@ public class SellerBeatsAdapter extends RecyclerView.Adapter<SellerBeatsAdapter.
 
         SwitchMaterial switchFree = dialogView.findViewById(R.id.switchEditFree);
         TextInputEditText etDescription = dialogView.findViewById(R.id.etEditDescription);
-        View layoutDescription = dialogView.findViewById(R.id.layoutDescription);
         TextView tvLicensePricesHeader = dialogView.findViewById(R.id.tvLicensePricesHeader);
         MaterialButton btnUpdateCover = dialogView.findViewById(R.id.btnUpdateCover);
         MaterialButton btnSave = dialogView.findViewById(R.id.btnSaveBeat);
