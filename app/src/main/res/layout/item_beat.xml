@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="16dp"
     app:cardElevation="0dp"
     app:cardBackgroundColor="@color/surface_container"
     app:strokeColor="@color/outline"
@@ -32,7 +32,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginEnd="16dp"
-                app:cardCornerRadius="16dp"
+                app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp">
                 <ImageView
@@ -90,35 +90,40 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="120 BPM"
-                        android:textSize="11sp"
+                        android:textSize="10sp"
                         android:textColor="@color/on_surface_secondary"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="3dp"
-                        android:background="@drawable/tag_background" />
+                        android:paddingHorizontal="4dp"
+                        android:paddingVertical="2dp"
+                        android:background="@drawable/tag_background"
+                        android:maxLines="1" />
 
                     <TextView
                         android:id="@+id/tvKey"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cmin"
-                        android:textSize="11sp"
+                        android:textSize="10sp"
                         android:textColor="@color/on_surface_secondary"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="3dp"
+                        android:paddingHorizontal="4dp"
+                        android:paddingVertical="2dp"
                         android:background="@drawable/tag_background"
-                        android:layout_marginStart="6dp" />
+                        android:layout_marginStart="4dp"
+                        android:maxLines="1" />
 
                     <TextView
                         android:id="@+id/tvGenre"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="Hip-Hop"
-                        android:textSize="11sp"
+                        android:textSize="10sp"
                         android:textColor="@color/on_surface_secondary"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="3dp"
+                        android:paddingHorizontal="4dp"
+                        android:paddingVertical="2dp"
                         android:background="@drawable/tag_background"
-                        android:layout_marginStart="6dp" />
+                        android:layout_marginStart="4dp"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
 
                 </LinearLayout>
 
@@ -127,7 +132,7 @@
             <!-- Правая часть: Цена и корзина -->
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="end|top"
                 android:layout_marginStart="8dp">
@@ -147,7 +152,7 @@
                 <FrameLayout
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="12dp">
+                    android:layout_marginTop="8dp">
 
                     <ImageButton
                         android:id="@+id/btn_add_to_cart"

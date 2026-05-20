@@ -4,230 +4,253 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp"
     android:background="@color/surface">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/advanced_filter"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="@color/on_surface"
-        android:layout_marginBottom="32dp" />
-
-    <!-- Sorting Section -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sorting"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:textColor="@color/primary"
-        android:textAllCaps="true"
-        android:layout_marginBottom="12dp" />
-
-    <com.google.android.material.card.MaterialCardView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/surface_container"
-        app:strokeColor="@color/outline"
-        app:strokeWidth="1dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <RadioGroup
-            android:id="@+id/rg_sort"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp">
+            android:orientation="vertical"
+            android:padding="24dp">
 
-            <RadioButton
-                android:id="@+id/rb_default"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/advanced_filter"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/on_surface"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Sorting Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sorting"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary"
+                android:textAllCaps="true"
+                android:layout_marginBottom="12dp" />
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/default_sort"
-                android:textColor="@color/on_surface"
-                android:buttonTint="@color/primary"
-                android:padding="12dp"
-                android:textSize="16sp" />
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/surface_container"
+                app:strokeColor="@color/outline"
+                app:strokeWidth="1dp">
 
-            <RadioButton
-                android:id="@+id/rb_price_asc"
+                <RadioGroup
+                    android:id="@+id/rg_sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <RadioButton
+                        android:id="@+id/rb_default"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/default_sort"
+                        android:textColor="@color/on_surface"
+                        android:buttonTint="@color/primary"
+                        android:padding="12dp"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_price_asc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price_lowest_first"
+                        android:textColor="@color/on_surface"
+                        android:buttonTint="@color/primary"
+                        android:padding="12dp"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_price_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price_highest_first"
+                        android:textColor="@color/on_surface"
+                        android:buttonTint="@color/primary"
+                        android:padding="12dp"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_bpm_asc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bpm_slowest_first"
+                        android:textColor="@color/on_surface"
+                        android:buttonTint="@color/primary"
+                        android:padding="12dp"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_bpm_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bpm_fastest_first"
+                        android:textColor="@color/on_surface"
+                        android:buttonTint="@color/primary"
+                        android:padding="12dp"
+                        android:textSize="16sp" />
+
+                </RadioGroup>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- BPM Range Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bpm_range"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary"
+                android:textAllCaps="true"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/price_lowest_first"
-                android:textColor="@color/on_surface"
-                android:buttonTint="@color/primary"
-                android:padding="12dp"
-                android:textSize="16sp" />
+                android:orientation="horizontal"
+                android:layout_marginBottom="24dp"
+                android:gravity="center_vertical">
 
-            <RadioButton
-                android:id="@+id/rb_price_desc"
-                android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/et_bpm_min"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:hint="Min"
+                    android:inputType="number"
+                    android:textColor="@color/on_surface"
+                    android:background="@drawable/rounded_container"
+                    android:backgroundTint="@color/surface_container"
+                    android:gravity="center"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="—"
+                    android:textColor="@color/on_surface_variant"
+                    android:layout_marginHorizontal="16dp" />
+
+                <EditText
+                    android:id="@+id/et_bpm_max"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:hint="Max"
+                    android:inputType="number"
+                    android:textColor="@color/on_surface"
+                    android:background="@drawable/rounded_container"
+                    android:backgroundTint="@color/surface_container"
+                    android:gravity="center"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <!-- Tag Search Section -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/price_highest_first"
-                android:textColor="@color/on_surface"
-                android:buttonTint="@color/primary"
-                android:padding="12dp"
-                android:textSize="16sp" />
+                android:text="@string/tag_search"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary"
+                android:textAllCaps="true"
+                android:layout_marginBottom="12dp" />
 
-            <RadioButton
-                android:id="@+id/rb_bpm_asc"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/bpm_slowest_first"
-                android:textColor="@color/on_surface"
-                android:buttonTint="@color/primary"
-                android:padding="12dp"
-                android:textSize="16sp" />
+                android:layout_height="56dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_container"
+                android:backgroundTint="@color/surface_container">
 
-            <RadioButton
-                android:id="@+id/rb_bpm_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/bpm_fastest_first"
-                android:textColor="@color/on_surface"
-                android:buttonTint="@color/primary"
-                android:padding="12dp"
-                android:textSize="16sp" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_filter"
+                    app:tint="@color/on_surface_variant" />
 
-        </RadioGroup>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- BPM Range Section -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bpm_range"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:textColor="@color/primary"
-        android:textAllCaps="true"
-        android:layout_marginBottom="12dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="24dp"
-        android:gravity="center_vertical">
-
-        <EditText
-            android:id="@+id/et_bpm_min"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:hint="Mi..."
-            android:inputType="number"
-            android:textColor="@color/on_surface"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="—"
-            android:textColor="@color/on_surface_variant"
-            android:layout_marginHorizontal="16dp" />
-
-        <EditText
-            android:id="@+id/et_bpm_max"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:hint="M..."
-            android:inputType="number"
-            android:textColor="@color/on_surface"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:textSize="16sp" />
-
-    </LinearLayout>
-
-    <!-- Tag Search Section -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tag_search"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:textColor="@color/primary"
-        android:textAllCaps="true"
-        android:layout_marginBottom="12dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="16dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/rounded_container"
-        android:backgroundTint="@color/surface_container">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_filter"
-            app:tint="@color/on_surface_variant" />
-
-        <EditText
-            android:id="@+id/et_tag_search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="12dp"
-            android:hint="Enter tag (..."
-            android:inputType="text"
-            android:textColor="@color/on_surface"
-            android:background="@android:color/transparent"
-            android:textSize="16sp" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/et_tag_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:hint="Enter tag..."
+                    android:inputType="text"
+                    android:textColor="@color/on_surface"
+                    android:background="@android:color/transparent"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <!-- Action Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingBottom="16dp"
+        android:background="@color/surface">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_clear"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:text="@string/clear"
+                android:textColor="@color/on_surface"
+                android:textStyle="bold"
+                app:strokeColor="@color/outline"
+                app:cornerRadius="16dp"
+                android:layout_marginEnd="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_apply"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:text="@string/apply"
+                android:textColor="@color/on_primary"
+                android:textStyle="bold"
+                app:backgroundTint="@color/primary"
+                app:cornerRadius="16dp"
+                android:layout_marginStart="8dp" />
+
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_clear"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_weight="1"
-            android:text="@string/clear"
-            android:textColor="@color/on_surface"
+            android:id="@+id/btn_cancel"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/cancel_btn"
             android:textStyle="bold"
-            app:strokeColor="@color/outline"
-            app:cornerRadius="16dp"
-            android:layout_marginEnd="8dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_apply"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_weight="1"
-            android:text="@string/apply"
-            android:textColor="@color/on_primary"
-            android:textStyle="bold"
-            app:backgroundTint="@color/primary"
-            app:cornerRadius="16dp"
-            android:layout_marginStart="8dp" />
-
+            android:textColor="@color/error" />
     </LinearLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_cancel"
-        style="@style/Widget.Material3.Button.TextButton"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/cancel_btn"
-        android:textStyle="bold"
-        android:textColor="@color/error" />
 
 </LinearLayout>
