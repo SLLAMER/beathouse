@@ -14,9 +14,11 @@ import com.example.beathouse.BuyerProfileDetailActivity;
 import com.example.beathouse.ChatActivity;
 import com.example.beathouse.ProducerProfileActivity;
 import com.example.beathouse.R;
+import android.widget.CheckBox;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -26,19 +28,34 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
 
     private List<Map<String, Object>> notifications;
     private Context context;
-    private OnNotificationClickListener listener;
+    private OnNotificationActionListener listener;
     private SimpleDateFormat dateFormat;
+    private boolean isSelectionMode = false;
+    private List<String> selectedNotifications;
 
-    public interface OnNotificationClickListener {
+    public interface OnNotificationActionListener {
         void onNotificationClick(Map<String, Object> notification, int position);
+        void onLongClick(Map<String, Object> notification, int position);
+        void onSelectClick(Map<String, Object> notification, boolean selected);
     }
 
     public NotificationsAdapter(List<Map<String, Object>> notifications, Context context,
-                                OnNotificationClickListener listener) {
+                                OnNotificationActionListener listener) {
         this.notifications = notifications;
         this.context = context;
         this.listener = listener;
         this.dateFormat = new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault());
+        this.selectedNotifications = new ArrayList<>();
+    }
+
+    public void setSelectionMode(boolean enabled) {
+        this.isSelectionMode = enabled;
+        notifyDataSetChanged();
+    }
+
+    public void setSelectedNotifications(List<String> selectedIds) {
+        this.selectedNotifications = selectedIds;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -51,6 +68,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Map<String, Object> notification = notifications.get(position);
+        String notificationId = (String) notification.get("notificationId");
 
         String title = getString(notification, "title", "Notification");
         String message = getString(notification, "message", "");
@@ -61,6 +79,17 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         holder.tvTitle.setText(title);
         holder.tvMessage.setText(message);
         holder.tvTime.setText(dateFormat.format(new Date(createdAt)));
+
+        // Checkbox видимость
+        holder.cbSelect.setVisibility(isSelectionMode ? View.VISIBLE : View.GONE);
+        holder.cbSelect.setChecked(selectedNotifications.contains(notificationId));
+
+        holder.cbSelect.setOnCheckedChangeListener(null);
+        holder.cbSelect.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (listener != null) {
+                listener.onSelectClick(notification, isChecked);
+            }
+        });
 
         // Визуальное отличие прочитанных/непрочитанных
         if (read) {
@@ -91,13 +120,30 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         }
 
         holder.cardView.setOnClickListener(v -> {
-            // Сначала отмечаем как прочитанное
-            if (listener != null) {
-                listener.onNotificationClick(notification, position);
-            }
+            if (isSelectionMode) {
+                // ✅ Для режима выбора не используем setChecked напрямую на чекбоксе,
+                // так как это вызовет OnCheckedChangeListener в процессе клика.
+                // Вместо этого пробрасываем событие в Activity.
+                if (listener != null) {
+                    listener.onSelectClick(notification, !selectedNotifications.contains(notificationId));
+                }
+            } else {
+                // Сначала отмечаем как прочитанное
+                if (listener != null) {
+                    listener.onNotificationClick(notification, position);
+                }
 
-            // Затем переходим по типу уведомления
-            handleNotificationClick(notification);
+                // Затем переходим по типу уведомления
+                handleNotificationClick(notification);
+            }
+        });
+
+        // Long click для выбора
+        holder.cardView.setOnLongClickListener(v -> {
+            if (listener != null) {
+                listener.onLongClick(notification, position);
+            }
+            return true;
         });
     }
 
@@ -226,11 +272,13 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         MaterialCardView cardView;
+        CheckBox cbSelect;
         TextView tvType, tvTitle, tvMessage, tvTime;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.cardNotification);
+            cbSelect = itemView.findViewById(R.id.cbSelect);
             tvType = itemView.findViewById(R.id.tvType);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvMessage = itemView.findViewById(R.id.tvMessage);
