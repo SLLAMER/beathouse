@@ -38,7 +38,7 @@ public class ProducerProfileActivity extends BaseActivity {
     private MaterialToolbar toolbar;
     private ImageView ivProducerAvatar, ivVerified;
     private TextView tvProducerName, tvProducerBio, tvBeatsCount, tvSalesCount,
-            tvFollowersCount, tvFollowingCount, tvLocation;
+            tvFollowersCount, tvFollowingCount, tvLocation, tvRatingText;
     private RatingBar ratingBar;
     private MaterialButton btnFollow, btnRate;
     private ImageButton btnMessage;
@@ -91,6 +91,7 @@ public class ProducerProfileActivity extends BaseActivity {
         tvFollowersCount = findViewById(R.id.tvFollowersCount);
         tvFollowingCount = findViewById(R.id.tvFollowingCount);
         tvLocation = findViewById(R.id.tvLocation);
+        tvRatingText = findViewById(R.id.tvRatingText);
         ratingBar = findViewById(R.id.ratingBar);
         btnFollow = findViewById(R.id.btnFollow);
         btnRate = findViewById(R.id.btnRate);
@@ -164,7 +165,10 @@ public class ProducerProfileActivity extends BaseActivity {
                     if (err != null || doc == null || !doc.exists()) return;
                     Double rating = doc.getDouble("rating");
                     if (rating != null) {
-                        runOnUiThread(() -> ratingBar.setRating(rating.floatValue()));
+                        runOnUiThread(() -> {
+                            ratingBar.setRating(rating.floatValue());
+                            tvRatingText.setText(String.format("%.1f / 5.0", rating));
+                        });
                     }
                 });
     }
