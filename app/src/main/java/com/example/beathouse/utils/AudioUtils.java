@@ -64,6 +64,13 @@ public class AudioUtils {
             throw new IOException("Empty base64 audio data");
         }
 
+        // Проверяем, есть ли уже в кэше по ID бита
+        File cachedFile = getCachedAudioFile(context, fileName);
+        if (cachedFile != null && cachedFile.exists()) {
+            Log.d(TAG, "Using existing cached file: " + cachedFile.getName());
+            return cachedFile;
+        }
+
         Log.d(TAG, "Decoding base64 audio to file: " + fileName);
 
         byte[] audioBytes;
@@ -77,16 +84,17 @@ public class AudioUtils {
             throw new IOException("Decoded audio bytes are empty");
         }
 
-        File tempFile = new File(context.getCacheDir(), fileName + "_" + System.currentTimeMillis() + ".mp3");
+        // Сохраняем в кэш директорию с фиксированным именем (beatId)
+        File cacheFile = new File(context.getCacheDir(), "audio_cache_" + fileName + ".mp3");
         FileOutputStream outputStream = null;
 
         try {
-            outputStream = new FileOutputStream(tempFile);
+            outputStream = new FileOutputStream(cacheFile);
             outputStream.write(audioBytes);
             outputStream.flush();
 
-            Log.d(TAG, "Audio file created: " + tempFile.getAbsolutePath() + " (" + tempFile.length() + " bytes)");
-            return tempFile;
+            Log.d(TAG, "Audio file cached: " + cacheFile.getAbsolutePath() + " (" + cacheFile.length() + " bytes)");
+            return cacheFile;
 
         } finally {
             if (outputStream != null) {
@@ -97,6 +105,23 @@ public class AudioUtils {
                 }
             }
         }
+    }
+
+    /**
+     * Получает файл из кэша по ID бита
+     */
+    public static File getCachedAudioFile(Context context, String beatId) {
+        if (beatId == null) return null;
+        File file = new File(context.getCacheDir(), "audio_cache_" + beatId + ".mp3");
+        return file.exists() ? file : null;
+    }
+
+    /**
+     * Проверяет наличие в кэше
+     */
+    public static boolean isAudioCached(Context context, String beatId) {
+        File file = getCachedAudioFile(context, beatId);
+        return file != null && file.exists() && file.length() > 0;
     }
 
     /**

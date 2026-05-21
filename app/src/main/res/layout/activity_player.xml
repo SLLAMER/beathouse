@@ -83,7 +83,11 @@
             android:textColor="?attr/colorOnSurface"
             android:gravity="center"
             android:maxLines="1"
-            android:ellipsize="end" />
+            android:ellipsize="end"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="16sp"
+            app:autoSizeMaxTextSize="24sp"
+            app:autoSizeStepGranularity="1sp" />
 
         <TextView
             android:id="@+id/tvProducer"
