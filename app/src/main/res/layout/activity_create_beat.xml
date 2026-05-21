@@ -343,7 +343,6 @@
                                 android:dropDownHeight="wrap_content"
                                 android:dropDownHorizontalOffset="0dp"
                                 android:dropDownVerticalOffset="4dp"
-                                android:scrollHorizontally="true"
                                 android:dropDownAnchor="@id/keyLayout" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -377,7 +376,7 @@
                                 android:paddingStart="8dp"
                                 android:paddingEnd="8dp"
                                 android:background="@android:color/transparent"
-                                android:ellipsize="end"
+                                android:ellipsize="none"
                                 android:singleLine="true" />
 
                         </com.google.android.material.textfield.TextInputLayout>
