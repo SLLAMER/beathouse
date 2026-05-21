@@ -72,6 +72,10 @@ public class LoginActivity extends BaseActivity {
                 binding.etEmail.setError(getString(R.string.email_required));
                 return;
             }
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                binding.etEmail.setError(getString(R.string.invalid_email));
+                return;
+            }
             if (password.isEmpty()) {
                 binding.etPassword.setError(getString(R.string.password_required));
                 return;
@@ -217,7 +221,7 @@ public class LoginActivity extends BaseActivity {
         userData.put("socialTelegram", "");
         userData.put("socialVk", "");
         userData.put("createdAt", System.currentTimeMillis());
-        userData.put("emailVerified", true);
+        userData.put("emailVerified", false);
         userData.put("phone", "");
         userData.put("following", 0);
         userData.put("followers", 0);

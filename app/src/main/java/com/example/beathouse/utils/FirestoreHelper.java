@@ -189,16 +189,60 @@ public class FirestoreHelper {
     private void deleteUserBeats(String userId, FirestoreCallback callback) {
         db.collection("beats").whereEqualTo("producerId", userId).get()
                 .addOnSuccessListener(snap -> {
-                    WriteBatch batch = db.batch();
-                    for (DocumentSnapshot doc : snap) {
-                        batch.delete(doc.getReference());
-                        batch.delete(doc.getReference().collection("audio_chunks").document("info"));
+                    if (snap.isEmpty()) {
+                        safeCallback(callback, true);
+                        return;
                     }
+
+                    final int[] deletedBeats = {0};
+                    final int totalBeats = snap.size();
+
+                    for (DocumentSnapshot beatDoc : snap) {
+                        deleteBeatCompletely(beatDoc.getId(), new FirestoreCallback() {
+                            @Override
+                            public void onSuccess(Object result) {
+                                deletedBeats[0]++;
+                                if (deletedBeats[0] >= totalBeats) {
+                                    safeCallback(callback, true);
+                                }
+                            }
+
+                            @Override
+                            public void onError(String error) {
+                                Log.e(TAG, "Error deleting beat " + beatDoc.getId() + ": " + error);
+                                deletedBeats[0]++;
+                                if (deletedBeats[0] >= totalBeats) {
+                                    safeCallback(callback, true);
+                                }
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(e -> safeCallback(callback, true));
+    }
+
+    public void deleteBeatCompletely(String beatId, FirestoreCallback callback) {
+        // 1. Сначала удаляем все чанки
+        db.collection("beats").document(beatId).collection("audio_chunks").get()
+                .addOnSuccessListener(chunks -> {
+                    WriteBatch batch = db.batch();
+                    for (DocumentSnapshot chunk : chunks) {
+                        batch.delete(chunk.getReference());
+                    }
+
+                    // 2. Затем удаляем сам документ бита
+                    batch.delete(db.collection("beats").document(beatId));
+
                     batch.commit()
                             .addOnSuccessListener(a -> safeCallback(callback, true))
                             .addOnFailureListener(e -> safeError(callback, e.getMessage()));
                 })
-                .addOnFailureListener(e -> safeCallback(callback, true));
+                .addOnFailureListener(e -> {
+                    // Если подколлекции нет, просто удаляем документ
+                    db.collection("beats").document(beatId).delete()
+                            .addOnSuccessListener(a -> safeCallback(callback, true))
+                            .addOnFailureListener(err -> safeError(callback, err.getMessage()));
+                });
     }
 
     private void deleteUserOrders(String userId, FirestoreCallback callback) {

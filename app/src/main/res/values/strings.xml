@@ -128,6 +128,7 @@
     <string name="no_account">No account found. Create one!</string>
     <string name="invalid_password">Invalid password</string>
     <string name="email_required">Email is required</string>
+    <string name="invalid_email">Invalid email format</string>
     <string name="password_required">Password is required</string>
     <string name="username_required">Username is required</string>
     <string name="email_in_use">This email is already registered</string>
