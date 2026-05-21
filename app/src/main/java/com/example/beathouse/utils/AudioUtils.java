@@ -11,7 +11,7 @@ import java.util.List;
 
 public class AudioUtils {
     private static final String TAG = "AudioUtils";
-    private static final int MAX_CHUNK_SIZE = 700000; // ~700KB chunks (Firestore limit ~1MB)
+    public static final int MAX_CHUNK_SIZE = 700000; // ~700KB chunks (Firestore limit ~1MB)
 
     /**
      * Разбивает большой Base64 на чанки для Firestore
