@@ -90,7 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.3"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="8dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 app:endIconMode="dropdown_menu"
                 app:boxCornerRadiusTopStart="12dp"
@@ -104,12 +104,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/genre_all"
                     android:textColor="@color/on_surface"
-                    android:textSize="13sp"
-                    android:completionThreshold="0"
-                    android:padding="12dp"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:ellipsize="end" />
+                    android:textSize="14sp"
+                    android:completionThreshold="0" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -117,7 +113,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="8dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 app:endIconMode="dropdown_menu"
                 app:boxCornerRadiusTopStart="12dp"
@@ -131,19 +127,15 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/select_key"
                     android:textColor="@color/on_surface"
-                    android:textSize="13sp"
-                    android:completionThreshold="0"
-                    android:padding="12dp"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:ellipsize="end" />
+                    android:textSize="14sp"
+                    android:completionThreshold="0" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.9"
+                android:layout_weight="1"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 app:boxCornerRadiusTopStart="12dp"
                 app:boxCornerRadiusTopEnd="12dp"
@@ -157,40 +149,13 @@
                     android:hint="BPM"
                     android:inputType="number"
                     android:textColor="@color/on_surface"
-                    android:textSize="13sp"
-                    android:padding="12dp"
-                    android:singleLine="true"
-                    android:maxLines="1" />
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
-        <!-- Description moved out of License Prices -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            app:boxCornerRadiusTopStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusBottomEnd="12dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEditDescription"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:hint="@string/description"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:textColor="@color/on_surface"
-                android:textSize="14sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- License Prices Section -->
+        <!-- License Prices Section (Now includes Description) -->
         <LinearLayout
             android:id="@+id/licensePricesLayout"
             android:layout_width="match_parent"
@@ -254,6 +219,7 @@
                 android:id="@+id/layoutPriceExclusive"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 app:boxBackgroundColor="@color/surface">
 
@@ -263,6 +229,30 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/price_exclusive"
                     android:inputType="numberDecimal"
+                    android:textColor="@color/on_surface"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Description INSIDE License Prices section -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxBackgroundColor="@color/surface">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEditDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:hint="@string/bio"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
                     android:textColor="@color/on_surface"
                     android:textSize="14sp" />
 

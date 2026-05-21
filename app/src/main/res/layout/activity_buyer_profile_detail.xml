@@ -285,23 +285,20 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnFollow"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="48dp"
+                        android:layout_height="48dp"
                         android:layout_weight="1"
-                        android:layout_marginEnd="4dp"
+                        android:layout_marginEnd="8dp"
                         android:text="@string/follow"
-                        android:textSize="13sp"
                         app:cornerRadius="12dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnRate"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="48dp"
+                        android:layout_height="48dp"
                         android:layout_weight="1"
                         android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
                         android:text="@string/rate"
-                        android:textSize="13sp"
                         app:cornerRadius="12dp"
                         style="@style/Widget.Material3.Button.OutlinedButton" />
 
