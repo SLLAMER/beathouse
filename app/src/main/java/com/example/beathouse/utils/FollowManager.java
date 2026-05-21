@@ -193,7 +193,8 @@ public class FollowManager {
 
     // ✅ Отправка уведомления о подписке
     private void sendFollowNotification(String toUserId, String fromUserId, String fromUsername) {
-        String notificationId = "FOLLOW_" + System.currentTimeMillis() + "_" + UUID.randomUUID().toString().substring(0, 6);
+        com.google.firebase.firestore.DocumentReference notifRef = db.collection("notifications").document();
+        String notificationId = notifRef.getId();
 
         Map<String, Object> notification = new HashMap<>();
         notification.put("notificationId", notificationId);
@@ -206,7 +207,7 @@ public class FollowManager {
         notification.put("read", false);
         notification.put("createdAt", System.currentTimeMillis());
 
-        db.collection("notifications").document(notificationId).set(notification)
+        notifRef.set(notification)
                 .addOnSuccessListener(a -> Log.d(TAG, "✅ Follow notification sent to: " + toUserId))
                 .addOnFailureListener(e -> Log.e(TAG, "❌ Failed to send follow notification: " + e.getMessage()));
     }
