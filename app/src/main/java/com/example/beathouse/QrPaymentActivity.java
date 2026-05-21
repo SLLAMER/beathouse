@@ -198,7 +198,11 @@ public class QrPaymentActivity extends BaseActivity {
             public void onAllOrdersCreated(java.util.List<com.example.beathouse.models.Order> createdOrders) {
                 Intent intent = new Intent(QrPaymentActivity.this, BuyerOrderCompleteActivity.class);
                 intent.putExtra("total", totalAmount);
-                intent.putExtra("order_id", orderId);
+                if (createdOrders != null && !createdOrders.isEmpty()) {
+                    intent.putExtra("order_id", createdOrders.get(0).getId());
+                } else {
+                    intent.putExtra("order_id", orderId);
+                }
                 intent.putExtra("item_count", cartItems.size());
                 intent.putExtra("order_items", itemsJson);
                 startActivity(intent);
