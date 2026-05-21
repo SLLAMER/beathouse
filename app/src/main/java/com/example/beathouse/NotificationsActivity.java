@@ -32,6 +32,8 @@ public class NotificationsActivity extends BaseActivity {
     private List<Map<String, Object>> notificationsList;
     private ListenerRegistration notificationsListener;
     private String currentUserId;
+    private boolean isSelectionMode = false;
+    private List<String> selectedNotificationIds = new ArrayList<>();
     private static final String TAG = "NotificationsActivity";
 
     @Override
@@ -45,6 +47,7 @@ public class NotificationsActivity extends BaseActivity {
         setupToolbar();
         initViews();
         setupRecyclerView();
+        setupDeleteButton();
         loadNotificationsRealtime();
 
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -90,11 +93,110 @@ public class NotificationsActivity extends BaseActivity {
         notificationsList = new ArrayList<>();
     }
 
+    private void setupDeleteButton() {
+        binding.btnDeleteSelected.setOnClickListener(v -> deleteSelectedNotifications());
+    }
+
+    private void enableSelectionMode() {
+        isSelectionMode = true;
+        selectedNotificationIds.clear();
+        binding.btnDeleteSelected.setVisibility(View.VISIBLE);
+        adapter.setSelectionMode(true);
+        adapter.setSelectedNotifications(selectedNotificationIds);
+        invalidateOptionsMenu();
+    }
+
+    private void disableSelectionMode() {
+        isSelectionMode = false;
+        selectedNotificationIds.clear();
+        binding.btnDeleteSelected.setVisibility(View.GONE);
+        adapter.setSelectionMode(false);
+        adapter.setSelectedNotifications(selectedNotificationIds);
+        invalidateOptionsMenu();
+    }
+
+    private void toggleSelection(String notificationId) {
+        if (selectedNotificationIds.contains(notificationId)) {
+            selectedNotificationIds.remove(notificationId);
+        } else {
+            selectedNotificationIds.add(notificationId);
+        }
+        updateSelectionMode();
+        adapter.notifyDataSetChanged();
+    }
+
+    private void updateSelectionMode() {
+        if (selectedNotificationIds.isEmpty()) {
+            disableSelectionMode();
+        } else {
+            binding.btnDeleteSelected.setText(getString(R.string.delete_selected) + " (" + selectedNotificationIds.size() + ")");
+        }
+    }
+
+    private void deleteSelectedNotifications() {
+        if (selectedNotificationIds.isEmpty()) return;
+
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.delete_notifications))
+                .setMessage(getString(R.string.sure_delete_notifications) + " " + selectedNotificationIds.size() + "?")
+                .setPositiveButton(getString(R.string.delete), (dialog, which) -> {
+                    deleteNotificationsFromFirestore();
+                })
+                .setNegativeButton(getString(R.string.cancel), null)
+                .show();
+    }
+
+    private void deleteNotificationsFromFirestore() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        WriteBatch batch = db.batch();
+
+        for (String notificationId : selectedNotificationIds) {
+            batch.delete(db.collection("notifications").document(notificationId));
+        }
+
+        batch.commit().addOnSuccessListener(a -> {
+            binding.progressBar.setVisibility(View.GONE);
+            Toast.makeText(this, getString(R.string.deleted) + " " + selectedNotificationIds.size() + " " + getString(R.string.notifications).toLowerCase(), Toast.LENGTH_SHORT).show();
+            disableSelectionMode();
+        }).addOnFailureListener(e -> {
+            binding.progressBar.setVisibility(View.GONE);
+            Toast.makeText(this, getString(R.string.error_prefix) + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
     private void setupRecyclerView() {
-        adapter = new NotificationsAdapter(notificationsList, this, (notification, position) -> {
-            String notificationId = (String) notification.get("notificationId");
-            if (notificationId != null) {
-                markAsRead(notificationId, position);
+        adapter = new NotificationsAdapter(notificationsList, this, new NotificationsAdapter.OnNotificationActionListener() {
+            @Override
+            public void onNotificationClick(Map<String, Object> notification, int position) {
+                String notificationId = (String) notification.get("notificationId");
+                if (notificationId != null) {
+                    markAsRead(notificationId, position);
+                }
+            }
+
+            @Override
+            public void onLongClick(Map<String, Object> notification, int position) {
+                String notificationId = (String) notification.get("notificationId");
+                if (notificationId != null) {
+                    enableSelectionMode();
+                    toggleSelection(notificationId);
+                }
+            }
+
+            @Override
+            public void onSelectClick(Map<String, Object> notification, boolean selected) {
+                String notificationId = (String) notification.get("notificationId");
+                if (notificationId != null) {
+                    if (selected) {
+                        if (!selectedNotificationIds.contains(notificationId)) {
+                            selectedNotificationIds.add(notificationId);
+                        }
+                    } else {
+                        selectedNotificationIds.remove(notificationId);
+                    }
+                    updateSelectionMode();
+                }
             }
         });
 

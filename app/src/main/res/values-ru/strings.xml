@@ -325,6 +325,8 @@
     <string name="yes">Да</string>
     <string name="all_already_read">Все уведомления уже прочитаны</string>
     <string name="marked_read_count">Отмечено %d уведомлений как прочитанные</string>
+    <string name="delete_notifications">Удалить уведомления</string>
+    <string name="sure_delete_notifications">Вы уверены, что хотите удалить</string>
     <string name="error_loading_settings">Ошибка загрузки настроек: </string>
     <string name="error_saving_settings">Ошибка сохранения настроек: </string>
     <string name="error_loading_user">Ошибка загрузки данных пользователя: </string>
