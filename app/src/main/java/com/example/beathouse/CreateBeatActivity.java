@@ -279,6 +279,28 @@ public class CreateBeatActivity extends BaseActivity {
 
         new Thread(() -> {
             try {
+                // ✅ Сначала проверяем размер файла через ContentResolver, чтобы избежать OutOfMemory
+                long rawFileSize = 0;
+                try (android.content.res.AssetFileDescriptor fd = getContentResolver().openAssetFileDescriptor(uri, "r")) {
+                    if (fd != null) rawFileSize = fd.getLength();
+                } catch (Exception e) {
+                    Log.e(TAG, "Error getting file size: " + e.getMessage());
+                }
+
+                // Base64 увеличивает размер примерно на 33%.
+                // MAX_AUDIO_SIZE (10MB) - это лимит для финального Base64.
+                // Проверяем сырой размер (примерно 7.5MB лимит для сырого файла)
+                if (rawFileSize > (MAX_AUDIO_SIZE * 0.75)) {
+                    runOnUiThread(() -> {
+                        binding.progressBar.setVisibility(View.GONE);
+                        binding.tvAudioFile.setText(getString(R.string.file_too_large_10mb));
+                        binding.tvAudioFile.setTextColor(getColor(android.R.color.holo_red_dark));
+                        audioBase64 = "";
+                        updateUploadButtonState();
+                    });
+                    return;
+                }
+
                 String base64 = convertToBase64(uri);
                 long fileSize = base64.length();
 

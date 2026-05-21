@@ -11,34 +11,16 @@ import java.util.Map;
 public class UserSyncHelper {
     private static final String TAG = "UserSyncHelper";
 
+    /**
+     * @deprecated ВНИМАНИЕ: Этот метод скачивает ВСЕХ пользователей из базы.
+     * Это может привести к огромному расходу трафика и чтений Firestore.
+     * Используйте syncSingleUser вместо этого.
+     */
+    @Deprecated
     public static void syncAllUsers(FirebaseFirestore db) {
-        db.collection(DatabaseStructure.COLLECTION_USERS).get()
-                .addOnSuccessListener(snap -> {
-                    for (DocumentSnapshot doc : snap) {
-                        String userId = doc.getId();
-                        Map<String, Object> data = doc.getData();
-                        if (data == null) continue;
-
-                        // Проверяем и обновляем роль
-                        if (!data.containsKey("role") || data.get("role") == null) {
-                            determineAndSetRole(db, userId, doc);
-                        }
-
-                        // Проверяем и обновляем статистику
-                        if (!data.containsKey("stats")) {
-                            Map<String, Object> stats = new HashMap<>();
-                            stats.put("totalSpent", 0.0);
-                            stats.put("totalEarned", 0.0);
-                            stats.put("beatsPurchased", 0);
-                            stats.put("beatsSold", 0);
-                            db.collection(DatabaseStructure.COLLECTION_USERS)
-                                    .document(userId)
-                                    .update("stats", stats);
-                            Log.d(TAG, "✅ Stats added to user: " + userId);
-                        }
-                    }
-                })
-                .addOnFailureListener(e -> Log.e(TAG, "❌ Sync failed: " + e.getMessage()));
+        Log.w(TAG, "⚠️ syncAllUsers called! This is inefficient for large databases.");
+        // Метод оставлен пустым для безопасности, чтобы не поломать билд, если где-то вызывается,
+        // но не выполнять опасную операцию.
     }
 
     private static void determineAndSetRole(FirebaseFirestore db, String userId, DocumentSnapshot userDoc) {
