@@ -50,12 +50,13 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
 
     public void setSelectionMode(boolean enabled) {
         this.isSelectionMode = enabled;
-        notifyDataSetChanged();
+        // ✅ Используем post во избежание IllegalStateException при вызове во время отрисовки
+        new android.os.Handler(android.os.Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
     public void setSelectedNotifications(List<String> selectedIds) {
         this.selectedNotifications = selectedIds;
-        notifyDataSetChanged();
+        new android.os.Handler(android.os.Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
     @NonNull
@@ -80,11 +81,13 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         holder.tvMessage.setText(message);
         holder.tvTime.setText(dateFormat.format(new Date(createdAt)));
 
+        // ✅ Сначала сбрасываем слушатель, чтобы setChecked не вызывал старый колбэк при переиспользовании ViewHolder
+        holder.cbSelect.setOnCheckedChangeListener(null);
+
         // Checkbox видимость
         holder.cbSelect.setVisibility(isSelectionMode ? View.VISIBLE : View.GONE);
         holder.cbSelect.setChecked(selectedNotifications.contains(notificationId));
 
-        holder.cbSelect.setOnCheckedChangeListener(null);
         holder.cbSelect.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (listener != null) {
                 listener.onSelectClick(notification, isChecked);

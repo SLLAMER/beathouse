@@ -167,7 +167,7 @@ public class NotificationsActivity extends BaseActivity {
             notificationsList.removeIf(notif -> idsToDelete.contains(notif.get("notificationId")));
 
             disableSelectionMode();
-            adapter.notifyDataSetChanged();
+            // ✅ notifyDataSetChanged() уже вызывается внутри disableSelectionMode() через adapter.setSelectionMode()
         }).addOnFailureListener(e -> {
             binding.progressBar.setVisibility(View.GONE);
             Toast.makeText(this, getString(R.string.error_prefix) + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -218,10 +218,11 @@ public class NotificationsActivity extends BaseActivity {
     private void loadNotificationsRealtime() {
         binding.progressBar.setVisibility(View.VISIBLE);
 
+        // ✅ Убираем orderBy из запроса, чтобы не требовать составной индекс в Firebase
+        // Сортировку будем делать на клиенте
         notificationsListener = FirebaseFirestore.getInstance()
                 .collection("notifications")
                 .whereEqualTo("userId", currentUserId)
-                .orderBy("createdAt", Query.Direction.DESCENDING)
                 .limit(50)
                 .addSnapshotListener((snap, err) -> {
                     if (err != null) {
@@ -237,8 +238,23 @@ public class NotificationsActivity extends BaseActivity {
 
                     List<Map<String, Object>> notifications = new ArrayList<>();
                     for (var doc : snap) {
-                        notifications.add(doc.getData());
+                        Map<String, Object> data = doc.getData();
+                        // ✅ Гарантируем наличие ID, используя ID документа если поле пустое
+                        if (data.get("notificationId") == null) {
+                            data.put("notificationId", doc.getId());
+                        }
+                        notifications.add(data);
                     }
+
+                    // ✅ Сортировка на клиенте: новые сверху
+                    notifications.sort((a, b) -> {
+                        long t1 = 0, t2 = 0;
+                        Object o1 = a.get("createdAt");
+                        Object o2 = b.get("createdAt");
+                        if (o1 instanceof Long) t1 = (Long) o1;
+                        if (o2 instanceof Long) t2 = (Long) o2;
+                        return Long.compare(t2, t1);
+                    });
 
                     runOnUiThread(() -> {
                         binding.progressBar.setVisibility(View.GONE);
@@ -248,7 +264,7 @@ public class NotificationsActivity extends BaseActivity {
 
                         // ✅ В режиме выделения не обновляем список полностью, чтобы не сбивать выбор
                         if (!isSelectionMode) {
-                            adapter.notifyDataSetChanged();
+                            binding.recyclerNotifications.post(() -> adapter.notifyDataSetChanged());
                         }
 
                         if (notifications.isEmpty()) {
@@ -311,7 +327,7 @@ public class NotificationsActivity extends BaseActivity {
                                     for (Map<String, Object> notification : notificationsList) {
                                         notification.put("read", true);
                                     }
-                                    adapter.notifyDataSetChanged();
+                                    binding.recyclerNotifications.post(() -> adapter.notifyDataSetChanged());
                                     Toast.makeText(this, getString(R.string.marked_read_count, count), Toast.LENGTH_SHORT).show();
                                 }).addOnFailureListener(e -> {
                                     binding.progressBar.setVisibility(View.GONE);

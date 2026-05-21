@@ -174,8 +174,9 @@ public class ChatActivity extends BaseActivity {
                     if (senderName == null) senderName = "Someone";
 
                     // Создаем уведомление
+                    com.google.firebase.firestore.DocumentReference notifRef = db.collection("notifications").document();
                     Map<String, Object> notification = new HashMap<>();
-                    notification.put("notificationId", "MSG_" + System.currentTimeMillis());
+                    notification.put("notificationId", notifRef.getId());
                     notification.put("userId", otherUserId);
                     notification.put("type", "message");
                     notification.put("title", "New message from " + senderName);
@@ -186,7 +187,7 @@ public class ChatActivity extends BaseActivity {
                     notification.put("read", false);
                     notification.put("createdAt", System.currentTimeMillis());
 
-                    db.collection("notifications").add(notification);
+                    notifRef.set(notification);
                 });
     }
 
