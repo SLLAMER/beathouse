@@ -121,8 +121,12 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
 
         holder.cardView.setOnClickListener(v -> {
             if (isSelectionMode) {
-                boolean isChecked = !holder.cbSelect.isChecked();
-                holder.cbSelect.setChecked(isChecked);
+                // ✅ Для режима выбора не используем setChecked напрямую на чекбоксе,
+                // так как это вызовет OnCheckedChangeListener в процессе клика.
+                // Вместо этого пробрасываем событие в Activity.
+                if (listener != null) {
+                    listener.onSelectClick(notification, !selectedNotifications.contains(notificationId));
+                }
             } else {
                 // Сначала отмечаем как прочитанное
                 if (listener != null) {

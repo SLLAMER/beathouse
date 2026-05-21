@@ -122,7 +122,8 @@ public class NotificationsActivity extends BaseActivity {
             selectedNotificationIds.add(notificationId);
         }
         updateSelectionMode();
-        adapter.notifyDataSetChanged();
+        // ✅ Используем post чтобы избежать IllegalStateException: "Cannot call this method while RecyclerView is computing a layout"
+        binding.recyclerNotifications.post(() -> adapter.notifyDataSetChanged());
     }
 
     private void updateSelectionMode() {
@@ -151,14 +152,22 @@ public class NotificationsActivity extends BaseActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         WriteBatch batch = db.batch();
 
-        for (String notificationId : selectedNotificationIds) {
+        // Копируем список ID для удаления, так как оригинал очистится в disableSelectionMode()
+        List<String> idsToDelete = new ArrayList<>(selectedNotificationIds);
+
+        for (String notificationId : idsToDelete) {
             batch.delete(db.collection("notifications").document(notificationId));
         }
 
         batch.commit().addOnSuccessListener(a -> {
             binding.progressBar.setVisibility(View.GONE);
-            Toast.makeText(this, getString(R.string.deleted) + " " + selectedNotificationIds.size() + " " + getString(R.string.notifications).toLowerCase(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.deleted) + " " + idsToDelete.size() + " " + getString(R.string.notifications).toLowerCase(), Toast.LENGTH_SHORT).show();
+
+            // Удаляем локально из списка, чтобы UI обновился мгновенно, не дожидаясь SnapshotListener
+            notificationsList.removeIf(notif -> idsToDelete.contains(notif.get("notificationId")));
+
             disableSelectionMode();
+            adapter.notifyDataSetChanged();
         }).addOnFailureListener(e -> {
             binding.progressBar.setVisibility(View.GONE);
             Toast.makeText(this, getString(R.string.error_prefix) + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -196,6 +205,8 @@ public class NotificationsActivity extends BaseActivity {
                         selectedNotificationIds.remove(notificationId);
                     }
                     updateSelectionMode();
+                    // ✅ Обновляем UI после изменения списка выбранных
+                    binding.recyclerNotifications.post(() -> adapter.notifyDataSetChanged());
                 }
             }
         });
@@ -234,7 +245,11 @@ public class NotificationsActivity extends BaseActivity {
                         binding.swipeRefreshLayout.setRefreshing(false);
                         notificationsList.clear();
                         notificationsList.addAll(notifications);
-                        adapter.notifyDataSetChanged();
+
+                        // ✅ В режиме выделения не обновляем список полностью, чтобы не сбивать выбор
+                        if (!isSelectionMode) {
+                            adapter.notifyDataSetChanged();
+                        }
 
                         if (notifications.isEmpty()) {
                             binding.emptyState.setVisibility(View.VISIBLE);
