@@ -259,7 +259,8 @@ public class FirestoreHelper {
                 }
 
                 // Отправляем уведомление
-                String id = "NOTIF_" + System.currentTimeMillis() + "_" + UUID.randomUUID().toString().substring(0, 6);
+                com.google.firebase.firestore.DocumentReference notifRef = db.collection("notifications").document();
+                String id = notifRef.getId();
                 Map<String, Object> data = new HashMap<>();
                 data.put("notificationId", id);
                 data.put("userId", userId);
@@ -272,7 +273,7 @@ public class FirestoreHelper {
                 if (senderId != null) data.put("senderId", senderId);
                 if (senderName != null) data.put("senderName", senderName);
 
-                db.collection("notifications").document(id).set(data)
+                notifRef.set(data)
                         .addOnSuccessListener(a -> { if (callback != null) callback.onSuccess(id); })
                         .addOnFailureListener(e -> { if (callback != null) callback.onError(e.getMessage()); });
             }
@@ -281,7 +282,8 @@ public class FirestoreHelper {
             public void onError(String error) {
                 Log.e(TAG, "❌ Error checking notification settings: " + error);
                 // В случае ошибки все равно отправляем
-                String id = "NOTIF_" + System.currentTimeMillis() + "_" + UUID.randomUUID().toString().substring(0, 6);
+                com.google.firebase.firestore.DocumentReference notifRef = db.collection("notifications").document();
+                String id = notifRef.getId();
                 Map<String, Object> data = new HashMap<>();
                 data.put("notificationId", id);
                 data.put("userId", userId);
@@ -294,7 +296,7 @@ public class FirestoreHelper {
                 if (senderId != null) data.put("senderId", senderId);
                 if (senderName != null) data.put("senderName", senderName);
 
-                db.collection("notifications").document(id).set(data)
+                notifRef.set(data)
                         .addOnSuccessListener(a -> { if (callback != null) callback.onSuccess(id); })
                         .addOnFailureListener(e -> { if (callback != null) callback.onError(e.getMessage()); });
             }
