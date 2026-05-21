@@ -109,7 +109,10 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void setupListeners() {
-        btnClose.setOnClickListener(v -> finish());
+        btnClose.setOnClickListener(v -> {
+            finish();
+            overridePendingTransition(R.anim.fade_in, R.anim.slide_down);
+        });
 
         btnPlay.setOnClickListener(v -> togglePlayback());
 
@@ -262,5 +265,11 @@ public class PlayerActivity extends BaseActivity {
         stopProgressUpdates();
         progressHandler.removeCallbacksAndMessages(null);
         // staticBeatsAdapter = null; // ✅ Не обнуляем, чтобы сохранить связь
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.fade_in, R.anim.slide_down);
     }
 }

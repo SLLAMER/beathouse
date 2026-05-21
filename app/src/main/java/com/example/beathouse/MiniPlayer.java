@@ -299,6 +299,11 @@ public class MiniPlayer {
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+
+        // ✅ Добавляем анимацию появления снизу
+        if (context instanceof android.app.Activity) {
+            ((android.app.Activity) context).overridePendingTransition(R.anim.slide_up, R.anim.fade_out);
+        }
     }
 
     public boolean isVisible() {

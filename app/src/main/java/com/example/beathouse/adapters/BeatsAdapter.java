@@ -319,8 +319,16 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         notifyPlaybackStateChanged();
         notifyDataSetChanged();
 
-        String audioData = null;
+        // 1. Проверяем дисковый кэш
+        if (AudioUtils.isAudioCached(context, beat.getId())) {
+            Log.d(TAG, "⚡ Using disk cache for beat: " + beat.getTitle());
+            File cachedFile = AudioUtils.getCachedAudioFile(context, beat.getId());
+            playAudioFile(cachedFile, position, null, beat.getTitle());
+            return;
+        }
 
+        // 2. Проверяем оперативную память (старый механизм)
+        String audioData = null;
         if (audioCache.containsKey(beat.getId())) {
             audioData = audioCache.get(beat.getId());
         } else if (beat.hasAudio() && beat.getFullAudio() != null) {
@@ -330,6 +338,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         if (audioData != null && !audioData.isEmpty()) {
             prepareAndPlayAudio(audioData, beat, position, null);
         } else {
+            // 3. Загружаем с сервера
             loadAudioFromServer(beat, position, null);
         }
     }
@@ -385,7 +394,8 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
 
         new Thread(() -> {
             try {
-                File audioFile = AudioUtils.decodeBase64ToFile(context, audioData, "beat_" + beat.getId());
+                // ✅ Передаем только beatId для консистентного кэширования
+                File audioFile = AudioUtils.decodeBase64ToFile(context, audioData, beat.getId());
 
                 runOnUiThread(() -> {
                     if (audioFile != null && audioFile.exists()) {
@@ -727,7 +737,16 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     }
 
     private void showToast(String message) {
-        runOnUiThread(() -> Toast.makeText(context, message, Toast.LENGTH_SHORT).show());
+        runOnUiThread(() -> {
+            if (context instanceof android.app.Activity) {
+                View rootView = ((android.app.Activity) context).findViewById(android.R.id.content);
+                if (rootView != null) {
+                    com.google.android.material.snackbar.Snackbar.make(rootView, message, com.google.android.material.snackbar.Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void safeUpdatePlayButtonState(BeatViewHolder holder, int position) {

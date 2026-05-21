@@ -108,6 +108,11 @@ public class BuyerHomeFragment extends Fragment {
         // ✅ Настройка Pull-to-Refresh
         binding.swipeRefresh.setOnRefreshListener(() -> loadBeats());
 
+        // ✅ Настройка кнопки Retry
+        if (binding.btnRetry != null) {
+            binding.btnRetry.setOnClickListener(v -> loadBeats());
+        }
+
         // ✅ Загрузка битов
         loadBeats();
     }
