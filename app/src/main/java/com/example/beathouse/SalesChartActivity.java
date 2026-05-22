@@ -102,7 +102,6 @@ public class SalesChartActivity extends AppCompatActivity {
         db.collection("orders")
                 .whereEqualTo("producerId", userId)
                 .whereEqualTo("status", "paid")
-                .whereGreaterThanOrEqualTo("paidAt", startTime)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     TreeMap<Long, Double> dailyTotals = new TreeMap<>();
@@ -123,7 +122,7 @@ public class SalesChartActivity extends AppCompatActivity {
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                         Double amount = doc.getDouble("total");
                         Long paidAt = doc.getLong("paidAt");
-                        if (amount != null && paidAt != null) {
+                        if (amount != null && paidAt != null && paidAt >= startTime) {
                             totalEarned += amount;
 
                             Calendar dayCal = Calendar.getInstance();
@@ -155,8 +154,19 @@ public class SalesChartActivity extends AppCompatActivity {
         List<Entry> entries = new ArrayList<>();
         final List<Long> dates = new ArrayList<>(dailyTotals.keySet());
 
+        boolean hasData = false;
         for (int i = 0; i < dates.size(); i++) {
-            entries.add(new Entry(i, dailyTotals.get(dates.get(i)).floatValue()));
+            float val = dailyTotals.get(dates.get(i)).floatValue();
+            entries.add(new Entry(i, val));
+            if (val > 0) hasData = true;
+        }
+
+        if (!hasData) {
+            salesChart.clear();
+            salesChart.setNoDataText(getString(R.string.no_sales));
+            salesChart.setNoDataTextColor(Color.WHITE);
+            salesChart.invalidate();
+            return;
         }
 
         LineDataSet dataSet = new LineDataSet(entries, "Sales ($)");
