@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- ========== ПРЕМИАЛЬНАЯ ЧИСТО ЧЕРНАЯ ПАЛИТРА (TRUE BLACK) ========== -->
-    <color name="primary">#B966FF</color>
-    <color name="primary_container">#1A0033</color>
+    <color name="primary">#8B3A9C</color>
+    <color name="primary_container">#25003D</color>
     <color name="on_primary">#FFFFFF</color>
-    <color name="on_primary_variant">#D0BCFF</color>
+    <color name="on_primary_variant">#E1BEE7</color>
 
     <!-- Вторичные цвета - глубокий серый, без оттенков -->
     <color name="secondary">#8E8E93</color>
@@ -45,8 +45,8 @@
     <!-- ДОПОЛНИТЕЛЬНО -->
     <color name="card_background">#0A0A0A</color>
     <color name="chip_background">#151517</color>
-    <color name="badge_background">#B966FF</color>
-    <color name="nav_icon_selected">#B966FF</color>
+    <color name="badge_background">#8B3A9C</color>
+    <color name="nav_icon_selected">#8B3A9C</color>
 
     <!-- БАЗОВЫЕ -->
     <color name="black">#FF000000</color>

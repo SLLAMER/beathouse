@@ -178,14 +178,14 @@ public class SalesChartActivity extends AppCompatActivity {
         }
 
         LineDataSet dataSet = new LineDataSet(entries, getString(R.string.sales) + " ($)");
-        dataSet.setColor(Color.parseColor("#B966FF")); // Primary purple
-        dataSet.setCircleColor(Color.parseColor("#B966FF"));
+        dataSet.setColor(Color.parseColor("#8B3A9C")); // Primary purple
+        dataSet.setCircleColor(Color.parseColor("#8B3A9C"));
         dataSet.setLineWidth(2f);
         dataSet.setCircleRadius(4f);
         dataSet.setDrawCircleHole(false);
         dataSet.setValueTextColor(Color.WHITE);
         dataSet.setDrawFilled(true);
-        dataSet.setFillColor(Color.parseColor("#B966FF"));
+        dataSet.setFillColor(Color.parseColor("#8B3A9C"));
         dataSet.setFillAlpha(50);
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 

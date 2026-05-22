@@ -52,9 +52,8 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void applyGlassEffect() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            findViewById(R.id.ivCover).setRenderEffect(android.graphics.RenderEffect.createBlurEffect(20f, 20f, android.graphics.Shader.TileMode.CLAMP));
-        }
+        // Blur removed from cover as per user request for clarity.
+        // Keeping the method for potential future background glassmorphism.
     }
 
     private void getBeatsAdapter() {
