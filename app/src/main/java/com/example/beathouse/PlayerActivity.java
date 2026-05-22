@@ -48,6 +48,13 @@ public class PlayerActivity extends BaseActivity {
         setupProgressUpdates();
         getBeatsAdapter();
         handleIntent(getIntent());
+        applyGlassEffect();
+    }
+
+    private void applyGlassEffect() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            findViewById(R.id.ivCover).setRenderEffect(android.graphics.RenderEffect.createBlurEffect(20f, 20f, android.graphics.Shader.TileMode.CLAMP));
+        }
     }
 
     private void getBeatsAdapter() {

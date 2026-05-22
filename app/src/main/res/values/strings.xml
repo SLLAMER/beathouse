@@ -469,4 +469,8 @@
     <string name="confirm_payment_message_qr">Have you successfully completed the payment?</string>
 
     <string name="free_beat">Free Beat</string>
+
+    <!-- Sales Chart -->
+    <string name="total_earned_label">Total earned: </string>
+    <string name="sales_chart_title">Sales Chart</string>
 </resources>

@@ -163,6 +163,11 @@
             android:name=".QrPaymentActivity"
             android:theme="@style/Theme.BeatHouse.Dark" />
 
+        <activity
+            android:name=".SalesChartActivity"
+            android:theme="@style/Theme.BeatHouse.Dark"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

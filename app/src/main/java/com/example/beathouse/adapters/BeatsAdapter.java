@@ -215,6 +215,14 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
                 beatClickListener.onBeatClick(beat, position);
             }
         });
+
+        applyGlassEffect(holder.cardBeat);
+    }
+
+    private void applyGlassEffect(View view) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            view.setRenderEffect(android.graphics.RenderEffect.createBlurEffect(20f, 20f, android.graphics.Shader.TileMode.CLAMP));
+        }
     }
 
     private void loadCoverImage(ImageView imageView, Beat beat) {
@@ -803,6 +811,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         MaterialButton btnPlay;
         ImageButton btnAddToCart;
         View cartBadge;
+        View cardBeat;
 
         public BeatViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -817,6 +826,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
             btnPlay = itemView.findViewById(R.id.btnPlay);
             btnAddToCart = itemView.findViewById(R.id.btn_add_to_cart);
             cartBadge = itemView.findViewById(R.id.cart_badge);
+            cardBeat = itemView.findViewById(R.id.cardBeat);
         }
     }
 }

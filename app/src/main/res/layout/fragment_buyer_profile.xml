@@ -99,8 +99,8 @@
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="0dp"
-                    app:cardBackgroundColor="@color/surface_container"
-                    app:strokeColor="@color/outline"
+                    app:cardBackgroundColor="#1AFFFFFF"
+                    app:strokeColor="#33FFFFFF"
                     app:strokeWidth="1dp"
                     android:layout_marginBottom="24dp">
 
@@ -272,8 +272,8 @@
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="0dp"
-                    app:cardBackgroundColor="@color/surface_container"
-                    app:strokeColor="@color/outline"
+                    app:cardBackgroundColor="#1AFFFFFF"
+                    app:strokeColor="#33FFFFFF"
                     app:strokeWidth="1dp"
                     android:layout_marginBottom="24dp">
 
@@ -352,7 +352,8 @@
                             app:boxCornerRadiusBottomStart="12dp"
                             app:boxCornerRadiusBottomEnd="12dp"
                             app:boxStrokeColor="@color/outline"
-                            app:startIconDrawable="@drawable/ic_instagram">
+                            app:startIconDrawable="@drawable/ic_instagram"
+                            app:startIconTint="@color/instagram_color">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etInstagram"
@@ -377,7 +378,8 @@
                             app:boxCornerRadiusBottomStart="12dp"
                             app:boxCornerRadiusBottomEnd="12dp"
                             app:boxStrokeColor="@color/outline"
-                            app:startIconDrawable="@drawable/ic_telegram">
+                            app:startIconDrawable="@drawable/ic_telegram"
+                            app:startIconTint="@color/telegram_color">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etTelegram"
@@ -402,7 +404,8 @@
                             app:boxCornerRadiusBottomStart="12dp"
                             app:boxCornerRadiusBottomEnd="12dp"
                             app:boxStrokeColor="@color/outline"
-                            app:startIconDrawable="@drawable/ic_vk">
+                            app:startIconDrawable="@drawable/ic_vk"
+                            app:startIconTint="@color/vk_color">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etVk"

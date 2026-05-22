@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/surface"
+    android:background="@color/background"
     android:padding="24dp">
 
     <!-- Header -->
@@ -52,8 +52,10 @@
         android:layout_gravity="center"
         android:layout_marginBottom="40dp"
         app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
-        app:cardBackgroundColor="@color/surface_variant">
+        app:cardElevation="16dp"
+        app:cardBackgroundColor="#1AFFFFFF"
+        app:strokeColor="#33FFFFFF"
+        app:strokeWidth="1dp">
 
         <ImageView
             android:id="@+id/ivCover"
