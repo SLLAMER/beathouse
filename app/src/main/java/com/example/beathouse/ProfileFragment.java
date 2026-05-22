@@ -311,6 +311,14 @@ public class ProfileFragment extends Fragment {
                 }
             });
         }
+
+        if (binding.earnedStatsContainer != null) {
+            binding.earnedStatsContainer.setOnClickListener(v -> {
+                if (currentUser != null && currentUser.isSeller()) {
+                    startActivity(new Intent(getActivity(), SalesChartActivity.class));
+                }
+            });
+        }
     }
 
     private void showSwitchRoleDialog(String newRole) {
