@@ -1,5 +1,6 @@
 package com.example.beathouse;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.beathouse.utils.LocaleHelper;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -38,7 +40,13 @@ public class SalesChartActivity extends AppCompatActivity {
     private String userId;
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.setLocale(newBase, LocaleHelper.getLanguage(newBase)));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LocaleHelper.applyLanguage(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sales_chart);
 
@@ -169,7 +177,7 @@ public class SalesChartActivity extends AppCompatActivity {
             return;
         }
 
-        LineDataSet dataSet = new LineDataSet(entries, "Sales ($)");
+        LineDataSet dataSet = new LineDataSet(entries, getString(R.string.sales) + " ($)");
         dataSet.setColor(Color.parseColor("#B966FF")); // Primary purple
         dataSet.setCircleColor(Color.parseColor("#B966FF"));
         dataSet.setLineWidth(2f);
@@ -186,7 +194,7 @@ public class SalesChartActivity extends AppCompatActivity {
 
         XAxis xAxis = salesChart.getXAxis();
         xAxis.setValueFormatter(new ValueFormatter() {
-            private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM", Locale.getDefault());
+            private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM", new Locale(LocaleHelper.getLanguage(SalesChartActivity.this)));
             @Override
             public String getFormattedValue(float value) {
                 int index = (int) value;

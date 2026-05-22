@@ -127,8 +127,8 @@ public class BuyersListFragment extends Fragment {
         if (salesListener != null) salesListener.remove();
         binding.progressBar.setVisibility(View.VISIBLE);
 
-        // 1. Получаем все заказы (продажи) текущего продавца в реальном времени
-        salesListener = firestoreHelper.getSellerSalesRealtime(currentUserId, new FirestoreHelper.FirestoreCallback() {
+        // 1. Получаем все заказы (продажи) текущего продавца в реальном времени, ВКЛЮЧАЯ удаленные продавцом
+        salesListener = firestoreHelper.getSellerSalesRealtime(currentUserId, true, new FirestoreHelper.FirestoreCallback() {
             @Override
             public void onSuccess(Object result) {
                 List<Order> orders = (List<Order>) result;

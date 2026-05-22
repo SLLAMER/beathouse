@@ -176,12 +176,12 @@ public class SellerSalesFragment extends Fragment {
 
         for (String orderId : selectedOrderIds) {
             db.collection("orders").document(orderId)
-                    .delete()
+                    .update("deletedBySeller", true)
                     .addOnSuccessListener(a -> {
-                        Log.d(TAG, "Deleted order: " + orderId);
+                        Log.d(TAG, "Soft deleted order: " + orderId);
                     })
                     .addOnFailureListener(e -> {
-                        Log.e(TAG, "Failed to delete: " + orderId, e);
+                        Log.e(TAG, "Failed to soft delete: " + orderId, e);
                     });
         }
 
