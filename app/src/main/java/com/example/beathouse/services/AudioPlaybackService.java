@@ -50,19 +50,53 @@ public class AudioPlaybackService extends Service implements App.AppLifecycleLis
         super.onCreate();
         createNotificationChannel();
         mediaSession = new MediaSessionCompat(this, "BeatHouseMediaSession");
+        mediaSession.setCallback(new MediaSessionCompat.Callback() {
+            @Override
+            public void onPlay() {
+                handleAction(ACTION_PLAY);
+            }
+
+            @Override
+            public void onPause() {
+                handleAction(ACTION_PAUSE);
+            }
+
+            @Override
+            public void onSkipToNext() {
+                handleAction(ACTION_NEXT);
+            }
+
+            @Override
+            public void onSkipToPrevious() {
+                handleAction(ACTION_PREVIOUS);
+            }
+
+            @Override
+            public void onStop() {
+                handleAction(ACTION_STOP);
+            }
+        });
         App.setLifecycleListener(this);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null && intent.getAction() != null) {
-            String action = intent.getAction();
-            Log.d(TAG, "onStartCommand action: " + action);
-            Intent broadcastIntent = new Intent(action);
-            broadcastIntent.setPackage(getPackageName());
-            sendBroadcast(broadcastIntent);
+            handleAction(intent.getAction());
         }
         return START_STICKY;
+    }
+
+    private void handleAction(String action) {
+        Log.d(TAG, "handleAction: " + action);
+        if (ACTION_STOP.equals(action)) {
+            stopNotification();
+            stopSelf();
+        }
+
+        Intent broadcastIntent = new Intent(action);
+        broadcastIntent.setPackage(getPackageName());
+        sendBroadcast(broadcastIntent);
     }
 
     @Override
