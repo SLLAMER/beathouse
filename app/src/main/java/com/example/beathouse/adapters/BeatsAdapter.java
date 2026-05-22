@@ -803,6 +803,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         MaterialButton btnPlay;
         ImageButton btnAddToCart;
         View cartBadge;
+        View cardBeat;
 
         public BeatViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -817,6 +818,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
             btnPlay = itemView.findViewById(R.id.btnPlay);
             btnAddToCart = itemView.findViewById(R.id.btn_add_to_cart);
             cartBadge = itemView.findViewById(R.id.cart_badge);
+            cardBeat = itemView.findViewById(R.id.cardBeat);
         }
     }
 }
