@@ -16,11 +16,12 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
+import com.example.beathouse.App;
 import com.example.beathouse.MainActivity;
 import com.example.beathouse.R;
 import com.example.beathouse.models.Beat;
 
-public class AudioPlaybackService extends Service {
+public class AudioPlaybackService extends Service implements App.AppLifecycleListener {
     private static final String TAG = "AudioPlaybackService";
     private static final String CHANNEL_ID = "audio_playback_channel";
     private static final int NOTIFICATION_ID = 1;
@@ -33,6 +34,8 @@ public class AudioPlaybackService extends Service {
 
     private MediaSessionCompat mediaSession;
     private final IBinder binder = new AudioBinder();
+    private Beat currentBeat;
+    private boolean isPlaying = false;
 
     public class AudioBinder extends Binder {
         public AudioPlaybackService getService() {
@@ -45,6 +48,7 @@ public class AudioPlaybackService extends Service {
         super.onCreate();
         createNotificationChannel();
         mediaSession = new MediaSessionCompat(this, "BeatHouseMediaSession");
+        App.setLifecycleListener(this);
     }
 
     @Override
@@ -52,7 +56,6 @@ public class AudioPlaybackService extends Service {
         if (intent != null && intent.getAction() != null) {
             String action = intent.getAction();
             Log.d(TAG, "onStartCommand action: " + action);
-            // These actions should be handled by the activity/adapter via broadcast or interface
             Intent broadcastIntent = new Intent(action);
             broadcastIntent.setPackage(getPackageName());
             sendBroadcast(broadcastIntent);
@@ -78,8 +81,22 @@ public class AudioPlaybackService extends Service {
         }
     }
 
+    public void updateState(Beat beat, boolean playing) {
+        this.currentBeat = beat;
+        this.isPlaying = playing;
+
+        if (App.isAppInBackground()) {
+            showNotification(beat, playing);
+        } else {
+            stopNotification();
+        }
+    }
+
     public void showNotification(Beat beat, boolean isPlaying) {
-        if (beat == null) return;
+        if (beat == null) {
+            stopNotification();
+            return;
+        }
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -145,10 +162,23 @@ public class AudioPlaybackService extends Service {
     }
 
     @Override
+    public void onAppBackgrounded() {
+        if (currentBeat != null) {
+            showNotification(currentBeat, isPlaying);
+        }
+    }
+
+    @Override
+    public void onAppForegrounded() {
+        stopNotification();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (mediaSession != null) {
             mediaSession.release();
         }
+        App.setLifecycleListener(null);
     }
 }

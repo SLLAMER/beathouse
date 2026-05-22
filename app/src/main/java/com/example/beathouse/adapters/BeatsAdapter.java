@@ -144,7 +144,11 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         filter.addAction(AudioPlaybackService.ACTION_PAUSE);
         filter.addAction(AudioPlaybackService.ACTION_PREVIOUS);
         filter.addAction(AudioPlaybackService.ACTION_NEXT);
-        context.registerReceiver(audioReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            context.registerReceiver(audioReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            context.registerReceiver(audioReceiver, filter);
+        }
     }
 
     private final BroadcastReceiver audioReceiver = new BroadcastReceiver() {
@@ -173,11 +177,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     private void updateNotification() {
         if (isServiceBound && audioService != null) {
             Beat current = getCurrentlyPlayingBeat();
-            if (current != null) {
-                audioService.showNotification(current, isPlaying());
-            } else {
-                audioService.stopNotification();
-            }
+            audioService.updateState(current, isPlaying());
         }
     }
 
