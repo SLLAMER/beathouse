@@ -24,7 +24,15 @@ import com.example.beathouse.utils.AudioUtils;
 import com.example.beathouse.utils.CartManager;
 import com.example.beathouse.utils.FirestoreHelper;
 import com.example.beathouse.MiniPlayer;
+import com.example.beathouse.services.AudioPlaybackService;
 import com.google.android.material.button.MaterialButton;
+
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.content.ComponentName;
+import android.os.IBinder;
+import android.content.Intent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +50,8 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     private Handler mainHandler;
     private MiniPlayer miniPlayer;
     private CartManager cartManager;
+    private AudioPlaybackService audioService;
+    private boolean isServiceBound = false;
     private static final String TAG = "BeatsAdapter";
     private static BeatsAdapter staticInstance;
 
@@ -72,6 +82,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     }
 
     private void notifyPlaybackStateChanged() {
+        updateNotification();
         if (playbackStateChangeListener != null) {
             boolean playing = isPlaying();
             Beat currentBeat = getCurrentlyPlayingBeat();
@@ -99,9 +110,75 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         this.cartManager = new CartManager(context);
         setupMediaPlayerListeners();
 
+        bindAudioService();
+        registerAudioReceiver();
+
         staticInstance = this;
 
         Log.d(TAG, "BeatsAdapter created with " + (beatsList != null ? beatsList.size() : 0) + " beats");
+    }
+
+    private void bindAudioService() {
+        Intent intent = new Intent(context, AudioPlaybackService.class);
+        context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    private final ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            AudioPlaybackService.AudioBinder binder = (AudioPlaybackService.AudioBinder) service;
+            audioService = binder.getService();
+            isServiceBound = true;
+            updateNotification();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isServiceBound = false;
+        }
+    };
+
+    private void registerAudioReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(AudioPlaybackService.ACTION_PLAY);
+        filter.addAction(AudioPlaybackService.ACTION_PAUSE);
+        filter.addAction(AudioPlaybackService.ACTION_PREVIOUS);
+        filter.addAction(AudioPlaybackService.ACTION_NEXT);
+        context.registerReceiver(audioReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+    }
+
+    private final BroadcastReceiver audioReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action == null) return;
+
+            switch (action) {
+                case AudioPlaybackService.ACTION_PLAY:
+                    resumePlayback();
+                    break;
+                case AudioPlaybackService.ACTION_PAUSE:
+                    pausePlayback();
+                    break;
+                case AudioPlaybackService.ACTION_PREVIOUS:
+                    playPreviousBeatAutomatically();
+                    break;
+                case AudioPlaybackService.ACTION_NEXT:
+                    playNextBeatAutomatically();
+                    break;
+            }
+        }
+    };
+
+    private void updateNotification() {
+        if (isServiceBound && audioService != null) {
+            Beat current = getCurrentlyPlayingBeat();
+            if (current != null) {
+                audioService.showNotification(current, isPlaying());
+            } else {
+                audioService.stopNotification();
+            }
+        }
     }
 
     public static BeatsAdapter getInstance() {
@@ -725,6 +802,21 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         audioCache.clear();
         currentlyPlayingPosition = -1;
         isMediaPlayerPreparing = false;
+
+        // Cleanup service and receiver
+        if (isServiceBound) {
+            try {
+                context.unbindService(serviceConnection);
+                isServiceBound = false;
+            } catch (Exception e) {
+                Log.e(TAG, "Error unbinding service", e);
+            }
+        }
+        try {
+            context.unregisterReceiver(audioReceiver);
+        } catch (Exception e) {
+            Log.e(TAG, "Error unregistering receiver", e);
+        }
     }
 
     @Override

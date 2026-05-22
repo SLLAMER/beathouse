@@ -3,17 +3,35 @@ package com.example.beathouse.services;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.util.Base64;
+import android.util.Log;
+
 import androidx.core.app.NotificationCompat;
+
+import com.example.beathouse.MainActivity;
 import com.example.beathouse.R;
+import com.example.beathouse.models.Beat;
 
 public class AudioPlaybackService extends Service {
+    private static final String TAG = "AudioPlaybackService";
     private static final String CHANNEL_ID = "audio_playback_channel";
     private static final int NOTIFICATION_ID = 1;
 
+    public static final String ACTION_PLAY = "com.example.beathouse.ACTION_PLAY";
+    public static final String ACTION_PAUSE = "com.example.beathouse.ACTION_PAUSE";
+    public static final String ACTION_PREVIOUS = "com.example.beathouse.ACTION_PREVIOUS";
+    public static final String ACTION_NEXT = "com.example.beathouse.ACTION_NEXT";
+    public static final String ACTION_STOP = "com.example.beathouse.ACTION_STOP";
+
+    private MediaSessionCompat mediaSession;
     private final IBinder binder = new AudioBinder();
 
     public class AudioBinder extends Binder {
@@ -26,11 +44,19 @@ public class AudioPlaybackService extends Service {
     public void onCreate() {
         super.onCreate();
         createNotificationChannel();
+        mediaSession = new MediaSessionCompat(this, "BeatHouseMediaSession");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        startForeground(NOTIFICATION_ID, createNotification());
+        if (intent != null && intent.getAction() != null) {
+            String action = intent.getAction();
+            Log.d(TAG, "onStartCommand action: " + action);
+            // These actions should be handled by the activity/adapter via broadcast or interface
+            Intent broadcastIntent = new Intent(action);
+            broadcastIntent.setPackage(getPackageName());
+            sendBroadcast(broadcastIntent);
+        }
         return START_STICKY;
     }
 
@@ -52,18 +78,77 @@ public class AudioPlaybackService extends Service {
         }
     }
 
-    private Notification createNotification() {
-        return new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("BeatHouse")
-                .setContentText("Playing audio")
-                .setSmallIcon(R.drawable.ic_music_note) // Теперь R импортирован правильно
+    public void showNotification(Beat beat, boolean isPlaying) {
+        if (beat == null) return;
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        Bitmap icon = null;
+        if (beat.hasCover() && beat.getCoverImage() != null) {
+            try {
+                byte[] decodedBytes = Base64.decode(beat.getCoverImage(), Base64.DEFAULT);
+                icon = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+            } catch (Exception e) {
+                Log.e(TAG, "Error decoding cover for notification", e);
+            }
+        }
+        if (icon == null) {
+            icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_music_note);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_music_note)
+                .setContentTitle(beat.getTitle())
+                .setContentText(beat.getUserName())
+                .setLargeIcon(icon)
+                .setContentIntent(contentIntent)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
-                .build();
+                .setOngoing(isPlaying)
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
+                        .setMediaSession(mediaSession.getSessionToken())
+                        .setShowActionsInCompactView(0, 1, 2));
+
+        // Add actions
+        builder.addAction(new NotificationCompat.Action(
+                R.drawable.ic_skip_previous, "Previous",
+                getPendingIntent(ACTION_PREVIOUS)));
+
+        if (isPlaying) {
+            builder.addAction(new NotificationCompat.Action(
+                    R.drawable.ic_pause, "Pause",
+                    getPendingIntent(ACTION_PAUSE)));
+        } else {
+            builder.addAction(new NotificationCompat.Action(
+                    R.drawable.ic_play_arrow, "Play",
+                    getPendingIntent(ACTION_PLAY)));
+        }
+
+        builder.addAction(new NotificationCompat.Action(
+                R.drawable.ic_skip_next, "Next",
+                getPendingIntent(ACTION_NEXT)));
+
+        Notification notification = builder.build();
+        startForeground(NOTIFICATION_ID, notification);
+    }
+
+    private PendingIntent getPendingIntent(String action) {
+        Intent intent = new Intent(this, AudioPlaybackService.class);
+        intent.setAction(action);
+        return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+    }
+
+    public void stopNotification() {
+        stopForeground(true);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        stopForeground(true);
+        if (mediaSession != null) {
+            mediaSession.release();
+        }
     }
 }
