@@ -19,6 +19,7 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.example.beathouse.App;
+import com.example.beathouse.LoginActivity;
 import com.example.beathouse.MainActivity;
 import com.example.beathouse.R;
 import com.example.beathouse.models.Beat;
@@ -129,7 +130,7 @@ public class AudioPlaybackService extends Service implements App.AppLifecycleLis
             return;
         }
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
