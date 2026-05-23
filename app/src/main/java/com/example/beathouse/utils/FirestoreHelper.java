@@ -626,6 +626,22 @@ public class FirestoreHelper {
                 .addOnFailureListener(e -> safeError(callback, e.getMessage()));
     }
 
+    public void resetUserStats(String userId, FirestoreCallback callback) {
+        Map<String, Object> statsUpdates = new HashMap<>();
+        statsUpdates.put("totalEarned", 0.0);
+        statsUpdates.put("beatsSold", 0);
+        statsUpdates.put("beatsPurchased", 0);
+        statsUpdates.put("totalSpent", 0.0);
+
+        Map<String, Object> userUpdates = new HashMap<>();
+        userUpdates.put("stats", statsUpdates);
+
+        db.collection("users").document(userId)
+                .update(userUpdates)
+                .addOnSuccessListener(aVoid -> callback.onSuccess(null))
+                .addOnFailureListener(e -> callback.onError(e.getMessage()));
+    }
+
     public void getProducerBeats(String producerId, FirestoreCallback callback) {
         Log.d(TAG, "🔍 Loading beats for producer: " + producerId);
 

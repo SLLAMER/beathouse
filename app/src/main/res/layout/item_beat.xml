@@ -86,12 +86,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/tag_background"
-                        android:paddingHorizontal="5dp"
+                        android:paddingHorizontal="6dp"
                         android:paddingVertical="2dp"
                         android:text="120 BPM"
                         android:textColor="#FFFFFF"
                         android:textSize="9sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:maxLines="1" />
 
                     <TextView
                         android:id="@+id/tvKey"
@@ -99,23 +100,23 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:background="@drawable/tag_background"
-                        android:paddingHorizontal="5dp"
+                        android:paddingHorizontal="6dp"
                         android:paddingVertical="2dp"
                         android:text="Cmin"
                         android:textColor="#FFFFFF"
                         android:textSize="9sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:maxLines="1" />
 
                     <TextView
                         android:id="@+id/tvGenre"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="4dp"
                         android:background="@drawable/tag_background"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:paddingHorizontal="5dp"
+                        android:paddingHorizontal="6dp"
                         android:paddingVertical="2dp"
                         android:text="Hip-Hop"
                         android:textColor="#FFFFFF"

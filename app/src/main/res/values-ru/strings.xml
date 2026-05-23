@@ -457,4 +457,9 @@
     <!-- Sales Chart -->
     <string name="total_earned_label">Всего заработано: </string>
     <string name="sales_chart_title">График продаж</string>
+
+    <!-- Stats Reset -->
+    <string name="clear_stats">Очистить статистику</string>
+    <string name="clear_stats_confirmation">Вы уверены, что хотите очистить статистику профиля? Это обнулит значения заработка, продаж, покупок и трат. Это действие нельзя отменить.</string>
+    <string name="stats_cleared">Статистика успешно очищена!</string>
 </resources>
