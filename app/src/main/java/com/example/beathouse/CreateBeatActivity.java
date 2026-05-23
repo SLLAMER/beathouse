@@ -151,7 +151,7 @@ public class CreateBeatActivity extends BaseActivity {
         if (beat.hasAudio() && beat.getFullAudio() != null) {
             audioBase64 = beat.getFullAudio();
             binding.tvAudioFile.setText(getString(R.string.audio_loaded));
-            binding.tvAudioFile.setTextColor(getColor(android.R.color.holo_green_dark));
+            binding.tvAudioFile.setTextColor(getColor(R.color.success));
         }
 
         updateUploadButtonState();
@@ -322,7 +322,7 @@ public class CreateBeatActivity extends BaseActivity {
                     runOnUiThread(() -> {
                         binding.progressBar.setVisibility(View.GONE);
                         binding.tvAudioFile.setText(getString(R.string.file_too_large_10mb));
-                        binding.tvAudioFile.setTextColor(getColor(android.R.color.holo_red_dark));
+                        binding.tvAudioFile.setTextColor(getColor(R.color.error));
                         audioBase64 = "";
                         updateUploadButtonState();
                     });
@@ -336,17 +336,17 @@ public class CreateBeatActivity extends BaseActivity {
                     binding.progressBar.setVisibility(View.GONE);
                     if (fileSize > MAX_AUDIO_SIZE) {
                         binding.tvAudioFile.setText(getString(R.string.file_too_large_10mb));
-                        binding.tvAudioFile.setTextColor(getColor(android.R.color.holo_red_dark));
+                        binding.tvAudioFile.setTextColor(getColor(R.color.error));
                         audioBase64 = "";
                     } else if (fileSize < 1000) {
                         binding.tvAudioFile.setText(getString(R.string.invalid_audio_file));
-                        binding.tvAudioFile.setTextColor(getColor(android.R.color.holo_red_dark));
+                        binding.tvAudioFile.setTextColor(getColor(R.color.error));
                         audioBase64 = "";
                     } else {
                         audioBase64 = base64;
                         String fileName = getFileName(uri);
                         binding.tvAudioFile.setText(fileName + " (" + formatFileSize(fileSize) + ")");
-                        binding.tvAudioFile.setTextColor(getColor(android.R.color.holo_green_dark));
+                        binding.tvAudioFile.setTextColor(getColor(R.color.success));
                     }
                     updateUploadButtonState();
                 });
@@ -354,7 +354,7 @@ public class CreateBeatActivity extends BaseActivity {
                 runOnUiThread(() -> {
                     binding.progressBar.setVisibility(View.GONE);
                     binding.tvAudioFile.setText(getString(R.string.error_loading_file));
-                    binding.tvAudioFile.setTextColor(getColor(android.R.color.holo_red_dark));
+                    binding.tvAudioFile.setTextColor(getColor(R.color.error));
                 });
             }
         }).start();

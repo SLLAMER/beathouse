@@ -78,12 +78,12 @@ public class SalesChartActivity extends AppCompatActivity {
 
         XAxis xAxis = salesChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextColor(Color.WHITE);
+        xAxis.setTextColor(getColor(R.color.on_surface));
         xAxis.setDrawGridLines(false);
 
-        salesChart.getAxisLeft().setTextColor(Color.WHITE);
+        salesChart.getAxisLeft().setTextColor(getColor(R.color.on_surface));
         salesChart.getAxisRight().setEnabled(false);
-        salesChart.getLegend().setTextColor(Color.WHITE);
+        salesChart.getLegend().setTextColor(getColor(R.color.on_surface));
     }
 
     private void setupToggleGroup() {
@@ -172,20 +172,21 @@ public class SalesChartActivity extends AppCompatActivity {
         if (!hasData) {
             salesChart.clear();
             salesChart.setNoDataText(getString(R.string.no_sales));
-            salesChart.setNoDataTextColor(Color.WHITE);
+            salesChart.setNoDataTextColor(getColor(R.color.on_surface));
             salesChart.invalidate();
             return;
         }
 
+        int primaryColor = getColor(R.color.primary);
         LineDataSet dataSet = new LineDataSet(entries, getString(R.string.sales) + " ($)");
-        dataSet.setColor(Color.parseColor("#8B3A9C")); // Primary purple
-        dataSet.setCircleColor(Color.parseColor("#8B3A9C"));
+        dataSet.setColor(primaryColor);
+        dataSet.setCircleColor(primaryColor);
         dataSet.setLineWidth(2f);
         dataSet.setCircleRadius(4f);
         dataSet.setDrawCircleHole(false);
-        dataSet.setValueTextColor(Color.WHITE);
+        dataSet.setValueTextColor(getColor(R.color.on_surface));
         dataSet.setDrawFilled(true);
-        dataSet.setFillColor(Color.parseColor("#8B3A9C"));
+        dataSet.setFillColor(primaryColor);
         dataSet.setFillAlpha(50);
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 
