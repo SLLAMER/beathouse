@@ -541,7 +541,7 @@
                         android:layout_gravity="center"
                         android:background="@drawable/bg_primary_gradient"
                         app:backgroundTint="@null"
-                        app:cornerRadius="12dp"
+                        app:cornerRadius="24dp"
                         android:textColor="@color/on_primary"
                         android:elevation="2dp" />
 

@@ -57,7 +57,7 @@
     <style name="Widget.BeatHouse.Button" parent="Widget.Material3.Button">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="cornerRadius">12dp</item>
+        <item name="cornerRadius">24dp</item>
         <item name="iconGravity">textStart</item>
         <item name="iconPadding">8dp</item>
         <item name="android:insetTop">4dp</item>
@@ -69,7 +69,7 @@
     <style name="Widget.BeatHouse.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="cornerRadius">12dp</item>
+        <item name="cornerRadius">24dp</item>
         <item name="strokeWidth">1.5dp</item>
         <item name="strokeColor">@color/outline_variant</item>
         <item name="android:textColor">@color/on_surface</item>
@@ -77,12 +77,12 @@
 
     <style name="Widget.BeatHouse.Button.Text" parent="Widget.Material3.Button.TextButton">
         <item name="android:textSize">15sp</item>
-        <item name="cornerRadius">12dp</item>
+        <item name="cornerRadius">24dp</item>
         <item name="android:textColor">@color/primary</item>
     </style>
 
     <style name="Widget.BeatHouse.Card" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardCornerRadius">16dp</item>
+        <item name="cardCornerRadius">28dp</item>
         <item name="cardElevation">0dp</item>
         <item name="strokeColor">@color/outline</item>
         <item name="strokeWidth">1dp</item>
@@ -105,7 +105,7 @@
     </style>
 
     <style name="Widget.BeatHouse.Chip" parent="Widget.Material3.Chip.Filter">
-        <item name="chipCornerRadius">12dp</item>
+        <item name="chipCornerRadius">20dp</item>
         <item name="chipStrokeColor">@color/outline</item>
         <item name="chipStrokeWidth">1dp</item>
         <item name="android:textColor">@color/on_surface_variant</item>
@@ -117,11 +117,18 @@
     <style name="Widget.BeatHouse.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
         <item name="itemIconTint">@color/bottom_nav_icon_tint</item>
         <item name="itemTextColor">@color/bottom_nav_text_tint</item>
-        <item name="itemBackground">@color/surface</item>
-        <item name="android:background">@color/surface</item>
+        <item name="itemBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="elevation">0dp</item>
         <item name="itemPaddingTop">12dp</item>
         <item name="itemPaddingBottom">12dp</item>
+        <item name="labelVisibilityMode">unlabeled</item>
+    </style>
+
+    <style name="Widget.BeatHouse.GlassCard" parent="Widget.BeatHouse.Card">
+        <item name="cardBackgroundColor">#1AFFFFFF</item>
+        <item name="strokeColor">#33FFFFFF</item>
+        <item name="strokeWidth">1dp</item>
     </style>
 
     <!-- ========== АНИМАЦИИ ПЕРЕХОДОВ ========== -->
