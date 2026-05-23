@@ -98,6 +98,8 @@ public class SellerSalesFragment extends Fragment {
         btnDeleteSelected = new MaterialButton(requireContext());
         btnDeleteSelected.setText(getString(R.string.delete_selected));
         btnDeleteSelected.setVisibility(View.GONE);
+        btnDeleteSelected.setBackgroundResource(R.drawable.bg_primary_gradient);
+        btnDeleteSelected.setBackgroundTintList(null);
         btnDeleteSelected.setOnClickListener(v -> deleteSelectedSales());
 
         if (binding.getRoot() instanceof ViewGroup) {
@@ -285,6 +287,7 @@ public class SellerSalesFragment extends Fragment {
         boolean empty = salesList.isEmpty();
         if (binding.emptyStateInclude != null) {
             binding.emptyStateInclude.getRoot().setVisibility(empty ? View.VISIBLE : View.GONE);
+            binding.emptyStateInclude.tvEmptyMessage.setText(getString(R.string.no_sales));
         }
         binding.recyclerViewOrders.setVisibility(empty ? View.GONE : View.VISIBLE);
     }

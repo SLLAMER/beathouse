@@ -131,8 +131,8 @@ public class BuyerMainActivity extends BaseActivity {
     private void loadFragment(Fragment f) {
         if (f != null && !isFinishing() && !isDestroyed()) {
             getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                     .replace(R.id.fragment_container, f)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commitAllowingStateLoss();
         }
     }

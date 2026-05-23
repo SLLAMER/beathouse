@@ -261,8 +261,9 @@
         android:text="@string/continue_to_payment"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:background="@drawable/bg_primary_gradient"
+        app:backgroundTint="@null"
         app:cornerRadius="12dp"
-        app:backgroundTint="@color/primary"
         android:textColor="@color/on_primary" />
 
 </LinearLayout>
