@@ -5,9 +5,9 @@
     android:id="@+id/cardBeat"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="12dp"
-    android:layout_marginVertical="6dp"
-    app:cardCornerRadius="16dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="28dp"
     app:cardElevation="0dp"
     app:cardBackgroundColor="@color/surface_container"
     app:strokeColor="@color/outline"
@@ -28,10 +28,10 @@
 
             <!-- Обложка (минималистичнее) -->
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_marginEnd="12dp"
-                app:cardCornerRadius="10dp"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:layout_marginEnd="16dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp">
                 <ImageView
@@ -185,19 +185,19 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPlay"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
             android:text="Play"
             android:textSize="14sp"
             android:textStyle="bold"
             app:icon="@drawable/ic_play_arrow"
             app:iconGravity="textStart"
-            app:iconSize="18dp"
-            app:cornerRadius="10dp"
-            app:backgroundTint="@color/primary"
+            app:iconSize="20dp"
+            app:cornerRadius="24dp"
+            app:backgroundTint="@null" app:background="@drawable/bg_primary_gradient"
             android:textColor="#FFFFFF"
             app:rippleColor="#33FFFFFF"
-            style="@style/Widget.Material3.Button" />
+            style="@style/Widget.BeatHouse.Button" />
 
     </LinearLayout>
 

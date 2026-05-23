@@ -31,7 +31,7 @@
         android:layout_margin="16dp"
         android:text="@string/delete_selected"
         android:visibility="gone"
-        app:cornerRadius="12dp"
+        app:cornerRadius="24dp"
         android:backgroundTint="@color/error"
         android:textColor="@color/white" />
 
