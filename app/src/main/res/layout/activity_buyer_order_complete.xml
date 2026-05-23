@@ -101,6 +101,8 @@
         android:layout_height="56dp"
         android:layout_marginTop="32dp"
         android:text="@string/download_beats"
+        android:background="@drawable/bg_primary_gradient"
+        app:backgroundTint="@null"
         app:cornerRadius="12dp"
         app:icon="@drawable/ic_download" />
 

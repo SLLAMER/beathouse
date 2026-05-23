@@ -271,6 +271,7 @@
     <!-- Order History -->
     <string name="order_history">Order History</string>
     <string name="no_orders">No orders yet</string>
+    <string name="no_buyers">No buyers yet</string>
     <string name="from">From</string>
     <string name="others">others</string>
     <string name="beats_purchased">beats purchased</string>
