@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity {
     private String currentUserId;
     private FirebaseFirestore db;
     private static final String TAG = "MainActivity";
+    private int lastSelectedTabId = R.id.nav_home;
 
     public void switchToTab(int tabId) {
         if (binding != null && binding.bottomNavigation != null) {
@@ -108,6 +109,7 @@ public class MainActivity extends BaseActivity {
             if (itemId == R.id.nav_home) {
                 selectedFragment = new HomeFragment();
             } else if (itemId == R.id.nav_upload) {
+                lastSelectedTabId = binding.bottomNavigation.getSelectedItemId();
                 startActivityForResult(new Intent(this, CreateBeatActivity.class), CREATE_BEAT_REQUEST);
                 return true;
             } else if (itemId == R.id.nav_buyers) {
@@ -118,7 +120,10 @@ public class MainActivity extends BaseActivity {
                 selectedFragment = new ProfileFragment();
             }
 
-            if (selectedFragment != null) loadFragment(selectedFragment);
+            if (selectedFragment != null) {
+                lastSelectedTabId = itemId;
+                loadFragment(selectedFragment);
+            }
             return true;
         });
     }
@@ -126,8 +131,8 @@ public class MainActivity extends BaseActivity {
     private void loadFragment(Fragment fragment) {
         if (fragment != null && !isFinishing() && !isDestroyed()) {
             getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                     .replace(R.id.fragment_container, fragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
             Log.d(TAG, "Fragment loaded: " + fragment.getClass().getSimpleName());
         }
@@ -150,29 +155,40 @@ public class MainActivity extends BaseActivity {
             } else {
                 Log.e(TAG, "❌ No current fragment to handle image picker result");
             }
-        } else if (requestCode == CREATE_BEAT_REQUEST && resultCode == RESULT_OK) {
-            Log.d(TAG, "✅ Beat upload result received!");
-
-            String beatId = data != null ? data.getStringExtra("BEAT_ID") : null;
-            Log.d(TAG, "  Beat ID: " + beatId);
-
-            if (currentFragment instanceof HomeFragment) {
-                ((HomeFragment) currentFragment).refreshBeatsList();
-                Log.d(TAG, "🔄 HomeFragment refreshed");
+        } else if (requestCode == CREATE_BEAT_REQUEST) {
+            if (resultCode == RESULT_CANCELED) {
+                Log.d(TAG, "❌ Beat upload cancelled, restoring tab: " + lastSelectedTabId);
+                if (binding != null && binding.bottomNavigation != null) {
+                    binding.bottomNavigation.setSelectedItemId(lastSelectedTabId);
+                }
+                return;
             }
 
-            if (binding != null && binding.bottomNavigation != null) {
-                binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
+            if (resultCode == RESULT_OK) {
+                Log.d(TAG, "✅ Beat upload result received!");
+
+                String beatId = data != null ? data.getStringExtra("BEAT_ID") : null;
+                Log.d(TAG, "  Beat ID: " + beatId);
+
+                if (currentFragment instanceof HomeFragment) {
+                    ((HomeFragment) currentFragment).refreshBeatsList();
+                    Log.d(TAG, "🔄 HomeFragment refreshed");
+                }
+
+                if (binding != null && binding.bottomNavigation != null) {
+                    lastSelectedTabId = R.id.nav_home;
+                    binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
+                }
+
+                db.collection("users").document(currentUserId)
+                        .update("role", "seller")
+                        .addOnSuccessListener(a -> Log.d(TAG, "✅ User role updated to seller"))
+                        .addOnFailureListener(e -> Log.e(TAG, "❌ Failed to update role: " + e.getMessage()));
+
+                createProducerProfile();
+
+                Toast.makeText(this, getString(R.string.upload_success), Toast.LENGTH_LONG).show();
             }
-
-            db.collection("users").document(currentUserId)
-                    .update("role", "seller")
-                    .addOnSuccessListener(a -> Log.d(TAG, "✅ User role updated to seller"))
-                    .addOnFailureListener(e -> Log.e(TAG, "❌ Failed to update role: " + e.getMessage()));
-
-            createProducerProfile();
-
-            Toast.makeText(this, getString(R.string.upload_success), Toast.LENGTH_LONG).show();
         }
     }
 

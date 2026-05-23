@@ -269,6 +269,7 @@
     <!-- Order History -->
     <string name="order_history">История заказов</string>
     <string name="no_orders">Нет заказов</string>
+    <string name="no_buyers">Нет покупателей</string>
     <string name="from">От</string>
     <string name="others">других</string>
     <string name="beats_purchased">битов куплено</string>
