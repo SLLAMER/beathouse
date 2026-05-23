@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- ========== ПРЕМИАЛЬНАЯ ТЕМНАЯ ПАЛИТРА (CHARCOAL) ========== -->
-    <color name="primary">#C71585</color>
-    <color name="primary_container">#2D1525</color>
+    <!-- ========== ПРЕМИАЛЬНАЯ ТЕМНАЯ ПАЛИТРА (DEEP VIOLET) ========== -->
+    <color name="primary">#8B5CF6</color>
+    <color name="primary_container">#2E224F</color>
     <color name="on_primary">#FFFFFF</color>
-    <color name="on_primary_variant">#B2DFDB</color>
+    <color name="on_primary_variant">#C4B5FD</color>
 
     <!-- Вторичные цвета -->
-    <color name="secondary">#8E8E93</color>
-    <color name="secondary_container">#1C1C1E</color>
-    <color name="secondary_container_active">#2D1525</color>
+    <color name="secondary">#71717A</color>
+    <color name="secondary_container">#1C1C1F</color>
+    <color name="secondary_container_active">#2E224F</color>
     <item name="secondary_container_glass" type="color">#1AFFFFFF</item>
     <color name="on_secondary">#FFFFFF</color>
 
-    <!-- ПОВЕРХНОСТИ - CHARCOAL DARK -->
-    <color name="background">#0B0B0D</color>
-    <color name="background_dark">#0B0B0D</color>
-    <color name="surface">#121214</color>
-    <color name="surface_variant">#1A1A1C</color>
-    <color name="surface_container">#1C1C1E</color>
+    <!-- ПОВЕРХНОСТИ - PREMIUM DARK -->
+    <color name="background">#0F0F11</color>
+    <color name="background_dark">#0D0D0F</color>
+    <color name="surface">#161618</color>
+    <color name="surface_variant">#1C1C1F</color>
+    <color name="surface_container">#1A1A1C</color>
     <color name="surface_container_low">#121214</color>
-    <color name="surface_container_high">#242426</color>
-    <color name="surface_container_highest">#2C2C2E</color>
+    <color name="surface_container_high">#242427</color>
+    <color name="surface_container_highest">#2D2D30</color>
 
     <!-- ТЕКСТ -->
-    <color name="on_surface">#FFFFFF</color>
-    <color name="on_surface_variant">#B0B0B0</color>
-    <color name="on_surface_secondary">#707070</color>
-    <color name="on_surface_tertiary">#505050</color>
+    <color name="on_surface">#E4E4E7</color>
+    <color name="on_surface_variant">#A1A1AA</color>
+    <color name="on_surface_secondary">#71717A</color>
+    <color name="on_surface_tertiary">#52525B</color>
 
     <!-- АКЦЕНТЫ И ГРАНИЦЫ - ТОНКИЕ -->
-    <color name="outline">#1C1C1E</color>
-    <color name="outline_variant">#2C2C2E</color>
-    <color name="outline_glass">#33FFFFFF</color>
+    <color name="outline">#27272A</color>
+    <color name="outline_variant">#3F3F46</color>
+    <color name="outline_glass">#20FFFFFF</color>
     <color name="divider">#1A1A1A</color>
 
-    <!-- ЭФФЕКТЫ СТЕКЛА -->
-    <color name="glass_background">#1AFFFFFF</color>
-    <color name="glass_background_heavy">#CC121214</color>
-    <color name="glass_outline">#33FFFFFF</color>
+    <!-- ЭФФЕКТЫ СТЕКЛА (Ослабленные) -->
+    <color name="glass_background">#0DFFFFFF</color>
+    <color name="glass_background_heavy">#E6161618</color>
+    <color name="glass_outline">#1AFFFFFF</color>
 
     <!-- СТАТУСЫ -->
-    <color name="error">#FF453A</color>
-    <color name="error_red">#FF453A</color>
-    <color name="success">#32D74B</color>
-    <color name="success_green">#32D74B</color>
-    <color name="warning">#FF9F0A</color>
+    <color name="error">#EF4444</color>
+    <color name="error_red">#EF4444</color>
+    <color name="success">#10B981</color>
+    <color name="success_green">#10B981</color>
+    <color name="warning">#F59E0B</color>
 
-    <color name="success_container">#002200</color>
-    <color name="error_container">#330000</color>
+    <color name="success_container">#064E3B</color>
+    <color name="error_container">#450A0A</color>
 
     <!-- ДОПОЛНИТЕЛЬНО -->
-    <color name="card_background">#1C1C1E</color>
-    <color name="chip_background">#242426</color>
-    <color name="badge_background">#C71585</color>
-    <color name="nav_icon_selected">#C71585</color>
+    <color name="card_background">#161618</color>
+    <color name="chip_background">#1C1C1F</color>
+    <color name="badge_background">#8B5CF6</color>
+    <color name="nav_icon_selected">#8B5CF6</color>
 
     <!-- БАЗОВЫЕ -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="gray">#8E8E93</color>
+    <color name="gray">#71717A</color>
 
-    <!-- Соцсети - сохраняем оригинальные цвета -->
+    <!-- Соцсети -->
     <color name="instagram_color">#E4405F</color>
     <color name="telegram_color">#26A5E4</color>
     <color name="vk_color">#2787F5</color>
 
     <!-- Банки -->
-    <color name="sberbank_color">#21A038</color>
-    <color name="tinkoff_color">#FFD600</color>
-    <color name="vtb_color">#0A59A1</color>
-    <color name="alfa_color">#EF3124</color>
+    <color name="sberbank_color">#10B981</color>
+    <color name="tinkoff_color">#FACC15</color>
+    <color name="vtb_color">#2563EB</color>
+    <color name="alfa_color">#EF4444</color>
 </resources>

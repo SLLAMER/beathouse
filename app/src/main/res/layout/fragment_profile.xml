@@ -99,8 +99,8 @@
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="28dp"
                     app:cardElevation="0dp"
-                    app:cardBackgroundColor="@color/glass_background"
-                    app:strokeColor="@color/glass_outline"
+                    app:cardBackgroundColor="@color/surface"
+                    app:strokeColor="@color/outline"
                     app:strokeWidth="1dp"
                     android:layout_marginBottom="24dp">
 
@@ -292,8 +292,8 @@
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="32dp"
                     app:cardElevation="0dp"
-                    app:cardBackgroundColor="@color/glass_background"
-                    app:strokeColor="@color/glass_outline"
+                    app:cardBackgroundColor="@color/surface"
+                    app:strokeColor="@color/outline"
                     app:strokeWidth="1dp"
                     android:layout_marginBottom="24dp">
 
