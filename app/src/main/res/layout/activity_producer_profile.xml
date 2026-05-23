@@ -303,7 +303,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="32dp">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnFollow"
@@ -315,7 +315,11 @@
                     android:text="@string/follow"
                     android:textSize="12sp"
                     android:paddingHorizontal="4dp"
-                    app:cornerRadius="12dp" />
+                    app:cornerRadius="12dp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizeMinTextSize="10sp"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeStepGranularity="1sp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRate"
@@ -329,6 +333,10 @@
                     android:textSize="12sp"
                     android:paddingHorizontal="4dp"
                     app:cornerRadius="12dp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizeMinTextSize="10sp"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeStepGranularity="1sp"
                     style="@style/Widget.Material3.Button.OutlinedButton" />
 
                 <ImageButton
@@ -350,9 +358,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/beats_by_producer"
                 android:textColor="@color/on_surface"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="16dp" />
 
             <!-- Progress Bar -->
             <ProgressBar

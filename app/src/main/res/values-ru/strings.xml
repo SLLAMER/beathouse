@@ -40,7 +40,7 @@
     <string name="profile">Профиль</string>
     <string name="seller">Продавец</string>
     <string name="buyer">Покупатель</string>
-    <string name="beats_sold">Продано битов</string>
+    <string name="beats_sold">Продано</string>
     <string name="earned">Заработано</string>
     <string name="bought">Куплено</string>
     <string name="spent">Потрачено</string>
