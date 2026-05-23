@@ -8,7 +8,7 @@
         <item name="colorPrimaryContainer">@color/primary_container</item>
         <item name="colorOnPrimary">@color/on_primary</item>
         <item name="colorSecondary">@color/secondary</item>
-        <item name="colorSecondaryContainer">@color/secondary_container</item>
+        <item name="colorSecondaryContainer">@color/secondary_container_active</item>
         <item name="colorOnSecondary">@color/on_secondary</item>
         <item name="colorError">@color/error</item>
         <item name="colorErrorContainer">@color/error_container</item>
@@ -126,8 +126,8 @@
     </style>
 
     <style name="Widget.BeatHouse.GlassCard" parent="Widget.BeatHouse.Card">
-        <item name="cardBackgroundColor">#1AFFFFFF</item>
-        <item name="strokeColor">#33FFFFFF</item>
+        <item name="cardBackgroundColor">@color/glass_background</item>
+        <item name="strokeColor">@color/glass_outline</item>
         <item name="strokeWidth">1dp</item>
     </style>
 

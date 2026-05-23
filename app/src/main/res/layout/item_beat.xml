@@ -40,7 +40,7 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_music_note"
-                    android:background="#2C2C2C"
+                    android:background="@color/surface_container_highest"
                     android:contentDescription="Beat cover" />
             </com.google.android.material.card.MaterialCardView>
 
@@ -142,8 +142,8 @@
                     android:textStyle="bold"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
-                    android:background="@drawable/price_background"
-                    android:textColor="#FFFFFF" />
+                    android:background="@color/surface_container_highest"
+                    android:textColor="@color/on_surface" />
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -195,8 +195,8 @@
             app:iconSize="20dp"
             app:cornerRadius="24dp"
             app:backgroundTint="@null" app:background="@drawable/bg_primary_gradient"
-            android:textColor="#FFFFFF"
-            app:rippleColor="#33FFFFFF"
+            android:textColor="@color/on_surface"
+            app:rippleColor="@color/outline_glass"
             style="@style/Widget.BeatHouse.Button" />
 
     </LinearLayout>
