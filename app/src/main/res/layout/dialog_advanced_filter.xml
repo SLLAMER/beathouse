@@ -238,7 +238,10 @@
                 android:textStyle="bold"
                 app:backgroundTint="@color/primary"
                 app:cornerRadius="16dp"
-                android:layout_marginStart="8dp" />
+                android:layout_marginStart="8dp"
+                app:autoSizeTextType="uniform"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeMaxTextSize="16sp" />
 
         </LinearLayout>
 
