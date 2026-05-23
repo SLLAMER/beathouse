@@ -53,8 +53,8 @@
         android:layout_marginBottom="40dp"
         app:cardCornerRadius="32dp"
         app:cardElevation="24dp"
-        app:cardBackgroundColor="#1AFFFFFF"
-        app:strokeColor="#33FFFFFF"
+        app:cardBackgroundColor="@color/glass_background"
+        app:strokeColor="@color/glass_outline"
         app:strokeWidth="1dp">
 
         <ImageView

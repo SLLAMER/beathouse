@@ -131,13 +131,13 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.ViewHolder> 
         int statusColor;
         switch (order.getStatus()) {
             case "completed":
-                statusColor = context.getResources().getColor(android.R.color.holo_green_dark);
+                statusColor = context.getResources().getColor(R.color.success);
                 break;
             case "pending":
-                statusColor = context.getResources().getColor(android.R.color.holo_orange_dark);
+                statusColor = context.getResources().getColor(R.color.warning);
                 break;
             default:
-                statusColor = context.getResources().getColor(android.R.color.darker_gray);
+                statusColor = context.getResources().getColor(R.color.on_surface_tertiary);
                 break;
         }
         holder.tvStatus.setTextColor(statusColor);

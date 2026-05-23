@@ -41,8 +41,8 @@
         android:visibility="gone"
         style="@style/Widget.BeatHouse.Card"
         app:cardElevation="12dp"
-        app:cardBackgroundColor="#1AFFFFFF"
-        app:strokeColor="#33FFFFFF"
+        app:cardBackgroundColor="@color/glass_background"
+        app:strokeColor="@color/glass_outline"
         app:strokeWidth="1dp">
 
         <include layout="@layout/layout_mini_player" />
@@ -58,8 +58,8 @@
         app:cardCornerRadius="40dp"
         app:cardElevation="8dp"
         app:strokeWidth="1dp"
-        app:strokeColor="#33FFFFFF"
-        app:cardBackgroundColor="#CC121214">
+        app:strokeColor="@color/glass_outline"
+        app:cardBackgroundColor="@color/glass_background_heavy">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"

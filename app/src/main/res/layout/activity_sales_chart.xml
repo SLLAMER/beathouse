@@ -22,8 +22,8 @@
         android:layout_marginTop="16dp"
         style="@style/Widget.BeatHouse.Card"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="#1AFFFFFF"
-        app:strokeColor="#33FFFFFF"
+        app:cardBackgroundColor="@color/glass_background"
+        app:strokeColor="@color/glass_outline"
         app:strokeWidth="1dp">
 
         <com.github.mikephil.charting.charts.LineChart
