@@ -70,6 +70,16 @@
                         app:icon="@drawable/ic_lock"
                         app:iconGravity="textStart" />
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnClearStats"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/clear_stats"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:gravity="start|center_vertical"
+                        app:icon="@drawable/ic_trending_up"
+                        app:iconGravity="textStart" />
+
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

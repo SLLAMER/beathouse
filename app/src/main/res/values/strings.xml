@@ -474,4 +474,9 @@
     <!-- Sales Chart -->
     <string name="total_earned_label">Total earned: </string>
     <string name="sales_chart_title">Sales Chart</string>
+
+    <!-- Stats Reset -->
+    <string name="clear_stats">Clear Statistics</string>
+    <string name="clear_stats_confirmation">Are you sure you want to clear your profile statistics? This will reset earned, sold, bought and spent values to zero. This action cannot be undone.</string>
+    <string name="stats_cleared">Statistics cleared successfully!</string>
 </resources>

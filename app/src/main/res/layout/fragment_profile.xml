@@ -271,7 +271,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         app:tint="@color/telegram_color"
-                        android:layout_marginStart="16dp" />
+                        android:layout_marginStart="4dp" />
 
                     <ImageView
                         android:id="@+id/ivVk"
@@ -283,7 +283,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         app:tint="@color/vk_color"
-                        android:layout_marginStart="16dp" />
+                        android:layout_marginStart="4dp" />
                 </LinearLayout>
 
                 <!-- Edit Profile Card (RESTORED FIELDS) -->

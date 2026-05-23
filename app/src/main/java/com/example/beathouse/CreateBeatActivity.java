@@ -10,6 +10,8 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -56,6 +58,7 @@ public class CreateBeatActivity extends BaseActivity {
     private static final String TAG = "CreateBeatActivity";
     private boolean isActivityDestroyed = false;
     private boolean isUpdatingBeat = false;
+    private GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,31 @@ public class CreateBeatActivity extends BaseActivity {
         loadCurrentUser();
 
         checkForEditMode();
+        setupSwipeToExit();
+    }
+
+    private void setupSwipeToExit() {
+        gestureDetector = new GestureDetector(this, new com.example.beathouse.utils.SwipeGestureHelper(new com.example.beathouse.utils.SwipeGestureHelper.OnSwipeListener() {
+            @Override
+            public void onSwipeLeft() {
+                Log.d(TAG, "onSwipeLeft detected, finishing activity");
+                finish();
+            }
+
+            @Override
+            public void onSwipeRight() {}
+        }));
+
+        binding.getRoot().setOnTouchListener((v, event) -> {
+            gestureDetector.onTouchEvent(event);
+            return true;
+        });
+
+        // Also apply to ScrollView content to catch swipes there
+        binding.nestedScrollView.setOnTouchListener((v, event) -> {
+            gestureDetector.onTouchEvent(event);
+            return false; // Let ScrollView handle its own scrolling
+        });
     }
 
     private void checkForEditMode() {
