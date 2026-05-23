@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:visibility="gone"
-        app:cardCornerRadius="12dp"
+        style="@style/Widget.BeatHouse.Card"
         app:cardElevation="2dp"
         app:cardBackgroundColor="@color/surface_container"
         app:strokeColor="@color/outline"

@@ -225,7 +225,7 @@
                 android:textColor="@color/on_surface"
                 android:textStyle="bold"
                 app:strokeColor="@color/outline"
-                app:cornerRadius="16dp"
+                app:cornerRadius="24dp"
                 android:layout_marginEnd="8dp" />
 
             <com.google.android.material.button.MaterialButton
@@ -237,7 +237,7 @@
                 android:textColor="@color/on_primary"
                 android:textStyle="bold"
                 app:backgroundTint="@color/primary"
-                app:cornerRadius="16dp"
+                app:cornerRadius="24dp"
                 android:layout_marginStart="8dp"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="12sp"

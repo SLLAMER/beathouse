@@ -11,7 +11,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginEnd="12dp"
-        app:cardCornerRadius="16dp"
+        style="@style/Widget.BeatHouse.Card"
         app:cardElevation="0dp"
         app:strokeWidth="0dp">
         <ImageView

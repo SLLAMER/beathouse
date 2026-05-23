@@ -131,6 +131,17 @@
         <item name="strokeWidth">1dp</item>
     </style>
 
+    <style name="Widget.BeatHouse.TextInputLayout.OutlinedBox" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">20dp</item>
+        <item name="boxCornerRadiusTopEnd">20dp</item>
+        <item name="boxCornerRadiusBottomStart">20dp</item>
+        <item name="boxCornerRadiusBottomEnd">20dp</item>
+        <item name="boxStrokeColor">@color/outline</item>
+        <item name="hintTextColor">@color/primary</item>
+        <item name="android:textColorHint">@color/on_surface_variant</item>
+        <item name="boxBackgroundColor">@color/surface_container</item>
+    </style>
+
     <!-- ========== АНИМАЦИИ ПЕРЕХОДОВ ========== -->
     <style name="Theme.BeatHouse.Dark" parent="Theme.BeatHouse">
         <item name="colorSurface">@color/surface</item>

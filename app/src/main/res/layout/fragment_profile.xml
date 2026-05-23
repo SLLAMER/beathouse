@@ -459,7 +459,7 @@
                     android:text="@string/switch_role"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:cornerRadius="16dp"
+                    app:cornerRadius="24dp"
                     app:strokeColor="@color/primary"
                     app:strokeWidth="1.5dp"
                     android:textColor="@color/primary"
