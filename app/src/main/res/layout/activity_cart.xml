@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:visibility="gone"
-        app:cardCornerRadius="12dp"
+        style="@style/Widget.BeatHouse.Card"
         app:cardElevation="2dp"
         app:cardBackgroundColor="@color/surface_container"
         app:strokeColor="@color/outline"
@@ -153,7 +153,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Proceed to Checkout"
                 android:textColor="@color/on_primary"
-                app:cornerRadius="12dp"
+                app:cornerRadius="24dp"
                 app:backgroundTint="@color/primary" />
 
             <TextView

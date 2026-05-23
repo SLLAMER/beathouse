@@ -56,7 +56,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginBottom="32dp"
-                app:cardCornerRadius="12dp"
+                style="@style/Widget.BeatHouse.Card"
                 app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/surface_container"
                 app:strokeColor="@color/outline"
@@ -115,7 +115,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
+                style="@style/Widget.BeatHouse.Card"
                 app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/surface_container"
                 android:layout_marginBottom="20dp"
@@ -166,7 +166,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
+                style="@style/Widget.BeatHouse.Card"
                 app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/surface_container"
                 app:strokeColor="@color/outline"
@@ -541,7 +541,7 @@
                         android:layout_gravity="center"
                         android:background="@drawable/bg_primary_gradient"
                         app:backgroundTint="@null"
-                        app:cornerRadius="12dp"
+                        app:cornerRadius="24dp"
                         android:textColor="@color/on_primary"
                         android:elevation="2dp" />
 

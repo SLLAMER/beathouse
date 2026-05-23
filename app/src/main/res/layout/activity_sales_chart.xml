@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginTop="16dp"
-        app:cardCornerRadius="16dp"
+        style="@style/Widget.BeatHouse.Card"
         app:cardElevation="0dp"
         app:cardBackgroundColor="#1AFFFFFF"
         app:strokeColor="#33FFFFFF"

@@ -148,7 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="12dp"
+                    style="@style/Widget.BeatHouse.Card"
                     app:cardElevation="2dp"
                     app:cardBackgroundColor="@color/surface_container">
 
@@ -302,7 +302,7 @@
                         android:layout_marginEnd="4dp"
                         android:text="@string/follow"
                         android:textSize="13sp"
-                        app:cornerRadius="12dp"
+                        app:cornerRadius="24dp"
                         app:autoSizeTextType="uniform"
                         app:autoSizeMinTextSize="10sp"
                         app:autoSizeMaxTextSize="13sp"
@@ -317,7 +317,7 @@
                         android:layout_marginStart="4dp"
                         android:text="@string/rate"
                         android:textSize="13sp"
-                        app:cornerRadius="12dp"
+                        app:cornerRadius="24dp"
                         app:autoSizeTextType="uniform"
                         app:autoSizeMinTextSize="10sp"
                         app:autoSizeMaxTextSize="13sp"

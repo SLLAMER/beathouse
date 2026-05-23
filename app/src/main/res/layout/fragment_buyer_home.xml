@@ -10,8 +10,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        app:cardCornerRadius="24dp"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="32dp"
         app:cardElevation="0dp"
         app:cardBackgroundColor="@color/surface_container"
         app:strokeColor="@color/outline_variant"
@@ -83,8 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:paddingTop="4dp"
-                android:paddingBottom="88dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="120dp"
                 android:scrollbarStyle="outsideOverlay" />
 
             <!-- Skeleton Loading -->
@@ -143,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="Retry"
-                    app:cornerRadius="12dp" />
+                    app:cornerRadius="24dp" />
 
             </LinearLayout>
 
