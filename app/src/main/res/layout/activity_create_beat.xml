@@ -25,6 +25,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -151,11 +152,9 @@
                         android:layout_height="40dp"
                         android:text="Select Audio"
                         android:textSize="14sp"
-                        app:iconSize="18dp"
                         app:cornerRadius="20dp"
                         app:backgroundTint="@color/primary"
                         android:textColor="@color/on_primary"
-                        app:iconPadding="4dp"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp" />
 
@@ -401,10 +400,8 @@
                             android:text="Free Beat"
                             android:textColor="@color/on_surface"
                             android:textSize="16sp"
-                            app:trackColor="@color/outline"
-                            app:thumbColor="@color/surface"
-                            app:thumbTint="@color/surface"
-                            app:trackTint="@color/outline" />
+                            app:thumbTint="@color/primary"
+                            app:trackTint="@color/outline_variant" />
 
                     </LinearLayout>
 
@@ -546,8 +543,6 @@
                         app:backgroundTint="@null"
                         app:cornerRadius="12dp"
                         android:textColor="@color/on_primary"
-                        app:iconSize="20dp"
-                        app:iconPadding="8dp"
                         android:elevation="2dp" />
 
                 </LinearLayout>

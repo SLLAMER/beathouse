@@ -124,6 +124,7 @@
                         android:src="@drawable/ic_telegram"
                         app:tint="@color/telegram_color"
                         android:padding="6dp"
+                        android:layout_marginStart="4dp"
                         android:clickable="true"
                         android:focusable="true"
                         android:visibility="gone" />
@@ -135,6 +136,7 @@
                         android:src="@drawable/ic_vk"
                         app:tint="@color/vk_color"
                         android:padding="6dp"
+                        android:layout_marginStart="4dp"
                         android:clickable="true"
                         android:focusable="true"
                         android:visibility="gone" />

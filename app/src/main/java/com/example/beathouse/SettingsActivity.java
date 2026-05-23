@@ -81,6 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void setupListeners() {
         binding.btnChangeEmail.setOnClickListener(v -> showChangeEmailDialog());
         binding.btnChangePassword.setOnClickListener(v -> showChangePasswordDialog());
+        binding.btnClearStats.setOnClickListener(v -> showClearStatsDialog());
 
         rgLanguage.setOnCheckedChangeListener((group, checkedId) -> {
             String newLang;
@@ -272,6 +273,32 @@ public class SettingsActivity extends AppCompatActivity {
                 })
                 .setNegativeButton(getString(R.string.cancel), null)
                 .show();
+    }
+
+    private void showClearStatsDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.clear_stats))
+                .setMessage(getString(R.string.clear_stats_confirmation))
+                .setPositiveButton(getString(R.string.delete), (dialog, which) -> clearStats())
+                .setNegativeButton(getString(R.string.cancel), null)
+                .show();
+    }
+
+    private void clearStats() {
+        String userId = auth.getUid();
+        if (userId == null) return;
+
+        new com.example.beathouse.utils.FirestoreHelper().resetUserStats(userId, new com.example.beathouse.utils.FirestoreHelper.FirestoreCallback() {
+            @Override
+            public void onSuccess(Object result) {
+                Toast.makeText(SettingsActivity.this, getString(R.string.stats_cleared), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(SettingsActivity.this, getString(R.string.error_prefix) + error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void updatePassword(String currentPassword, String newPassword) {
