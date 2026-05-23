@@ -143,6 +143,7 @@ public class MiniPlayer {
         if (beatsAdapter != null) {
             currentBeat = beatsAdapter.getCurrentlyPlayingBeat();
             isPlaying = beatsAdapter.isPlaying();
+            Log.d(TAG, "syncFromAdapter: isPlaying=" + isPlaying + ", currentBeat=" + (currentBeat != null ? currentBeat.getTitle() : "null"));
             if (currentBeat != null) {
                 runOnUiThread(() -> {
                     tvMiniTitle.setText(currentBeat.getTitle());
@@ -150,10 +151,8 @@ public class MiniPlayer {
                     loadCoverWithFallback(currentBeat);
 
                     // ✅ Показываем карточку, если что-то играет или готово к игре
-                    if (miniPlayerCard.getVisibility() != View.VISIBLE) {
-                        miniPlayerCard.setVisibility(View.VISIBLE);
-                        miniPlayerCard.setAlpha(1f);
-                    }
+                    miniPlayerCard.setVisibility(View.VISIBLE);
+                    miniPlayerCard.setAlpha(1f);
                 });
             } else {
                 // Если ничего не играет, скрываем плеер

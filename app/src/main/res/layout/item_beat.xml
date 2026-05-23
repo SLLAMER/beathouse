@@ -156,7 +156,7 @@
                         android:src="@drawable/ic_shopping_cart"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="Add to cart"
-                        app:tint="#B966FF" />
+                        app:tint="@color/primary" />
 
                     <View
                         android:id="@+id/cart_badge"
@@ -193,7 +193,7 @@
             app:iconGravity="textStart"
             app:iconSize="18dp"
             app:cornerRadius="10dp"
-            app:backgroundTint="#B966FF"
+            app:backgroundTint="@color/primary"
             android:textColor="#FFFFFF"
             app:rippleColor="#33FFFFFF"
             style="@style/Widget.Material3.Button" />

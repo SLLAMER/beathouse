@@ -44,8 +44,9 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     private List<Beat> beatsList;
     private List<Beat> beatsListFull; // ✅ Для поиска
     private Context context;
-    private MediaPlayer mediaPlayer;
-    private int currentlyPlayingPosition = -1;
+    private static MediaPlayer mediaPlayer;
+    private static int currentlyPlayingPosition = -1;
+    private static Beat currentlyPlayingBeat;
     private Map<String, String> audioCache;
     private Handler mainHandler;
     private MiniPlayer miniPlayer;
@@ -58,7 +59,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     // Состояние воспроизведения
     private int savedPosition = 0;
     private boolean wasPlaying = false;
-    private boolean isMediaPlayerPreparing = false;
+    private static boolean isMediaPlayerPreparing = false;
 
     // Слушатель изменений состояния воспроизведения
     public interface OnPlaybackStateChangeListener {
@@ -106,7 +107,11 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         this.context = context;
         this.audioCache = new HashMap<>();
         this.mainHandler = new Handler(Looper.getMainLooper());
-        this.mediaPlayer = new MediaPlayer();
+
+        if (mediaPlayer == null) {
+            mediaPlayer = new MediaPlayer();
+        }
+
         this.cartManager = new CartManager(context);
         setupMediaPlayerListeners();
 
@@ -386,6 +391,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
         stopPlaybackCompletely();
 
         currentlyPlayingPosition = position;
+        currentlyPlayingBeat = beat;
         isMediaPlayerPreparing = true;
 
         if (miniPlayer != null) {
@@ -727,6 +733,8 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     }
 
     public Beat getCurrentlyPlayingBeat() {
+        if (currentlyPlayingBeat != null) return currentlyPlayingBeat;
+
         if (currentlyPlayingPosition >= 0 && currentlyPlayingPosition < beatsList.size()) {
             return beatsList.get(currentlyPlayingPosition);
         }
