@@ -51,8 +51,9 @@ public class CreateBeatActivity extends BaseActivity {
             "G#min", "G#maj", "Amin", "Amaj", "A#min", "A#maj", "Bmin", "Bmaj"
     };
 
-    private static final int PICK_AUDIO_REQUEST = 1;
-    private static final int PICK_COVER_REQUEST = 2;
+    private androidx.activity.result.ActivityResultLauncher<String> pickAudioLauncher;
+    private androidx.activity.result.ActivityResultLauncher<String> pickCoverLauncher;
+
     private static final long MAX_AUDIO_SIZE = 10 * 1024 * 1024;
     private static final long MAX_COVER_SIZE = 2 * 1024 * 1024;
     private static final String TAG = "CreateBeatActivity";
@@ -74,8 +75,29 @@ public class CreateBeatActivity extends BaseActivity {
         setupUI();
         loadCurrentUser();
 
+        initActivityResultLaunchers();
         checkForEditMode();
         setupSwipeToExit();
+    }
+
+    private void initActivityResultLaunchers() {
+        pickAudioLauncher = registerForActivityResult(
+                new androidx.activity.result.contract.ActivityResultContracts.GetContent(),
+                uri -> {
+                    if (uri != null) {
+                        handleAudioSelection(uri);
+                    }
+                }
+        );
+
+        pickCoverLauncher = registerForActivityResult(
+                new androidx.activity.result.contract.ActivityResultContracts.GetContent(),
+                uri -> {
+                    if (uri != null) {
+                        handleCoverSelection(uri);
+                    }
+                }
+        );
     }
 
     private void setupSwipeToExit() {
@@ -271,10 +293,7 @@ public class CreateBeatActivity extends BaseActivity {
 
     private void selectAudioFile() {
         try {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("audio/*");
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(Intent.createChooser(intent, getString(R.string.select_audio)), PICK_AUDIO_REQUEST);
+            pickAudioLauncher.launch("audio/*");
         } catch (Exception e) {
             Toast.makeText(this, getString(R.string.error_opening_selector), Toast.LENGTH_SHORT).show();
         }
@@ -282,22 +301,9 @@ public class CreateBeatActivity extends BaseActivity {
 
     private void selectCoverFromGallery() {
         try {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("image/*");
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(Intent.createChooser(intent, getString(R.string.select_cover)), PICK_COVER_REQUEST);
+            pickCoverLauncher.launch("image/*");
         } catch (Exception e) {
             Toast.makeText(this, getString(R.string.error_opening_selector), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri uri = data.getData();
-            if (requestCode == PICK_AUDIO_REQUEST) handleAudioSelection(uri);
-            else if (requestCode == PICK_COVER_REQUEST) handleCoverSelection(uri);
         }
     }
 

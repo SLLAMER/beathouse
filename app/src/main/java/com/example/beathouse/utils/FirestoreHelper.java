@@ -44,12 +44,12 @@ public class FirestoreHelper {
 
     private void safeCallback(FirestoreCallback callback, Object result) {
         if (callback != null) {
-            new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> callback.onSuccess(result));
+            callback.onSuccess(result);
         }
     }
     private void safeError(FirestoreCallback callback, String error) {
         if (callback != null) {
-            new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> callback.onError(error));
+            callback.onError(error);
         }
     }
 
@@ -552,7 +552,9 @@ public class FirestoreHelper {
                                         if (blob != null) {
                                             try {
                                                 baos.write(blob.toBytes());
-                                            } catch (Exception e) {}
+                                            } catch (java.io.IOException e) {
+                                                Log.e(TAG, "Error writing audio chunk", e);
+                                            }
                                         }
                                     }
                                     String result = android.util.Base64.encodeToString(baos.toByteArray(), android.util.Base64.DEFAULT);
@@ -835,37 +837,16 @@ public class FirestoreHelper {
             return null;
         }
 
-        Query query = db.collection("orders")
-                .whereEqualTo("producerId", sellerId);
-
-        if (!includeDeletedBySeller) {
-            // Firestore does not support != natively without indexes, but we can filter client-side
-            // or use whereEqualTo("deletedBySeller", false).
-            // However, existing documents don't have this field.
-        }
-
-        return query.orderBy("createdAt", Query.Direction.DESCENDING)
+        return db.collection("orders")
+                .whereEqualTo("producerId", sellerId)
+                .orderBy("createdAt", Query.Direction.DESCENDING)
                 .addSnapshotListener((snap, err) -> {
                     if (err != null) {
                         Log.e(TAG, "❌ Realtime sales error: " + err.getMessage());
                         safeError(callback, err.getMessage());
                         return;
                     }
-                    List<Order> orders = new ArrayList<>();
-                    if (snap != null) {
-                        for (DocumentSnapshot d : snap) {
-                            Order order = Order.fromMap(d.getData());
-                            if (order != null) {
-                                order.setId(d.getId());
-
-                                // Client-side filtering for deletedBySeller
-                                boolean isDeleted = d.contains("deletedBySeller") && Boolean.TRUE.equals(d.getBoolean("deletedBySeller"));
-                                if (includeDeletedBySeller || !isDeleted) {
-                                    orders.add(order);
-                                }
-                            }
-                        }
-                    }
+                    List<Order> orders = processOrdersSnapshot(snap, includeDeletedBySeller);
                     Log.d(TAG, "✅ Realtime sales updated: " + orders.size());
                     safeCallback(callback, orders);
                 });
@@ -884,18 +865,7 @@ public class FirestoreHelper {
         db.collection("orders").whereEqualTo("producerId", sellerId)
                 .orderBy("createdAt", Query.Direction.DESCENDING).get()
                 .addOnSuccessListener(snap -> {
-                    List<Order> orders = new ArrayList<>();
-                    for (DocumentSnapshot d : snap) {
-                        Order order = Order.fromMap(d.getData());
-                        if (order != null) {
-                            order.setId(d.getId());
-
-                            boolean isDeleted = d.contains("deletedBySeller") && Boolean.TRUE.equals(d.getBoolean("deletedBySeller"));
-                            if (includeDeletedBySeller || !isDeleted) {
-                                orders.add(order);
-                            }
-                        }
-                    }
+                    List<Order> orders = processOrdersSnapshot(snap, includeDeletedBySeller);
                     Log.d(TAG, "✅ Loaded " + orders.size() + " sales for seller: " + sellerId);
                     safeCallback(callback, orders);
                 })
@@ -903,6 +873,23 @@ public class FirestoreHelper {
                     Log.e(TAG, "❌ Error loading sales: " + e.getMessage());
                     safeError(callback, e.getMessage());
                 });
+    }
+
+    private List<Order> processOrdersSnapshot(com.google.firebase.firestore.QuerySnapshot snap, boolean includeDeletedBySeller) {
+        List<Order> orders = new ArrayList<>();
+        if (snap != null) {
+            for (DocumentSnapshot d : snap) {
+                Order order = Order.fromMap(d.getData());
+                if (order != null) {
+                    order.setId(d.getId());
+                    boolean isDeleted = d.contains("deletedBySeller") && Boolean.TRUE.equals(d.getBoolean("deletedBySeller"));
+                    if (includeDeletedBySeller || !isDeleted) {
+                        orders.add(order);
+                    }
+                }
+            }
+        }
+        return orders;
     }
 
     // ========== HELPERS ==========

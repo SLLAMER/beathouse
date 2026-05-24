@@ -180,7 +180,7 @@ public class NotificationSettingsFragment extends DialogFragment {
                         getActivity().runOnUiThread(() -> {
                             if (!isAdded()) return;
                             Toast.makeText(getContext(),
-                                    getString(R.string.settings_saved),
+                                    getString(R.string.profile_saved),
                                     Toast.LENGTH_SHORT).show();
                         });
                     }
