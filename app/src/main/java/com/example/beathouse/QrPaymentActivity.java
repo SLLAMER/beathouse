@@ -86,9 +86,9 @@ public class QrPaymentActivity extends BaseActivity {
         com.example.beathouse.utils.CurrencyUtils.getUsdToRubRate(rate -> {
             if (progressBar != null) progressBar.setVisibility(View.GONE);
             tvAmount.setText(com.example.beathouse.utils.CurrencyUtils.formatRub(totalAmount, rate));
-            // Генерируем QR код только после получения курса, чтобы сумма в нем соответствовала рублям
-            generateAndDisplayQrCode(rate);
         });
+
+        generateAndDisplayQrCode();
 
         tvOrderId.setText(getString(R.string.order_id) + ": " + orderId);
 
@@ -110,7 +110,7 @@ public class QrPaymentActivity extends BaseActivity {
         toolbar.setNavigationOnClickListener(v -> finish());
     }
 
-    private void generateAndDisplayQrCode(double rate) {
+    private void generateAndDisplayQrCode() {
         Log.e(TAG, "=== generateAndDisplayQrCode START ===");
         Log.e(TAG, "totalAmount: " + totalAmount);
         Log.e(TAG, "orderId: " + orderId);
