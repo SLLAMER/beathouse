@@ -47,6 +47,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     private static MediaPlayer mediaPlayer;
     private static int currentlyPlayingPosition = -1;
     private static Beat currentlyPlayingBeat;
+    private static String currentlyPlayingId = null;
     private Map<String, String> audioCache;
     private Handler mainHandler;
     private MiniPlayer miniPlayer;
@@ -360,12 +361,14 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     // === ОСНОВНЫЕ МЕТОДЫ ВОСПРОИЗВЕДЕНИЯ ===
 
     public void playBeatAudio(Beat beat, int position, BeatViewHolder holder) {
-        if (position == currentlyPlayingPosition && isPlaying()) {
+        boolean isSameBeat = beat.getId().equals(currentlyPlayingId);
+
+        if (isSameBeat && isPlaying()) {
             pausePlayback();
             return;
         }
 
-        if (position == currentlyPlayingPosition && !isPlaying() && !isMediaPlayerPreparing) {
+        if (isSameBeat && !isPlaying() && !isMediaPlayerPreparing) {
             resumePlayback();
             if (miniPlayer != null) {
                 miniPlayer.updatePlayState(true);
@@ -392,6 +395,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
 
         currentlyPlayingPosition = position;
         currentlyPlayingBeat = beat;
+        currentlyPlayingId = beat.getId();
         isMediaPlayerPreparing = true;
 
         if (miniPlayer != null) {
@@ -603,7 +607,10 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
 
     private void updatePlayButtonState(BeatViewHolder holder, int position) {
         if (holder != null && holder.btnPlay != null) {
-            if (position == currentlyPlayingPosition && isPlaying()) {
+            Beat beat = beatsList.get(position);
+            boolean isCurrentlyPlaying = beat.getId().equals(currentlyPlayingId) && isPlaying();
+
+            if (isCurrentlyPlaying) {
                 holder.btnPlay.setIconResource(R.drawable.ic_pause);
                 holder.btnPlay.setText("Pause");
             } else {
@@ -862,10 +869,7 @@ public class BeatsAdapter extends RecyclerView.Adapter<BeatsAdapter.BeatViewHold
     @Override
     public void onViewRecycled(@NonNull BeatViewHolder holder) {
         super.onViewRecycled(holder);
-        if (holder.getAdapterPosition() != currentlyPlayingPosition) {
-            updateButtonState(holder, "Play", true);
-            holder.btnPlay.setIconResource(R.drawable.ic_play_arrow);
-        }
+        // We don't need special logic here anymore because onBindViewHolder handles state based on currentlyPlayingId
     }
 
     public int findBeatPosition(String beatId) {

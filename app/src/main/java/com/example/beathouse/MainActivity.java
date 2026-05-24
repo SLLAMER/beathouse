@@ -21,8 +21,7 @@ import java.util.Map;
 
 public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
-    private static final int CREATE_BEAT_REQUEST = 1001;
-    private static final int PICK_IMAGE_REQUEST = 1002; // ✅ Добавляем константу для выбора изображения
+    private androidx.activity.result.ActivityResultLauncher<Intent> createBeatLauncher;
     private String currentUserId;
     private FirebaseFirestore db;
     private static final String TAG = "MainActivity";
@@ -38,6 +37,8 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        initActivityResultLaunchers();
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
             if (androidx.core.content.ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
                     != android.content.pm.PackageManager.PERMISSION_GRANTED) {
@@ -50,6 +51,55 @@ public class MainActivity extends BaseActivity {
 
         // Принудительно проверяем роль при каждом запуске
         checkUserRoleAndProceed();
+    }
+
+    private void initActivityResultLaunchers() {
+        createBeatLauncher = registerForActivityResult(
+                new androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    int resultCode = result.getResultCode();
+                    Intent data = result.getData();
+                    Log.d(TAG, "📸 CREATE_BEAT_REQUEST result received - resultCode: " + resultCode);
+
+                    if (resultCode == RESULT_CANCELED) {
+                        Log.d(TAG, "❌ Beat upload cancelled, restoring tab: " + lastSelectedTabId);
+                        if (binding != null && binding.bottomNavigation != null) {
+                            binding.bottomNavigation.setSelectedItemId(lastSelectedTabId);
+                        }
+                        return;
+                    }
+
+                    if (resultCode == RESULT_OK) {
+                        Log.d(TAG, "✅ Beat upload result received!");
+                        handleCreateBeatSuccess(data);
+                    }
+                }
+        );
+    }
+
+    private void handleCreateBeatSuccess(Intent data) {
+        String beatId = data != null ? data.getStringExtra("BEAT_ID") : null;
+        Log.d(TAG, "  Beat ID: " + beatId);
+
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (currentFragment instanceof HomeFragment) {
+            ((HomeFragment) currentFragment).refreshBeatsList();
+            Log.d(TAG, "🔄 HomeFragment refreshed");
+        }
+
+        if (binding != null && binding.bottomNavigation != null) {
+            lastSelectedTabId = R.id.nav_home;
+            binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
+        }
+
+        db.collection("users").document(currentUserId)
+                .update("role", "seller")
+                .addOnSuccessListener(a -> Log.d(TAG, "✅ User role updated to seller"))
+                .addOnFailureListener(e -> Log.e(TAG, "❌ Failed to update role: " + e.getMessage()));
+
+        createProducerProfile();
+
+        Toast.makeText(this, getString(R.string.upload_success), Toast.LENGTH_LONG).show();
     }
 
     private void checkUserRoleAndProceed() {
@@ -110,7 +160,7 @@ public class MainActivity extends BaseActivity {
                 selectedFragment = new HomeFragment();
             } else if (itemId == R.id.nav_upload) {
                 lastSelectedTabId = binding.bottomNavigation.getSelectedItemId();
-                startActivityForResult(new Intent(this, CreateBeatActivity.class), CREATE_BEAT_REQUEST);
+                createBeatLauncher.launch(new Intent(this, CreateBeatActivity.class));
                 return true;
             } else if (itemId == R.id.nav_buyers) {
                 selectedFragment = new BuyersListFragment();
@@ -138,59 +188,6 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(TAG, "📸 MainActivity onActivityResult - requestCode: " + requestCode +
-                ", resultCode: " + resultCode);
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // ✅ Сначала передаем результат в адаптер через фрагмент
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-
-        if (requestCode == PICK_IMAGE_REQUEST) {
-            // Это выбор изображения для обложки
-            Log.d(TAG, "📸 Image picker result, forwarding to fragment: " + (currentFragment != null ? currentFragment.getClass().getSimpleName() : "null"));
-            if (currentFragment != null) {
-                currentFragment.onActivityResult(requestCode, resultCode, data);
-            } else {
-                Log.e(TAG, "❌ No current fragment to handle image picker result");
-            }
-        } else if (requestCode == CREATE_BEAT_REQUEST) {
-            if (resultCode == RESULT_CANCELED) {
-                Log.d(TAG, "❌ Beat upload cancelled, restoring tab: " + lastSelectedTabId);
-                if (binding != null && binding.bottomNavigation != null) {
-                    binding.bottomNavigation.setSelectedItemId(lastSelectedTabId);
-                }
-                return;
-            }
-
-            if (resultCode == RESULT_OK) {
-                Log.d(TAG, "✅ Beat upload result received!");
-
-                String beatId = data != null ? data.getStringExtra("BEAT_ID") : null;
-                Log.d(TAG, "  Beat ID: " + beatId);
-
-                if (currentFragment instanceof HomeFragment) {
-                    ((HomeFragment) currentFragment).refreshBeatsList();
-                    Log.d(TAG, "🔄 HomeFragment refreshed");
-                }
-
-                if (binding != null && binding.bottomNavigation != null) {
-                    lastSelectedTabId = R.id.nav_home;
-                    binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
-                }
-
-                db.collection("users").document(currentUserId)
-                        .update("role", "seller")
-                        .addOnSuccessListener(a -> Log.d(TAG, "✅ User role updated to seller"))
-                        .addOnFailureListener(e -> Log.e(TAG, "❌ Failed to update role: " + e.getMessage()));
-
-                createProducerProfile();
-
-                Toast.makeText(this, getString(R.string.upload_success), Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 
     private void createProducerProfile() {
         db.collection("producers").document(currentUserId).get()

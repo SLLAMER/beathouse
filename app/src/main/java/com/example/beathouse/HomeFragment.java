@@ -18,14 +18,12 @@ import com.example.beathouse.adapters.SellerBeatsAdapter;
 import com.example.beathouse.databinding.FragmentHomeBinding;
 import com.example.beathouse.models.Beat;
 import com.example.beathouse.utils.AdvancedFilterDialog;
+import com.example.beathouse.utils.BeatFilterHelper;
 import com.example.beathouse.utils.FirestoreHelper;
 import com.example.beathouse.utils.LocaleHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import android.content.Context;
 
 public class HomeFragment extends Fragment {
@@ -43,11 +41,13 @@ public class HomeFragment extends Fragment {
     private int minBpm = -1;
     private int maxBpm = -1;
     private String currentSearchQuery = "";
+    private androidx.activity.result.ActivityResultLauncher<String> pickImageLauncher;
 
     @Override
     public void onAttach(@NonNull Context context) {
         LocaleHelper.applyLanguage(context);
         super.onAttach(context);
+        initActivityResultLaunchers();
     }
 
     @Nullable @Override
@@ -82,6 +82,7 @@ public class HomeFragment extends Fragment {
             Log.d(TAG, "Beat deleted, refreshing list");
             loadMyBeats();
         });
+        sellerBeatsAdapter.setImagePickerLauncher(() -> pickImageLauncher.launch("image/*"));
 
         binding.recyclerViewBeats.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewBeats.setAdapter(sellerBeatsAdapter);
@@ -95,6 +96,17 @@ public class HomeFragment extends Fragment {
 
         loadMyBeats();
         Log.d(TAG, "HomeFragment created for user: " + currentUserId);
+    }
+
+    private void initActivityResultLaunchers() {
+        pickImageLauncher = registerForActivityResult(
+                new androidx.activity.result.contract.ActivityResultContracts.GetContent(),
+                uri -> {
+                    if (uri != null && sellerBeatsAdapter != null) {
+                        sellerBeatsAdapter.handleImageSelected(uri);
+                    }
+                }
+        );
     }
 
     private void setupSearchView() {
@@ -199,46 +211,16 @@ public class HomeFragment extends Fragment {
     }
 
     private void applyAllFilters() {
-        List<Beat> result = new ArrayList<>(beatsList);
-
-        // 0. Поиск по названию
-        if (currentSearchQuery != null && !currentSearchQuery.isEmpty()) {
-            List<Beat> searchFiltered = new ArrayList<>();
-            String query = currentSearchQuery.toLowerCase();
-            for (Beat beat : result) {
-                if (beat.getTitle().toLowerCase().contains(query)) {
-                    searchFiltered.add(beat);
-                }
-            }
-            result = searchFiltered;
-        }
-
-        // 1. Фильтр по тегам
-        if (searchTag != null && !searchTag.isEmpty()) {
-            List<Beat> tagFiltered = new ArrayList<>();
-            for (Beat beat : result) {
-                if (containsTag(beat, searchTag)) {
-                    tagFiltered.add(beat);
-                }
-            }
-            result = tagFiltered;
-        }
-
-        // 2. Фильтр по BPM диапазону
-        if (minBpm > 0 || maxBpm > 0) {
-            List<Beat> bpmFiltered = new ArrayList<>();
-            for (Beat beat : result) {
-                int bpm = beat.getBpm();
-                boolean bpmOk = true;
-                if (minBpm > 0 && bpm < minBpm) bpmOk = false;
-                if (maxBpm > 0 && bpm > maxBpm) bpmOk = false;
-                if (bpmOk) bpmFiltered.add(beat);
-            }
-            result = bpmFiltered;
-        }
-
-        // 3. Сортировка
-        sortBeats(result);
+        List<Beat> result = BeatFilterHelper.applyFilters(
+                beatsList,
+                currentSearchQuery,
+                "All",
+                searchTag,
+                minBpm,
+                maxBpm,
+                sortType,
+                false
+        );
 
         filteredList.clear();
         filteredList.addAll(result);
@@ -249,43 +231,6 @@ public class HomeFragment extends Fragment {
                 ", tag=" + searchTag +
                 ", bpmRange=" + minBpm + "-" + maxBpm +
                 ", results=" + result.size());
-    }
-
-    private boolean containsTag(Beat beat, String tag) {
-        if (beat == null || tag == null) return false;
-
-        String description = beat.getDescription();
-        if (description == null || description.isEmpty()) return false;
-
-        Pattern pattern = Pattern.compile("#(\\w+)");
-        Matcher matcher = pattern.matcher(description.toLowerCase());
-
-        while (matcher.find()) {
-            String foundTag = matcher.group(1);
-            if (foundTag.contains(tag)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void sortBeats(List<Beat> beats) {
-        switch (sortType) {
-            case "price_asc":
-                Collections.sort(beats, (a, b) -> Double.compare(a.getPrice(), b.getPrice()));
-                break;
-            case "price_desc":
-                Collections.sort(beats, (a, b) -> Double.compare(b.getPrice(), a.getPrice()));
-                break;
-            case "bpm_asc":
-                Collections.sort(beats, (a, b) -> Integer.compare(a.getBpm(), b.getBpm()));
-                break;
-            case "bpm_desc":
-                Collections.sort(beats, (a, b) -> Integer.compare(b.getBpm(), a.getBpm()));
-                break;
-            default:
-                break;
-        }
     }
 
     private void updateEmpty() {
@@ -301,14 +246,6 @@ public class HomeFragment extends Fragment {
         loadMyBeats();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Log.d(TAG, "onActivityResult called - requestCode: " + requestCode + ", resultCode: " + resultCode);
-        super.onActivityResult(requestCode, resultCode, data);
-        if (sellerBeatsAdapter != null) {
-            sellerBeatsAdapter.handleActivityResult(requestCode, resultCode, data);
-        }
-    }
 
     @Override
     public void onResume() {
