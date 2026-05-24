@@ -67,7 +67,6 @@ public class QrPaymentActivity extends BaseActivity {
 
         initViews();
         setupToolbar();
-        generateAndDisplayQrCode();
     }
 
     private void initViews() {
@@ -81,7 +80,16 @@ public class QrPaymentActivity extends BaseActivity {
         cardQr = findViewById(R.id.card_qr);
         progressBar = findViewById(R.id.progress_bar);
 
-        tvAmount.setText(String.format("$%.0f", totalAmount));
+        if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
+
+        // Получаем актуальный курс и конвертируем в рубли для отображения
+        com.example.beathouse.utils.CurrencyUtils.getUsdToRubRate(rate -> {
+            if (progressBar != null) progressBar.setVisibility(View.GONE);
+            tvAmount.setText(com.example.beathouse.utils.CurrencyUtils.formatRub(totalAmount, rate));
+        });
+
+        generateAndDisplayQrCode();
+
         tvOrderId.setText(getString(R.string.order_id) + ": " + orderId);
 
         // Устанавливаем инструкцию из ресурсов
@@ -107,6 +115,7 @@ public class QrPaymentActivity extends BaseActivity {
         Log.e(TAG, "totalAmount: " + totalAmount);
         Log.e(TAG, "orderId: " + orderId);
 
+        // Пользователь указал "конвертация только на экранах", поэтому данные QR кода оставляем в USD
         String qrData = "beathouse://payment?amount=" + totalAmount +
                 "&order_id=" + orderId +
                 "&user_id=" + currentUserId;

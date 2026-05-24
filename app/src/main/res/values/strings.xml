@@ -333,7 +333,7 @@
     <string name="error_loading_settings">Error loading settings: </string>
     <string name="error_saving_settings">Error saving settings: </string>
     <string name="error_loading_user">Error loading user data: </string>
-    <string name="settings_saved">Settings saved!</string>
+
 
     <!-- Sales (empty state) -->
     <string name="no_sales">No sales yet</string>

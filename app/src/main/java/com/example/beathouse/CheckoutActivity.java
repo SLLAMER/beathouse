@@ -141,14 +141,35 @@ public class CheckoutActivity extends BaseActivity {
         rbQr.setChecked(false);
 
         View.OnClickListener listener = v -> {
-            rbCard.setChecked(v.getId() == R.id.card_card);
-            rbSbp.setChecked(v.getId() == R.id.card_sbp);
-            rbQr.setChecked(v.getId() == R.id.card_qr);
+            boolean isSbp = v.getId() == R.id.card_sbp;
+            boolean isQr = v.getId() == R.id.card_qr;
+            boolean isCard = v.getId() == R.id.card_card;
+
+            rbCard.setChecked(isCard);
+            rbSbp.setChecked(isSbp);
+            rbQr.setChecked(isQr);
+
+            updateTotalDisplay(isSbp || isQr);
         };
 
         cardCard.setOnClickListener(listener);
         cardSbp.setOnClickListener(listener);
         cardQr.setOnClickListener(listener);
+    }
+
+    private void updateTotalDisplay(boolean inRub) {
+        if (inRub) {
+            tvOrderTotal.setText("..."); // Показываем загрузку
+            com.example.beathouse.utils.CurrencyUtils.getUsdToRubRate(rate -> {
+                // Проверяем, что выбранный метод все еще требует отображения в рублях
+                boolean isRubMethod = rbSbp.isChecked() || rbQr.isChecked();
+                if (isRubMethod) {
+                    tvOrderTotal.setText(com.example.beathouse.utils.CurrencyUtils.formatRub(totalAmount, rate));
+                }
+            });
+        } else {
+            tvOrderTotal.setText(String.format("$%.0f", totalAmount));
+        }
     }
 
     private void loadProducerIds() {
