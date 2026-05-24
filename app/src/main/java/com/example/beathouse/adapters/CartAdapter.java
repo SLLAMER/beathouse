@@ -1,4 +1,5 @@
 package com.example.beathouse.adapters;
+import com.example.beathouse.activities.BuyerCartActivity;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -159,8 +160,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 notifyItemRangeChanged(pos, cartItems.size());
                 Toast.makeText(context, "Removed from cart", Toast.LENGTH_SHORT).show();
                 if (updateListener != null) updateListener.onCartUpdated();
-                if (context instanceof com.example.beathouse.BuyerCartActivity) {
-                    ((com.example.beathouse.BuyerCartActivity) context).updateCartUI();
+                if (context instanceof BuyerCartActivity) {
+                    ((BuyerCartActivity) context).updateCartUI();
                 }
             }
         });
@@ -217,8 +218,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     cartManager.updateCartItemLicense(item);
 
                     if (updateListener != null) updateListener.onCartUpdated();
-                    if (context instanceof com.example.beathouse.BuyerCartActivity) {
-                        ((com.example.beathouse.BuyerCartActivity) context).updateCartUI();
+                    if (context instanceof BuyerCartActivity) {
+                        ((BuyerCartActivity) context).updateCartUI();
                     }
                 }
             }
