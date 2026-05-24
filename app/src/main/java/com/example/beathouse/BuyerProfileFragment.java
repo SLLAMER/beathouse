@@ -44,13 +44,14 @@ public class BuyerProfileFragment extends Fragment {
     private User currentUser;
     private ListenerRegistration userListener;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private static final int PICK_IMAGE_REQUEST = 1;
+    private androidx.activity.result.ActivityResultLauncher<String> pickImageLauncher;
     private static final String TAG = "BuyerProfileFragment";
 
     @Override
     public void onAttach(@NonNull Context context) {
         LocaleHelper.applyLanguage(context);
         super.onAttach(context);
+        initActivityResultLaunchers();
     }
 
     @Nullable
@@ -70,6 +71,17 @@ public class BuyerProfileFragment extends Fragment {
         setupSwipeRefresh();
         initializeUserData();
         setupClickListeners();
+    }
+
+    private void initActivityResultLaunchers() {
+        pickImageLauncher = registerForActivityResult(
+                new androidx.activity.result.contract.ActivityResultContracts.GetContent(),
+                uri -> {
+                    if (uri != null) {
+                        uploadAvatar(uri);
+                    }
+                }
+        );
     }
 
     private void setupSwipeRefresh() {
@@ -383,17 +395,7 @@ public class BuyerProfileFragment extends Fragment {
     }
 
     private void openImagePicker() {
-        startActivityForResult(Intent.createChooser(
-                new Intent(Intent.ACTION_GET_CONTENT).setType("image/*"), getString(R.string.select_picture)), PICK_IMAGE_REQUEST);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == getActivity().RESULT_OK && requestCode == PICK_IMAGE_REQUEST && data != null) {
-            Uri selectedImage = data.getData();
-            if (selectedImage != null) uploadAvatar(selectedImage);
-        }
+        pickImageLauncher.launch("image/*");
     }
 
     private void uploadAvatar(Uri imageUri) {

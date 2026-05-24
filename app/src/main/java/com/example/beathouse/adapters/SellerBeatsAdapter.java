@@ -41,8 +41,12 @@ public class SellerBeatsAdapter extends RecyclerView.Adapter<SellerBeatsAdapter.
     private FirebaseFirestore db;
     private OnBeatDeletedListener deleteListener;
     private OnEditBeatListener editBeatListener;
+    private Runnable imagePickerLauncher;
 
-    private static final int PICK_IMAGE_REQUEST = 1002;
+    public void setImagePickerLauncher(Runnable launcher) {
+        this.imagePickerLauncher = launcher;
+    }
+
     private String pendingCoverBase64 = null;
     private String pendingBeatId = null;
     private int pendingPosition = -1;
@@ -352,19 +356,17 @@ public class SellerBeatsAdapter extends RecyclerView.Adapter<SellerBeatsAdapter.
     }
 
     private void openImagePicker() {
-        android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        ((android.app.Activity) context).startActivityForResult(
-                android.content.Intent.createChooser(intent, "Select Cover"), PICK_IMAGE_REQUEST);
+        if (imagePickerLauncher != null) {
+            imagePickerLauncher.run();
+        } else {
+            Log.e("SellerBeatsAdapter", "Image picker launcher not set");
+        }
     }
 
-    public void handleActivityResult(int requestCode, int resultCode, android.content.Intent data) {
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == android.app.Activity.RESULT_OK && data != null) {
-            Uri imageUri = data.getData();
-            if (imageUri != null) {
-                Toast.makeText(context, "Loading cover...", Toast.LENGTH_SHORT).show();
-                compressAndConvertCover(imageUri);
-            }
+    public void handleImageSelected(Uri uri) {
+        if (uri != null) {
+            Toast.makeText(context, "Loading cover...", Toast.LENGTH_SHORT).show();
+            compressAndConvertCover(uri);
         }
     }
 
