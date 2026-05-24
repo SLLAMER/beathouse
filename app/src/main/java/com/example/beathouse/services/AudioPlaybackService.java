@@ -19,8 +19,8 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.example.beathouse.App;
-import com.example.beathouse.LoginActivity;
-import com.example.beathouse.MainActivity;
+import com.example.beathouse.activities.LoginActivity;
+import com.example.beathouse.activities.MainActivity;
 import com.example.beathouse.R;
 import com.example.beathouse.models.Beat;
 

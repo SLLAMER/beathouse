@@ -26,7 +26,7 @@
 
         <!-- Точка входа -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
@@ -40,7 +40,7 @@
 
         <!-- Продавец - standard (каждый раз новая активность) -->
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="false"
             android:launchMode="standard"
             android:screenOrientation="portrait"
@@ -50,7 +50,7 @@
 
         <!-- Покупатель - standard (каждый раз новая активность) -->
         <activity
-            android:name=".BuyerMainActivity"
+            android:name=".activities.BuyerMainActivity"
             android:exported="false"
             android:launchMode="standard"
             android:screenOrientation="portrait"
@@ -59,114 +59,114 @@
             android:label="@string/app_name" />
 
         <activity
-            android:name=".CreateBeatActivity"
+            android:name=".activities.CreateBeatActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".BuyerCartActivity"
+            android:name=".activities.BuyerCartActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".CheckoutActivity"
+            android:name=".activities.CheckoutActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".CardPaymentActivity"
+            android:name=".activities.CardPaymentActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".SbpBanksActivity"
+            android:name=".activities.SbpBanksActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".BuyerOrderCompleteActivity"
+            android:name=".activities.BuyerOrderCompleteActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".OrderHistoryActivity"
+            android:name=".activities.OrderHistoryActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".NotificationsActivity"
+            android:name=".activities.NotificationsActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ProducerProfileActivity"
+            android:name=".activities.ProducerProfileActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".BuyerProfileDetailActivity"
+            android:name=".activities.BuyerProfileDetailActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".BuyerBeatDetailActivity"
+            android:name=".activities.BuyerBeatDetailActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".PlayerActivity"
+            android:name=".activities.PlayerActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".CartActivity"
+            android:name=".activities.CartActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".OrderCompleteActivity"
+            android:name=".activities.OrderCompleteActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ChatActivity"
+            android:name=".activities.ChatActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".FollowersFollowingActivity"
+            android:name=".activities.FollowersFollowingActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:exported="false"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".QrPaymentActivity"
+            android:name=".activities.QrPaymentActivity"
             android:theme="@style/Theme.BeatHouse.Dark" />
 
         <activity
-            android:name=".SalesChartActivity"
+            android:name=".activities.SalesChartActivity"
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 

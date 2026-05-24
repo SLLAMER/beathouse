@@ -1,4 +1,5 @@
 package com.example.beathouse.adapters;
+import com.example.beathouse.activities.MainActivity;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,7 +24,7 @@ import com.example.beathouse.models.Beat;
 import com.example.beathouse.utils.AudioUtils;
 import com.example.beathouse.utils.CartManager;
 import com.example.beathouse.utils.FirestoreHelper;
-import com.example.beathouse.MiniPlayer;
+import com.example.beathouse.ui.MiniPlayer;
 import com.example.beathouse.services.AudioPlaybackService;
 import com.google.android.material.button.MaterialButton;
 
