@@ -27,8 +27,13 @@ public class SbpBanksActivity extends BaseActivity {
 
         totalAmount = getIntent().getDoubleExtra("total_amount", 0);
 
-        // ✅ ИСПРАВЛЕНО: убраны копейки
-        binding.tvAmount.setText(String.format("$%.0f", totalAmount));
+        binding.progressBar.setVisibility(View.VISIBLE);
+
+        // Получаем актуальный курс и конвертируем в рубли
+        com.example.beathouse.utils.CurrencyUtils.getUsdToRubRate(rate -> {
+            binding.progressBar.setVisibility(View.GONE);
+            binding.tvAmount.setText(com.example.beathouse.utils.CurrencyUtils.formatRub(totalAmount, rate));
+        });
 
         setupToolbar();
         setupRecyclerView();
