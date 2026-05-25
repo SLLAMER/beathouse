@@ -186,9 +186,14 @@
                                 android:layout_marginTop="4dp"
                                 android:text="@string/followers"
                                 android:textSize="11sp"
+                                app:autoSizeTextType="uniform"
+                                app:autoSizeMinTextSize="6sp"
+                                app:autoSizeMaxTextSize="11sp"
                                 android:textAllCaps="true"
                                 android:letterSpacing="0.05"
-                                android:textColor="@color/on_surface_variant" />
+                                android:textColor="@color/on_surface_variant"
+                                android:maxLines="1"
+                                android:ellipsize="end" />
                         </LinearLayout>
 
                         <View android:layout_width="1dp" android:layout_height="32dp" android:layout_gravity="center" android:background="@color/outline" />
@@ -213,9 +218,14 @@
                                 android:layout_marginTop="4dp"
                                 android:text="@string/following_count"
                                 android:textSize="11sp"
+                                app:autoSizeTextType="uniform"
+                                app:autoSizeMinTextSize="6sp"
+                                app:autoSizeMaxTextSize="11sp"
                                 android:textAllCaps="true"
                                 android:letterSpacing="0.05"
-                                android:textColor="@color/on_surface_variant" />
+                                android:textColor="@color/on_surface_variant"
+                                android:maxLines="1"
+                                android:ellipsize="end" />
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -424,6 +434,9 @@
                             android:layout_height="48dp"
                             android:text="@string/save"
                             android:textSize="15sp"
+                            app:autoSizeTextType="uniform"
+                            app:autoSizeMinTextSize="12sp"
+                            app:autoSizeMaxTextSize="15sp"
                             android:textStyle="bold"
                             app:cornerRadius="24dp"
                             app:backgroundTint="@color/primary" />
@@ -438,6 +451,9 @@
                     android:layout_height="56dp"
                     android:text="@string/switch_role"
                     android:textSize="16sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizeMinTextSize="12sp"
+                    app:autoSizeMaxTextSize="16sp"
                     android:textStyle="bold"
                     app:cornerRadius="24dp"
                     app:strokeColor="@color/primary"

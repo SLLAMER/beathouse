@@ -39,6 +39,9 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // Применяем локализацию
+        LocaleHelper.applyLanguage(this);
+
         // Загружаем тему из настроек
         android.content.SharedPreferences prefs = getSharedPreferences("settings", android.content.Context.MODE_PRIVATE);
         int mode = prefs.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_YES);

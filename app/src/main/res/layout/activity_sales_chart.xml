@@ -50,7 +50,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/last_7_days"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="8sp"
+            app:autoSizeMaxTextSize="12sp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnMonth"
@@ -59,7 +62,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/last_30_days"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="8sp"
+            app:autoSizeMaxTextSize="12sp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnYear"
@@ -68,7 +74,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/last_year"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="8sp"
+            app:autoSizeMaxTextSize="12sp" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 

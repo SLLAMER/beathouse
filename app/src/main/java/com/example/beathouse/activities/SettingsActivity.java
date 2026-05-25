@@ -24,6 +24,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.setLocale(newBase, LocaleHelper.getLanguage(newBase)));
+    }
+
     private ActivitySettingsBinding binding;
     private RadioGroup rgLanguage;
     private RadioButton rbEnglish, rbRussian;
@@ -33,6 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LocaleHelper.applyLanguage(this);
         super.onCreate(savedInstanceState);
 
         binding = ActivitySettingsBinding.inflate(getLayoutInflater());

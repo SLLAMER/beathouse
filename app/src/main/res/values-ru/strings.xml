@@ -115,6 +115,8 @@
     <string name="dont_have_account">Нет аккаунта?</string>
     <string name="create_account">Создать аккаунт</string>
     <string name="already_have_account">Уже есть аккаунт?</string>
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
     <string name="sign_up">Зарегистрироваться</string>
     <string name="create_new_account">Создать новый аккаунт</string>
     <string name="forgot_password">Забыли пароль?</string>
@@ -453,6 +455,11 @@
     <string name="confirm_payment_message_qr">Вы успешно оплатили заказ?</string>
 
     <string name="free_beat">Бесплатный бит</string>
+    <string name="audio_file">Аудиофайл</string>
+    <string name="no_audio_selected">Аудиофайл не выбран</string>
+    <string name="beat_details">Детали бита</string>
+    <string name="beat_title_hint">Название бита *</string>
+    <string name="add_cover">Добавить обложку</string>
 
     <!-- Sales Chart -->
     <string name="total_earned_label">Всего заработано: </string>
