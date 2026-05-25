@@ -225,6 +225,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/followers"
                                 android:textSize="10sp"
+                                app:autoSizeTextType="uniform"
+                                app:autoSizeMinTextSize="6sp"
+                                app:autoSizeMaxTextSize="10sp"
                                 android:maxLines="1"
                                 android:ellipsize="end"
                                 android:textColor="@color/on_surface_variant" />
@@ -249,6 +252,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/following_count"
                                 android:textSize="10sp"
+                                app:autoSizeTextType="uniform"
+                                app:autoSizeMinTextSize="6sp"
+                                app:autoSizeMaxTextSize="10sp"
                                 android:maxLines="1"
                                 android:ellipsize="end"
                                 android:textColor="@color/on_surface_variant" />
@@ -304,7 +310,7 @@
                         android:textSize="13sp"
                         app:cornerRadius="24dp"
                         app:autoSizeTextType="uniform"
-                        app:autoSizeMinTextSize="10sp"
+                        app:autoSizeMinTextSize="8sp"
                         app:autoSizeMaxTextSize="13sp"
                         app:autoSizeStepGranularity="1sp" />
 
@@ -319,7 +325,7 @@
                         android:textSize="13sp"
                         app:cornerRadius="24dp"
                         app:autoSizeTextType="uniform"
-                        app:autoSizeMinTextSize="10sp"
+                        app:autoSizeMinTextSize="8sp"
                         app:autoSizeMaxTextSize="13sp"
                         app:autoSizeStepGranularity="1sp"
                         style="@style/Widget.Material3.Button.OutlinedButton" />

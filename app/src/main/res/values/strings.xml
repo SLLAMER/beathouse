@@ -93,6 +93,8 @@
     <string name="cart">Cart</string>
     <string name="purchase_history">Purchase History</string>
     <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
     <string name="bio">Bio</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="following_count">Following</string>
@@ -470,6 +472,11 @@
     <string name="confirm_payment_message_qr">Have you successfully completed the payment?</string>
 
     <string name="free_beat">Free Beat</string>
+    <string name="audio_file">Audio File</string>
+    <string name="no_audio_selected">No audio file selected</string>
+    <string name="beat_details">Beat Details</string>
+    <string name="beat_title_hint">Beat Title *</string>
+    <string name="add_cover">Add Cover</string>
 
     <!-- Sales Chart -->
     <string name="total_earned_label">Total earned: </string>
