@@ -147,7 +147,7 @@
     <string name="upload_success">Beat uploaded successfully! 🎵</string>
 
     <!-- Home/My Beats -->
-    <string name="no_beats_yet">No beats yet\nUpload your first beat!</string>
+    <string name="no_beats_yet">No beats yet</string>
 
     <!-- Buyer Home -->
     <string name="no_beats_available">No beats available</string>
