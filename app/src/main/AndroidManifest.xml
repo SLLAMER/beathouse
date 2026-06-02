@@ -170,6 +170,12 @@
             android:theme="@style/Theme.BeatHouse.Dark"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activities.AdminActivity"
+            android:theme="@style/Theme.BeatHouse.Dark"
+            android:screenOrientation="portrait"
+            android:label="@string/admin_panel" />
+
         <service
             android:name=".services.AudioPlaybackService"
             android:enabled="true"

@@ -22,6 +22,7 @@ public class User implements Serializable {
     private String role = "buyer";
     private long createdAt;
     private boolean emailVerified;
+    private boolean isBlocked = false;
 
     // ✅ Поля для удаления аккаунта
     private boolean markedForDeletion = false;
@@ -44,6 +45,7 @@ public class User implements Serializable {
         this.stats = new UserStats();
         this.createdAt = System.currentTimeMillis();
         this.emailVerified = false;
+        this.isBlocked = false;
         this.markedForDeletion = false;
         this.followers = 0;
         this.following = 0;
@@ -106,6 +108,9 @@ public class User implements Serializable {
     public boolean isEmailVerified() { return emailVerified; }
     public void setEmailVerified(boolean v) { this.emailVerified = v; }
 
+    public boolean isBlocked() { return isBlocked; }
+    public void setBlocked(boolean blocked) { isBlocked = blocked; }
+
     // ✅ Геттеры и сеттеры для удаления аккаунта
     public boolean isMarkedForDeletion() { return markedForDeletion; }
     public void setMarkedForDeletion(boolean markedForDeletion) { this.markedForDeletion = markedForDeletion; }
@@ -158,6 +163,7 @@ public class User implements Serializable {
     public boolean isProducer() { return isSeller(); }
 
     public String getRoleDisplayName() {
+        if ("admin".equals(role)) return "Administrator";
         if (isSeller()) return "Seller / Producer";
         if (isBuyer()) return "Buyer";
         return "User";
@@ -193,9 +199,9 @@ public class User implements Serializable {
                 (socialYoutube != null && !socialYoutube.isEmpty());
     }
 
-    // ✅ Проверка, помечен ли аккаунт на удаление
+    // ✅ Проверка, помечен ли аккаунт на удаление и не заблокирован ли
     public boolean isActive() {
-        return !markedForDeletion;
+        return !markedForDeletion && !isBlocked;
     }
 
     // toMap
@@ -211,6 +217,7 @@ public class User implements Serializable {
         map.put("role", role != null ? role : "buyer");
         map.put("createdAt", createdAt);
         map.put("emailVerified", emailVerified);
+        map.put("isBlocked", isBlocked);
         map.put("phone", phone != null ? phone : "");
         // Соцсети
         map.put("socialInstagram", socialInstagram != null ? socialInstagram : "");
@@ -266,6 +273,7 @@ public class User implements Serializable {
             }
         }
 
+        if (map.containsKey("isBlocked")) user.setBlocked((Boolean) map.get("isBlocked"));
         if (map.get("createdAt") instanceof Long) user.setCreatedAt((Long) map.get("createdAt"));
         if (map.get("emailVerified") instanceof Boolean) user.setEmailVerified((Boolean) map.get("emailVerified"));
         if (map.get("stats") instanceof Map) user.setStats(UserStats.fromMap((Map<String, Object>) map.get("stats")));
