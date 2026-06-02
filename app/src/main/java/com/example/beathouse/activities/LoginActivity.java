@@ -304,6 +304,14 @@ public class LoginActivity extends BaseActivity {
                         return;
                     }
 
+                    boolean isBlocked = userDoc.getBoolean("isBlocked") != null && userDoc.getBoolean("isBlocked");
+                    if (isBlocked) {
+                        showLoading(false);
+                        Toast.makeText(this, getString(R.string.account_is_blocked), Toast.LENGTH_LONG).show();
+                        mAuth.signOut();
+                        return;
+                    }
+
                     String role = userDoc.getString("role");
                     Log.d(TAG, "User role from DB (SERVER): " + role);
 
@@ -319,7 +327,9 @@ public class LoginActivity extends BaseActivity {
                     showLoading(false);
 
                     Intent intent;
-                    if ("seller".equals(role)) {
+                    if ("admin".equals(role)) {
+                        intent = new Intent(this, AdminActivity.class);
+                    } else if ("seller".equals(role)) {
                         intent = new Intent(this, MainActivity.class);
                     } else {
                         intent = new Intent(this, BuyerMainActivity.class);

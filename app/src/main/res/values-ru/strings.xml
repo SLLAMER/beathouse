@@ -469,4 +469,16 @@
     <string name="clear_stats">Очистить статистику</string>
     <string name="clear_stats_confirmation">Вы уверены, что хотите очистить статистику профиля? Это обнулит значения заработка, продаж, покупок и трат. Это действие нельзя отменить.</string>
     <string name="stats_cleared">Статистика успешно очищена!</string>
+
+    <!-- Admin Panel -->
+    <string name="admin_panel">Панель администратора</string>
+    <string name="search_users">Поиск пользователей по имени или email...</string>
+    <string name="block">Блокировать</string>
+    <string name="unblock">Разблокировать</string>
+    <string name="status_blocked">Заблокирован</string>
+    <string name="user_blocked">Пользователь заблокирован</string>
+    <string name="user_unblocked">Пользователь разблокирован</string>
+    <string name="user_deleted">Пользователь удален</string>
+    <string name="confirm_delete_user">Вы уверены, что хотите удалить этого пользователя и все его данные?</string>
+    <string name="account_is_blocked">Ваш аккаунт заблокирован. Пожалуйста, свяжитесь с поддержкой.</string>
 </resources>
