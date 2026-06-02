@@ -146,7 +146,7 @@
     <string name="upload_success">Бит успешно загружен! 🎵</string>
 
     <!-- Home/My Beats -->
-    <string name="no_beats_yet">Нет битов\nЗагрузите свой первый бит!</string>
+    <string name="no_beats_yet">Нет битов</string>
 
     <!-- Buyer Home -->
     <string name="no_beats_available">Нет доступных битов</string>

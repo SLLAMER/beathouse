@@ -1,6 +1,7 @@
 package com.example.beathouse.fragments;
 import com.example.beathouse.R;
 import com.example.beathouse.App;
+import com.example.beathouse.activities.MainActivity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -91,6 +92,14 @@ public class HomeFragment extends Fragment {
         binding.recyclerViewBeats.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewBeats.setAdapter(sellerBeatsAdapter);
         binding.swipeRefresh.setOnRefreshListener(() -> loadMyBeats());
+
+        if (binding.btnUpload != null) {
+            binding.btnUpload.setOnClickListener(v1 -> {
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).switchToTab(R.id.nav_upload);
+                }
+            });
+        }
 
         setupSearchView();
 
