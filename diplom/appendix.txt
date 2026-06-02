@@ -1,0 +1,212 @@
+ПРИЛОЖЕНИЕ 1
+
+Листинг основного управляющего класса MainActivity.java:
+
+package com.example.beathouse.activities;
+
+import com.example.beathouse.fragments.SellerSalesFragment;
+import com.example.beathouse.fragments.ProfileFragment;
+import com.example.beathouse.fragments.HomeFragment;
+import com.example.beathouse.fragments.BuyersListFragment;
+import com.example.beathouse.R;
+import com.example.beathouse.App;
+import com.example.beathouse.BaseActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import com.example.beathouse.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * MainActivity является центральным хабом для пользователя в роли Продавца.
+ * Обеспечивает навигацию между лентой битов, управлением продажами,
+ * списком покупателей и профилем.
+ */
+public class MainActivity extends BaseActivity {
+    private ActivityMainBinding binding;
+    private androidx.activity.result.ActivityResultLauncher<Intent> createBeatLauncher;
+    private String currentUserId;
+    private FirebaseFirestore db;
+    private static final String TAG = "MainActivity";
+    private int lastSelectedTabId = R.id.nav_home;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Инициализация обработчика результата загрузки нового бита
+        initActivityResultLaunchers();
+
+        // Проверка разрешений на уведомления для Android 13+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            if (androidx.core.content.ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
+                    != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                androidx.core.app.ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+        }
+
+        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        db = FirebaseFirestore.getInstance();
+
+        // Валидация роли пользователя перед отображением интерфейса
+        checkUserRoleAndProceed();
+    }
+
+    private void initActivityResultLaunchers() {
+        createBeatLauncher = registerForActivityResult(
+                new androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    int resultCode = result.getResultCode();
+                    Intent data = result.getData();
+
+                    if (resultCode == RESULT_CANCELED) {
+                        // Возврат к предыдущей вкладке при отмене загрузки
+                        if (binding != null && binding.bottomNavigation != null) {
+                            binding.bottomNavigation.setSelectedItemId(lastSelectedTabId);
+                        }
+                        return;
+                    }
+
+                    if (resultCode == RESULT_OK) {
+                        handleCreateBeatSuccess(data);
+                    }
+                }
+        );
+    }
+
+    private void handleCreateBeatSuccess(Intent data) {
+        // Обновление ленты после успешной загрузки
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (currentFragment instanceof HomeFragment) {
+            ((HomeFragment) currentFragment).refreshBeatsList();
+        }
+
+        if (binding != null && binding.bottomNavigation != null) {
+            lastSelectedTabId = R.id.nav_home;
+            binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
+        }
+
+        // Обновление статуса продавца в БД
+        db.collection("users").document(currentUserId).update("role", "seller");
+        createProducerProfile();
+
+        Toast.makeText(this, getString(R.string.upload_success), Toast.LENGTH_LONG).show();
+    }
+
+    private void checkUserRoleAndProceed() {
+        db.collection("users").document(currentUserId)
+                .get(Source.SERVER)
+                .addOnSuccessListener(doc -> {
+                    if (!doc.exists()) {
+                        logout();
+                        return;
+                    }
+
+                    String role = doc.getString("role");
+                    if (!"seller".equals(role)) {
+                        // Перенаправление покупателя на соответствующий экран
+                        startActivity(new Intent(this, BuyerMainActivity.class));
+                        finish();
+                        return;
+                    }
+
+                    initializeActivity();
+                })
+                .addOnFailureListener(e -> initializeActivity());
+    }
+
+    private void initializeActivity() {
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.toolbar);
+
+        setupSellerNavigation();
+
+        if (getSupportFragmentManager().getFragments().isEmpty()) {
+            loadFragment(new HomeFragment());
+            binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
+        }
+    }
+
+    private void setupSellerNavigation() {
+        binding.bottomNavigation.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.nav_home) {
+                selectedFragment = new HomeFragment();
+            } else if (itemId == R.id.nav_upload) {
+                lastSelectedTabId = binding.bottomNavigation.getSelectedItemId();
+                createBeatLauncher.launch(new Intent(this, CreateBeatActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_buyers) {
+                selectedFragment = new BuyersListFragment();
+            } else if (itemId == R.id.nav_sales) {
+                selectedFragment = new SellerSalesFragment();
+            } else if (itemId == R.id.nav_profile) {
+                selectedFragment = new ProfileFragment();
+            }
+
+            if (selectedFragment != null) {
+                lastSelectedTabId = itemId;
+                loadFragment(selectedFragment);
+            }
+            return true;
+        });
+    }
+
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
+
+    private void createProducerProfile() {
+        // Создание записи в коллекции producers, если она отсутствует
+        db.collection("producers").document(currentUserId).get()
+                .addOnSuccessListener(doc -> {
+                    if (!doc.exists()) {
+                        db.collection("users").document(currentUserId).get()
+                                .addOnSuccessListener(userDoc -> {
+                                    if (userDoc.exists()) {
+                                        Map<String, Object> data = new HashMap<>();
+                                        data.put("producerId", currentUserId);
+                                        data.put("username", userDoc.getString("username"));
+                                        data.put("email", userDoc.getString("email"));
+                                        data.put("displayName", userDoc.getString("username"));
+                                        data.put("rating", 0.0);
+                                        data.put("totalBeats", 0);
+                                        data.put("totalSales", 0);
+                                        data.put("totalRevenue", 0.0);
+                                        data.put("createdAt", System.currentTimeMillis());
+                                        data.put("genres", new ArrayList<>());
+
+                                        db.collection("producers").document(currentUserId).set(data);
+                                    }
+                                });
+                    }
+                });
+    }
+
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+}
