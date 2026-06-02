@@ -644,6 +644,42 @@ public class FirestoreHelper {
                 .addOnFailureListener(e -> callback.onError(e.getMessage()));
     }
 
+    public ListenerRegistration getProducerBeatsRealtime(String producerId, FirestoreCallback callback) {
+        Log.d(TAG, "🔍 Listening for beats for producer: " + producerId);
+
+        if (producerId == null || producerId.isEmpty()) {
+            Log.e(TAG, "❌ ProducerId is null or empty");
+            safeCallback(callback, new ArrayList<Beat>());
+            return null;
+        }
+
+        return db.collection("beats")
+                .whereEqualTo("producerId", producerId)
+                .whereEqualTo("status", "active")
+                .orderBy("createdAt", Query.Direction.DESCENDING)
+                .addSnapshotListener((q, e) -> {
+                    if (e != null) {
+                        Log.e(TAG, "❌ Error listening for producer beats: " + e.getMessage());
+                        safeError(callback, e.getMessage());
+                        return;
+                    }
+
+                    List<Beat> beats = new ArrayList<>();
+                    if (q != null) {
+                        for (DocumentSnapshot d : q) {
+                            Beat beat = Beat.fromMap(d.getData());
+                            if (beat != null) {
+                                if (beat.getId() == null || beat.getId().isEmpty()) beat.setId(d.getId());
+                                beats.add(beat);
+                                Log.d(TAG, "  ✅ Realtime beat: " + beat.getTitle() + " (ID: " + beat.getId() + ")");
+                            }
+                        }
+                    }
+                    Log.d(TAG, "✅ Total producer beats updated: " + beats.size());
+                    safeCallback(callback, beats);
+                });
+    }
+
     public void getProducerBeats(String producerId, FirestoreCallback callback) {
         Log.d(TAG, "🔍 Loading beats for producer: " + producerId);
 
@@ -802,6 +838,32 @@ public class FirestoreHelper {
         db.collection("orders").document(order.getId()).set(order.toMap())
                 .addOnSuccessListener(a -> safeCallback(callback, order.getId()))
                 .addOnFailureListener(e -> safeError(callback, e.getMessage()));
+    }
+
+    public ListenerRegistration getUserOrdersRealtime(String userId, FirestoreCallback callback) {
+        Log.d(TAG, "📋 Listening for orders for user: " + userId);
+        if (userId == null || userId.isEmpty()) {
+            safeCallback(callback, new ArrayList<Order>());
+            return null;
+        }
+        return db.collection("orders").whereEqualTo("buyerId", userId)
+                .addSnapshotListener((snap, e) -> {
+                    if (e != null) {
+                        Log.e(TAG, "❌ Error listening for orders: " + e.getMessage());
+                        safeError(callback, e.getMessage());
+                        return;
+                    }
+
+                    List<Order> orders = new ArrayList<>();
+                    if (snap != null) {
+                        for (DocumentSnapshot d : snap) {
+                            Order order = Order.fromMap(d.getData());
+                            if (order != null) orders.add(order);
+                        }
+                    }
+                    Log.d(TAG, "✅ Orders updated for user: " + userId + " (" + orders.size() + ")");
+                    safeCallback(callback, orders);
+                });
     }
 
     public void getUserOrders(String userId, FirestoreCallback callback) {

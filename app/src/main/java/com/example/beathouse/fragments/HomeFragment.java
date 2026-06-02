@@ -24,6 +24,7 @@ import com.example.beathouse.utils.BeatFilterHelper;
 import com.example.beathouse.utils.FirestoreHelper;
 import com.example.beathouse.utils.LocaleHelper;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.ListenerRegistration;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment {
     private List<Beat> beatsList = new ArrayList<>();
     private List<Beat> filteredList = new ArrayList<>();
     private String currentUserId;
+    private ListenerRegistration beatsListener;
     private static final String TAG = "HomeFragment";
 
     // Поля для фильтрации
@@ -138,25 +140,26 @@ public class HomeFragment extends Fragment {
     private void loadMyBeats() {
         if (binding == null || currentUserId == null) return;
 
-        binding.progressBar.setVisibility(View.VISIBLE);
-        Log.d(TAG, "Loading my beats for producer: " + currentUserId);
+        if (beatsListener != null) beatsListener.remove();
 
-        firestoreHelper.getProducerBeats(currentUserId, new FirestoreHelper.FirestoreCallback() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "Listening for my beats: " + currentUserId);
+
+        beatsListener = firestoreHelper.getProducerBeatsRealtime(currentUserId, new FirestoreHelper.FirestoreCallback() {
             public void onSuccess(Object r) {
                 List<Beat> b = (List<Beat>) r;
-                Log.d(TAG, "Loaded " + (b != null ? b.size() : 0) + " beats");
+                Log.d(TAG, "Beats updated: " + (b != null ? b.size() : 0));
 
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
+                        if (binding == null) return;
                         binding.progressBar.setVisibility(View.GONE);
                         binding.swipeRefresh.setRefreshing(false);
                         beatsList.clear();
                         if (b != null && !b.isEmpty()) {
                             beatsList.addAll(b);
                             applyAllFilters();
-                            Log.d(TAG, "Displaying " + filteredList.size() + " beats");
                         } else {
-                            Log.d(TAG, "No beats found - showing empty state");
                             filteredList.clear();
                             sellerBeatsAdapter.updateBeatsList(filteredList);
                         }
@@ -168,6 +171,7 @@ public class HomeFragment extends Fragment {
                 Log.e(TAG, "Error loading beats: " + e);
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
+                        if (binding == null) return;
                         binding.progressBar.setVisibility(View.GONE);
                         binding.swipeRefresh.setRefreshing(false);
                         updateEmpty();
@@ -262,6 +266,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (beatsListener != null) {
+            beatsListener.remove();
+            beatsListener = null;
+        }
         binding = null;
         Log.d(TAG, "HomeFragment destroyed");
     }

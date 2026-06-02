@@ -1,5 +1,6 @@
 package com.example.beathouse.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import com.example.beathouse.models.User;
 import com.example.beathouse.utils.FirestoreHelper;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class AdminActivity extends BaseActivity implements AdminUsersAdapter.OnU
     private List<User> userList = new ArrayList<>();
     private FirebaseFirestore db;
     private FirestoreHelper firestoreHelper;
+    private ListenerRegistration usersListener;
     private static final String TAG = "AdminActivity";
 
     @Override
@@ -31,6 +34,7 @@ public class AdminActivity extends BaseActivity implements AdminUsersAdapter.OnU
         super.onCreate(savedInstanceState);
         binding = ActivityAdminBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setSupportActionBar(binding.toolbar);
 
         db = FirebaseFirestore.getInstance();
         firestoreHelper = new FirestoreHelper();
@@ -40,6 +44,36 @@ public class AdminActivity extends BaseActivity implements AdminUsersAdapter.OnU
         loadUsers();
 
         binding.toolbar.setNavigationOnClickListener(v -> finish());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_admin, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        if (item.getItemId() == R.id.action_logout) {
+            logoutAdmin();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logoutAdmin() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.logout)
+                .setMessage(R.string.are_you_sure)
+                .setPositiveButton(R.string.logout, (dialog, which) -> {
+                    com.google.firebase.auth.FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
     }
 
     private void setupRecyclerView() {
@@ -65,25 +99,36 @@ public class AdminActivity extends BaseActivity implements AdminUsersAdapter.OnU
     }
 
     private void loadUsers() {
-        db.collection("users").get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    userList.clear();
-                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
-                        User user = User.fromMap(doc.getData());
-                        if (user != null && !user.getId().equals(getCurrentUserId())) {
-                            userList.add(user);
-                        }
+        if (usersListener != null) usersListener.remove();
+
+        usersListener = db.collection("users")
+                .addSnapshotListener((queryDocumentSnapshots, e) -> {
+                    if (e != null) {
+                        Log.e(TAG, "Error listening for users", e);
+                        return;
                     }
-                    adapter.updateList(userList);
-                })
-                .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error loading users", e);
-                    Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    if (queryDocumentSnapshots != null) {
+                        userList.clear();
+                        for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                            User user = User.fromMap(doc.getData());
+                            if (user != null && !user.getId().equals(getCurrentUserId())) {
+                                userList.add(user);
+                            }
+                        }
+                        adapter.updateList(userList);
+                    }
                 });
     }
 
     private String getCurrentUserId() {
         return com.google.firebase.auth.FirebaseAuth.getInstance().getUid();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (usersListener != null) usersListener.remove();
     }
 
     @Override

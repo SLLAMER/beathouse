@@ -23,6 +23,7 @@ import com.example.beathouse.utils.LocaleHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -39,6 +40,7 @@ public class BuyerOrdersFragment extends Fragment {
     private boolean isSelectionMode = false;
     private List<String> selectedOrderIds = new ArrayList<>();
     private MaterialButton btnDeleteSelected;
+    private ListenerRegistration ordersListener;
     private static final String TAG = "BuyerOrdersFragment";
 
     @Override
@@ -250,25 +252,29 @@ public class BuyerOrdersFragment extends Fragment {
     }
 
     private void loadOrders() {
+        if (ordersListener != null) ordersListener.remove();
+
         binding.progressBar.setVisibility(View.VISIBLE);
 
-        firestoreHelper.getUserOrders(currentUserId, new FirestoreHelper.FirestoreCallback() {
+        ordersListener = firestoreHelper.getUserOrdersRealtime(currentUserId, new FirestoreHelper.FirestoreCallback() {
             @Override
             public void onSuccess(Object result) {
                 List<Order> orders = (List<Order>) result;
 
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
+                        if (binding == null) return;
                         binding.progressBar.setVisibility(View.GONE);
 
+                        ordersList.clear();
                         if (orders != null && !orders.isEmpty()) {
-                            ordersList.clear();
                             ordersList.addAll(orders);
                             filteredList.clear();
                             filteredList.addAll(orders);
                             adapter.updateOrders(orders);
                             showEmptyState(false);
                         } else {
+                            adapter.updateOrders(new ArrayList<>());
                             showEmptyState(true);
                         }
                     });
@@ -279,6 +285,7 @@ public class BuyerOrdersFragment extends Fragment {
             public void onError(String error) {
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
+                        if (binding == null) return;
                         binding.progressBar.setVisibility(View.GONE);
                         showEmptyState(true);
                     });
@@ -308,6 +315,10 @@ public class BuyerOrdersFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (ordersListener != null) {
+            ordersListener.remove();
+            ordersListener = null;
+        }
         binding = null;
     }
 }
