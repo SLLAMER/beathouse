@@ -486,4 +486,16 @@
     <string name="clear_stats">Clear Statistics</string>
     <string name="clear_stats_confirmation">Are you sure you want to clear your profile statistics? This will reset earned, sold, bought and spent values to zero. This action cannot be undone.</string>
     <string name="stats_cleared">Statistics cleared successfully!</string>
+
+    <!-- Admin Panel -->
+    <string name="admin_panel">Admin Panel</string>
+    <string name="search_users">Search users by name or email...</string>
+    <string name="block">Block</string>
+    <string name="unblock">Unblock</string>
+    <string name="status_blocked">Blocked</string>
+    <string name="user_blocked">User blocked</string>
+    <string name="user_unblocked">User unblocked</string>
+    <string name="user_deleted">User deleted</string>
+    <string name="confirm_delete_user">Are you sure you want to delete this user and all their data?</string>
+    <string name="account_is_blocked">Your account is blocked. Please contact support.</string>
 </resources>
