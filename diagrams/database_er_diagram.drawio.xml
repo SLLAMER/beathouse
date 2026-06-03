@@ -1,0 +1,151 @@
+<mxfile host="app.diagrams.net" modified="2024-03-20T00:00:00.000Z" agent="Manual" version="21.0.0" type="device">
+  <diagram name="BeatHouse ER Diagram" id="beathouse-er-01">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ПОЛЬЗОВАТЕЛИ (Users) -->
+        <mxCell id="u1" value="ПОЛЬЗОВАТЕЛИ (Users)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=1;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="300" width="220" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="u2" value="userId (PK) | string&#xa;email | string&#xa;username | string&#xa;fullName | string&#xa;role | string&#xa;profileImage | string&#xa;bio | string&#xa;location | string&#xa;createdAt | long&#xa;isBlocked | boolean&#xa;stats_totalSpent | double&#xa;stats_totalEarned | double&#xa;stats_beatsPurchased | int&#xa;stats_beatsSold | int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="u1">
+          <mxGeometry y="26" width="220" height="274" as="geometry" />
+        </mxCell>
+
+        <!-- ПРОДЮСЕРЫ (Producers) -->
+        <mxCell id="p1" value="ПРОДЮСЕРЫ (Producers)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=1;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="220" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" value="producerId (PK, FK) | string&#xa;username | string&#xa;email | string&#xa;displayName | string&#xa;profileImage | string&#xa;bio | string&#xa;genres | list&lt;string&gt;&#xa;rating | double&#xa;totalSales | int&#xa;totalBeats | int&#xa;totalRevenue | double&#xa;location | string&#xa;verified | boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="p1">
+          <mxGeometry y="26" width="220" height="204" as="geometry" />
+        </mxCell>
+
+        <!-- БИТЫ (Beats) -->
+        <mxCell id="b1" value="БИТЫ (Beats)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=1;collapsible=1;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="220" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="b2" value="beatId (PK) | string&#xa;producerId (FK) | string&#xa;userId (FK) | string&#xa;title | string&#xa;bpm | int&#xa;key | string&#xa;genre | string&#xa;priceMp3Wav | double&#xa;priceTrackOut | double&#xa;priceExclusive | double&#xa;isFree | boolean&#xa;coverImage | string&#xa;createdAt | long&#xa;status | string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="b1">
+          <mxGeometry y="26" width="220" height="224" as="geometry" />
+        </mxCell>
+
+        <!-- ЗАКАЗЫ (Orders) -->
+        <mxCell id="o1" value="ЗАКАЗЫ (Orders)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=1;collapsible=1;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="680" y="40" width="220" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="o2" value="id (PK) | string&#xa;userId (FK) | string&#xa;buyerId (FK) | string&#xa;producerId (FK) | string&#xa;total | double&#xa;status | string&#xa;createdAt | long&#xa;paidAt | long&#xa;transactionId (FK) | string&#xa;qrCodeData | string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="o1">
+          <mxGeometry y="26" width="220" height="184" as="geometry" />
+        </mxCell>
+
+        <!-- ТРАНЗАКЦИИ (Transactions) -->
+        <mxCell id="t1" value="ТРАНЗАКЦИИ (Transactions)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=1;collapsible=1;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="940" y="40" width="210" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="transactionId (PK) | string&#xa;orderId (FK) | string&#xa;buyerId (FK) | string&#xa;producerId (FK) | string&#xa;amount | double&#xa;status | string&#xa;paymentMethod | string&#xa;createdAt | long" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="t1">
+          <mxGeometry y="26" width="210" height="144" as="geometry" />
+        </mxCell>
+
+        <!-- ОТЗЫВЫ (Reviews) -->
+        <mxCell id="r1" value="ОТЗЫВЫ (Reviews)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=1;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="360" y="340" width="220" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" value="reviewId (PK) | string&#xa;producerId (FK) | string&#xa;buyerId (FK) | string&#xa;beatId (FK) | string&#xa;rating | double&#xa;comment | string&#xa;createdAt | long" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="r1">
+          <mxGeometry y="26" width="220" height="134" as="geometry" />
+        </mxCell>
+
+        <!-- ЧАТЫ (Chats) -->
+        <mxCell id="c1" value="ЧАТЫ (Chats)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=1;collapsible=1;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="940" y="300" width="210" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" value="chatId (PK) | string&#xa;lastMessage | string&#xa;lastMessageTime | long&#xa;lastMessageSender | string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="c1">
+          <mxGeometry y="26" width="210" height="94" as="geometry" />
+        </mxCell>
+
+        <!-- СООБЩЕНИЯ (Messages) -->
+        <mxCell id="m1" value="СООБЩЕНИЯ (Messages)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=1;collapsible=1;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="680" y="300" width="220" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="m2" value="messageId (PK) | string&#xa;chatId (FK) | string&#xa;senderId (FK) | string&#xa;receiverId (FK) | string&#xa;text | string&#xa;timestamp | long&#xa;read | boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="m1">
+          <mxGeometry y="26" width="220" height="124" as="geometry" />
+        </mxCell>
+
+        <!-- УВЕДОМЛЕНИЯ (Notifications) -->
+        <mxCell id="n1" value="УВЕДОМЛЕНИЯ (Notifications)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=1;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="360" y="550" width="220" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" value="notificationId (PK) | string&#xa;userId (FK) | string&#xa;type | string&#xa;title | string&#xa;message | string&#xa;read | boolean&#xa;createdAt | long" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="n1">
+          <mxGeometry y="26" width="220" height="124" as="geometry" />
+        </mxCell>
+
+        <!-- ПОДПИСКИ (Following) -->
+        <mxCell id="f1" value="ПОДПИСКИ (Following)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=1;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="640" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="f2" value="followerId (PK, FK) | string&#xa;followingId (PK, FK) | string&#xa;timestamp | long" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="f1">
+          <mxGeometry y="26" width="220" height="74" as="geometry" />
+        </mxCell>
+
+        <!-- КОРЗИНА (Cart) -->
+        <mxCell id="k1" value="КОРЗИНА (Cart)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=1;collapsible=1;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="680" y="500" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="k2" value="userId (PK, FK) | string&#xa;items | list&lt;CartItem&gt;&#xa;updatedAt | long" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="k1">
+          <mxGeometry y="26" width="220" height="74" as="geometry" />
+        </mxCell>
+
+        <!-- СВЯЗИ -->
+        <mxCell id="s1" value="расширяет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="u1" target="p1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" value="создает" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="p1" target="b1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" value="покупает" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="u1" target="o1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="450" />
+              <mxPoint x="640" y="145" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s4" value="оценивает" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="b1" target="r1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s5" value="содержит" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="o1" target="t1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s6" value="отправляет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="u1" target="m1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="375" />
+              <mxPoint x="640" y="375" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s7" value="содержит" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="c1" target="m1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s8" value="получает" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" edge="1" parent="1" source="u1" target="n1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="525" />
+              <mxPoint x="320" y="625" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s9" value="владеет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.85;exitDx=0;exitDy=0;" edge="1" parent="1" source="u1" target="k1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="555" />
+              <mxPoint x="640" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s10" value="подписывается" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="u1" target="f1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
