@@ -1,0 +1,74 @@
+<mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- ПОЛЬЗОВАТЕЛИ (USERS) - Синий -->
+    <mxCell id="users" value="&lt;b&gt;ПОЛЬЗОВАТЕЛИ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;идентификатор (PK) | string&lt;br&gt;почта | string&lt;br&gt;имя_пользователя | string&lt;br&gt;роль (buyer/seller) | string&lt;br&gt;аватар | string&lt;br&gt;токен_уведомлений | string&lt;br&gt;всего_потрачено | double&lt;br&gt;всего_заработано | double" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#e1f5fe;strokeColor=#01579b;" vertex="1" parent="1">
+      <mxGeometry x="40" y="240" width="200" height="160" as="geometry" />
+    </mxCell>
+
+    <!-- БИТЫ (BEATS) - Зеленый -->
+    <mxCell id="beats" value="&lt;b&gt;БИТЫ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;идентификатор_бита (PK) | string&lt;br&gt;ид_продюсера (FK) | string&lt;br&gt;название | string&lt;br&gt;жанр | string&lt;br&gt;темп_BPM | int&lt;br&gt;тональность | string&lt;br&gt;цена | double&lt;br&gt;статус (active/deleted) | string" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#e8f5e9;strokeColor=#2e7d32;" vertex="1" parent="1">
+      <mxGeometry x="320" y="120" width="200" height="160" as="geometry" />
+    </mxCell>
+
+    <!-- ПРОДЮСЕРЫ (PRODUCERS) - Желтый -->
+    <mxCell id="producers" value="&lt;b&gt;ПРОДЮСЕРЫ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;идентификатор (PK, FK) | string&lt;br&gt;сценическое_имя | string&lt;br&gt;биография | string&lt;br&gt;рейтинг | double&lt;br&gt;всего_битов | int&lt;br&gt;всего_продаж | int&lt;br&gt;верифицирован | boolean" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#fff9c4;strokeColor=#fbc02d;" vertex="1" parent="1">
+      <mxGeometry x="320" y="380" width="200" height="140" as="geometry" />
+    </mxCell>
+
+    <!-- ЗАКАЗЫ (ORDERS) - Красный -->
+    <mxCell id="orders" value="&lt;b&gt;ЗАКАЗЫ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;идентификатор_заказа (PK) | string&lt;br&gt;ид_покупателя (FK) | string&lt;br&gt;ид_продюсера (FK) | string&lt;br&gt;сумма | double&lt;br&gt;статус (paid/pending) | string&lt;br&gt;метод_оплаты | string&lt;br&gt;дата_создания | timestamp" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#ffebee;strokeColor=#c62828;" vertex="1" parent="1">
+      <mxGeometry x="600" y="150" width="200" height="150" as="geometry" />
+    </mxCell>
+
+    <!-- ЧАТЫ (CHATS) - Фиолетовый -->
+    <mxCell id="chats" value="&lt;b&gt;ЧАТЫ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;идентификатор_чата (PK) | string&lt;br&gt;последнее_сообщение | string&lt;br&gt;время_обновления | timestamp&lt;br&gt;непрочитано_покупатель | int&lt;br&gt;непрочитано_продавец | int" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#f3e5f5;strokeColor=#7b1fa2;" vertex="1" parent="1">
+      <mxGeometry x="600" y="380" width="200" height="120" as="geometry" />
+    </mxCell>
+
+    <!-- СООБЩЕНИЯ (MESSAGES) - Белый/Серый -->
+    <mxCell id="messages" value="&lt;b&gt;СООБЩЕНИЯ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;ид_сообщения (PK) | string&lt;br&gt;ид_чата (FK) | string&lt;br&gt;ид_отправителя (FK) | string&lt;br&gt;текст | string&lt;br&gt;прочитано | boolean&lt;br&gt;время | timestamp" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#f5f5f5;strokeColor=#616161;" vertex="1" parent="1">
+      <mxGeometry x="460" y="560" width="180" height="130" as="geometry" />
+    </mxCell>
+
+    <!-- СВЯЗИ -->
+    <!-- Пользователь -> Продюсер -->
+    <mxCell id="rel1" value="владеет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="producers">
+      <mxGeometry relative="1" as="geometry">
+        <Array points="280;320;280;450" />
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Продюсер -> Биты -->
+    <mxCell id="rel2" value="создает" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="producers" target="beats">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Пользователь -> Заказы -->
+    <mxCell id="rel3" value="оформляет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="users" target="orders">
+      <mxGeometry relative="1" as="geometry">
+        <Array points="140;60;700;60" />
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Продюсер -> Заказы -->
+    <mxCell id="rel4" value="получает" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="beats" target="orders">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Чат -> Сообщения -->
+    <mxCell id="rel5" value="содержит" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="chats" target="messages">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Пользователь -> Сообщения -->
+    <mxCell id="rel6" value="отправляет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="users" target="messages">
+      <mxGeometry relative="1" as="geometry">
+        <Array points="140;625" />
+      </mxGeometry>
+    </mxCell>
+
+  </root>
+</mxGraphModel>
