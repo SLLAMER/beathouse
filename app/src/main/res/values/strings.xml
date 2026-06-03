@@ -72,8 +72,8 @@
     <string name="become_seller_message">You will be able to upload and sell beats!</string>
     <string name="switching_to_seller">Switching to Seller...</string>
     <string name="you_are_now_seller">You are now a Seller! App will restart.</string>
-    <string name="role_buyer">🎵 Buyer</string>
-    <string name="role_seller">🎹 Seller</string>
+    <string name="role_buyer">Buyer</string>
+    <string name="role_seller">Seller</string>
     <string name="beat_title">Beat Title</string>
     <string name="description">Description</string>
     <string name="license_prices">License Prices</string>
@@ -144,7 +144,7 @@
     <string name="registration_failed">Registration failed</string>
 
     <!-- Upload -->
-    <string name="upload_success">Beat uploaded successfully! 🎵</string>
+    <string name="upload_success">Beat uploaded successfully!</string>
 
     <!-- Home/My Beats -->
     <string name="no_beats_yet">No beats yet</string>
@@ -416,10 +416,10 @@
     <string name="invalid_bpm">Invalid BPM</string>
     <string name="invalid_price">Invalid price</string>
     <string name="updating">Updating...</string>
-    <string name="beat_updated">Beat updated! 🎵</string>
+    <string name="beat_updated">Beat updated!</string>
     <string name="uploading">Uploading...</string>
     <string name="uploading_percent">Uploading... %d%%</string>
-    <string name="beat_uploaded">Beat uploaded! 🎵</string>
+    <string name="beat_uploaded">Beat uploaded!</string>
 
     <!-- QR Payment -->
     <string name="qr_payment">QR Payment</string>

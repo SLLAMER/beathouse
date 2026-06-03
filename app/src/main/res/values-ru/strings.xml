@@ -74,8 +74,8 @@
     <string name="you_are_now_seller">Теперь вы продавец! Приложение будет перезапущено.</string>
     <string name="social_links">Социальные сети</string>
     <string name="become_seller_text">Стать продавцом</string>
-    <string name="role_buyer">🎵 Покупатель</string>
-    <string name="role_seller">🎹 Продавец</string>
+    <string name="role_buyer">Покупатель</string>
+    <string name="role_seller">Продавец</string>
     <string name="beat_title">Название бита</string>
     <string name="description">Описание</string>
     <string name="license_prices">Цены лицензий</string>
@@ -143,7 +143,7 @@
     <string name="registration_failed">Ошибка регистрации</string>
 
     <!-- Upload -->
-    <string name="upload_success">Бит успешно загружен! 🎵</string>
+    <string name="upload_success">Бит успешно загружен!</string>
 
     <!-- Home/My Beats -->
     <string name="no_beats_yet">Нет битов</string>
@@ -414,10 +414,10 @@
     <string name="invalid_bpm">Неверный BPM</string>
     <string name="invalid_price">Неверная цена</string>
     <string name="updating">Обновление...</string>
-    <string name="beat_updated">Бит обновлен! 🎵</string>
+    <string name="beat_updated">Бит обновлен!</string>
     <string name="uploading">Загрузка...</string>
     <string name="uploading_percent">Загрузка... %d%%</string>
-    <string name="beat_uploaded">Бит загружен! 🎵</string>
+    <string name="beat_uploaded">Бит загружен!</string>
 
     <!-- QR Payment -->
     <string name="qr_payment">Оплата по QR</string>
