@@ -1,0 +1,93 @@
+<mxGraphModel dx="2000" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- ГРУППА: ПОЛЬЗОВАТЕЛИ И ПРОФИЛИ -->
+    <mxCell id="users" value="&lt;b&gt;ПОЛЬЗОВАТЕЛИ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;идентификатор (PK) | string&lt;br&gt;почта | string&lt;br&gt;имя_пользователя | string&lt;br&gt;роль (buyer/seller) | string&lt;br&gt;аватар | string&lt;br&gt;всего_потрачено | double&lt;br&gt;всего_заработано | double" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#e1f5fe;strokeColor=#01579b;" vertex="1" parent="1">
+      <mxGeometry x="40" y="300" width="200" height="150" as="geometry" />
+    </mxCell>
+
+    <mxCell id="producers" value="&lt;b&gt;ПРОДЮСЕРЫ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;идентификатор (PK, FK) | string&lt;br&gt;сценическое_имя | string&lt;br&gt;рейтинг | double&lt;br&gt;всего_продаж | int&lt;br&gt;локация | string&lt;br&gt;верифицирован | boolean" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#fff9c4;strokeColor=#fbc02d;" vertex="1" parent="1">
+      <mxGeometry x="320" y="300" width="200" height="130" as="geometry" />
+    </mxCell>
+
+    <!-- ГРУППА: КОНТЕНТ -->
+    <mxCell id="beats" value="&lt;b&gt;БИТЫ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;идентификатор_бита (PK) | string&lt;br&gt;ид_продюсера (FK) | string&lt;br&gt;название | string&lt;br&gt;жанр | string&lt;br&gt;цена | double&lt;br&gt;bpm | int&lt;br&gt;статус | string" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#e8f5e9;strokeColor=#2e7d32;" vertex="1" parent="1">
+      <mxGeometry x="580" y="300" width="200" height="150" as="geometry" />
+    </mxCell>
+
+    <!-- ГРУППА: КОММЕРЦИЯ -->
+    <mxCell id="orders" value="&lt;b&gt;ЗАКАЗЫ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;идентификатор (PK) | string&lt;br&gt;ид_покупателя (FK) | string&lt;br&gt;ид_продюсера (FK) | string&lt;br&gt;сумма | double&lt;br&gt;статус | string&lt;br&gt;метод_оплаты | string&lt;br&gt;дата | timestamp" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#ffebee;strokeColor=#c62828;" vertex="1" parent="1">
+      <mxGeometry x="840" y="300" width="180" height="150" as="geometry" />
+    </mxCell>
+
+    <mxCell id="transactions" value="&lt;b&gt;ТРАНЗАКЦИИ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;ид_транзакции (PK) | string&lt;br&gt;ид_заказа (FK) | string&lt;br&gt;комиссия_платформы | double&lt;br&gt;доход_продюсера | double&lt;br&gt;валюта | string&lt;br&gt;статус | string" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#ffebee;strokeColor=#c62828;" vertex="1" parent="1">
+      <mxGeometry x="840" y="520" width="180" height="130" as="geometry" />
+    </mxCell>
+
+    <mxCell id="cart" value="&lt;b&gt;КОРЗИНА&lt;/b&gt;&lt;br&gt;&lt;hr&gt;ид_корзины (PK) | string&lt;br&gt;ид_пользователя (FK) | string&lt;br&gt;список_битов | array&lt;br&gt;обновлено | timestamp" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#fbe9e7;strokeColor=#ff5722;" vertex="1" parent="1">
+      <mxGeometry x="40" y="520" width="200" height="100" as="geometry" />
+    </mxCell>
+
+    <!-- ГРУППА: СОЦИАЛЬНОЕ -->
+    <mxCell id="reviews" value="&lt;b&gt;ОТЗЫВЫ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;ид_отзыва (PK) | string&lt;br&gt;ид_бита (FK) | string&lt;br&gt;ид_автора (FK) | string&lt;br&gt;оценка | double&lt;br&gt;комментарий | string&lt;br&gt;дата | timestamp" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#f1f8e9;strokeColor=#558b2f;" vertex="1" parent="1">
+      <mxGeometry x="580" y="520" width="200" height="130" as="geometry" />
+    </mxCell>
+
+    <mxCell id="follows" value="&lt;b&gt;ПОДПИСКИ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;ид_подписчика (FK) | string&lt;br&gt;ид_продюсера (FK) | string&lt;br&gt;дата_подписки | timestamp" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#e1f5fe;strokeColor=#0288d1;" vertex="1" parent="1">
+      <mxGeometry x="180" y="120" width="180" height="80" as="geometry" />
+    </mxCell>
+
+    <!-- ГРУППА: ОБЩЕНИЕ И УВЕДОМЛЕНИЯ -->
+    <mxCell id="chats" value="&lt;b&gt;ЧАТЫ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;ид_чата (PK) | string&lt;br&gt;участники | array&lt;br&gt;последнее_сообщ | string&lt;br&gt;непрочитано | int" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#f3e5f5;strokeColor=#7b1fa2;" vertex="1" parent="1">
+      <mxGeometry x="40" y="60" width="200" height="100" as="geometry" />
+    </mxCell>
+
+    <mxCell id="notifications" value="&lt;b&gt;УВЕДОМЛЕНИЯ&lt;/b&gt;&lt;br&gt;&lt;hr&gt;ид (PK) | string&lt;br&gt;ид_получателя (FK) | string&lt;br&gt;тип | string&lt;br&gt;заголовок | string&lt;br&gt;прочитано | boolean" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fillColor=#efebe9;strokeColor=#4e342e;" vertex="1" parent="1">
+      <mxGeometry x="840" y="60" width="180" height="110" as="geometry" />
+    </mxCell>
+
+    <!-- СВЯЗИ -->
+    <mxCell id="rel1" value="владеет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="producers">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="rel2" value="создает" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="producers" target="beats">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="rel3" value="покупает" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="beats" target="orders">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="rel4" value="финансы" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="orders" target="transactions">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="rel5" value="оценивает" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="beats" target="reviews">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="rel6" value="подписывается" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="follows">
+      <mxGeometry relative="1" as="geometry">
+        <Array points="140;160" />
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="rel7" value="целевой продюсер" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="follows" target="producers">
+      <mxGeometry relative="1" as="geometry">
+        <Array points="420;160" />
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="rel8" value="собирает" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="cart">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="rel9" value="уведомляет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="orders" target="notifications">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>
